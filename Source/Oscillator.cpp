@@ -7,7 +7,7 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
 , oscAFreqKnob(-2.0, 2.0f, "")
 , labeledOscAFreqKnob("FREQUENCY", oscAFreqKnob)
-, oscAOctKnob(0, 3, "st")
+, oscAOctKnob(0.0f, 3.0f, "st")
 , labeledOscAOctKnob("OCTAVE", oscAOctKnob)
 , oscAPulseWidthKnob(0, 3, "st")
 , labeledOscAPulseWidthKnob("PW", oscAPulseWidthKnob)
@@ -23,10 +23,10 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(labeledOscAFreqKnob);
     oscAFreqVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Freq", oscAFreqKnob);
     
-    oscAOctKnob.setRange(0, 3);
-    oscAOctKnob.setValue(0);
+    oscAOctKnob.setRange(0.0f, 3.0f);
+    oscAOctKnob.setValue(0.0f);
     addAndMakeVisible(labeledOscAOctKnob);
-    oscAOctVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscAOct", oscAOctKnob);
+    oscAOctVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Oct", oscAOctKnob);
     
     oscAPulseWidthKnob.setRange(0, 3);
     oscAPulseWidthKnob.setValue(0);
@@ -96,6 +96,10 @@ void Oscillator::paint (Graphics& g)
     ////    g.drawImage(background, area);
     //   g.setColour(Colours::silver);
     //    g.drawRoundedRectangle(area, 20.0f, 2.0f);
+    
+    juce::Rectangle <float> sawLabel (135, 25, 20, 10);
+    Image sawImage = ImageCache::getFromMemory (BinaryData::saw_png, BinaryData::saw_pngSize);
+    g.drawImage(sawImage, sawLabel);
 }
 
 void Oscillator::resized()
@@ -110,10 +114,8 @@ void Oscillator::resized()
     mainGroup.setBounds(area);
     mainGroup.setColour(0, Colours::white);
     auto widgetsArea = bounds.reduced(10);
-    auto bottomWidgetsArea = bounds.reduced(10);
     widgetsArea.removeFromTop(5);
     int width = (widgetsArea.getWidth() - (4 - 1) * 10) / 4;
-    int height = (widgetsArea.getHeight());
     labeledOscAFreqKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(10);
     labeledOscAOctKnob.setBounds(widgetsArea.removeFromLeft(width));

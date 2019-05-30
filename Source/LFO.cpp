@@ -131,18 +131,9 @@ LFO::~LFO()
 
 void LFO::paint (Graphics& g)
 {
-    //    //background ui stuff
-    //    juce::Rectangle<int> titleArea (0, 10, getWidth(), 20);
-    //
-    ////    g.fillAll (Colours::black);
-    //    g.setColour(Colours::white);
-    //    g.drawText("LFO", titleArea, Justification::centredTop);
-    //
-    //    juce::Rectangle <float> area (25, 25, 150, 150);
-    ////    Image background = ImageCache::getFromMemory (BinaryData::metal_jpg, BinaryData::metal_jpgSize);
-    ////    g.drawImage(background, area);
-    //    g.setColour(Colours::silver);
-    //    g.drawRoundedRectangle(area, 20.0f, 2.0f);
+    juce::Rectangle <float> sawLabel (70, 20, 20, 10);
+    Image sawImage = ImageCache::getFromMemory (BinaryData::saw_png, BinaryData::saw_pngSize);
+    g.drawImage(sawImage, sawLabel);
 }
 
 void LFO::resized()
@@ -154,14 +145,13 @@ void LFO::resized()
     mainGroup.setBounds(area);
     mainGroup.setColour(0, Colours::white);
     auto widgetsArea = bounds.reduced(10);
-    auto bottomWidgetsArea = bounds.reduced(10);
     labeledLfoRate.setBounds(15, 20, 50, 65);
     widgetsArea.removeFromLeft(10);
-    lfoSawShapeToggle.setBounds(60, 30, 20, 30);
+    lfoSawShapeToggle.setBounds(70, 30, 20, 30);
     widgetsArea.removeFromLeft(5);
-    lfoTriangleShapeToggle.setBounds(85, 30, 20, 30);
+    lfoTriangleShapeToggle.setBounds(95, 30, 20, 30);
     widgetsArea.removeFromLeft(5);
-    lfoSquareShapeToggle.setBounds(110, 30, 20, 30);
+    lfoSquareShapeToggle.setBounds(120, 30, 20, 30);
 }
 
 

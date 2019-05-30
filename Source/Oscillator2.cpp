@@ -8,7 +8,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
 , oscBFreqKnob(-2.0, 2.0, "")
 , labeledOscBFreqKnob("FREQUENCY", oscBFreqKnob)
-, oscBOctKnob(0, 3, "st")
+, oscBOctKnob(0.0f, 3.0f, "oct")
 , labeledOscBOctKnob("OCTAVE", oscBOctKnob)
 , oscBPulseWidthKnob(0, 3, "st")
 , labeledOscBPulseWidthKnob("PW", oscBPulseWidthKnob)
@@ -42,10 +42,10 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(labeledOscBFreqKnob);
     oscBFreqVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2Freq", oscBFreqKnob);
     
-    oscBOctKnob.setRange(0, 3);
-    oscBOctKnob.setValue(0);
+    oscBOctKnob.setRange(0.0f, 3.0f);
+    oscBOctKnob.setValue(0.0f);
     addAndMakeVisible(labeledOscBOctKnob);
-    oscBOctVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBOct", oscBOctKnob);
+    oscBOctVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2Oct", oscBOctKnob);
     
     oscBPulseWidthKnob.setRange(0, 3);
     oscBPulseWidthKnob.setValue(0);
@@ -89,19 +89,11 @@ Oscillator2::~Oscillator2()
 
 void Oscillator2::paint (Graphics& g)
 {
-    //background stuff
-    //    juce::Rectangle<int> titleArea (0, 10, getWidth(), 20);
-    //
-    ////    g.fillAll (Colours::black);
-    //    g.setColour(Colours::white);
-    //    g.drawText("Oscillator Two", titleArea, Justification::centredTop);
-    //
-    //
-    //    juce::Rectangle <float> area (25, 25, 150, 150);
-    ////    Image background = ImageCache::getFromMemory (BinaryData::metal_jpg, BinaryData::metal_jpgSize);
-    ////    g.drawImage(background, area);
-    //    g.setColour(Colours::silver);
-    //    g.drawRoundedRectangle(area, 20.0f, 2.0f);
+
+    
+    juce::Rectangle <float> sawLabel (135, 25, 20, 10);
+    Image sawImage = ImageCache::getFromMemory (BinaryData::saw_png, BinaryData::saw_pngSize);
+    g.drawImage(sawImage, sawLabel);
 }
 
 void Oscillator2::resized()

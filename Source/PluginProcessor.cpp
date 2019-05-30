@@ -49,8 +49,8 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            
            std::make_unique<AudioParameterFloat>("osc1Freq", "Osc1Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
-           
-           
+           std::make_unique<AudioParameterFloat>("osc1Oct", "Osc1Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
+           std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
@@ -254,7 +254,7 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setEnvAmt(tree.getRawParameterValue("envAmt"));
             myVoice->setKeyAmt(tree.getRawParameterValue("keyAMt"));
             
-            myVoice->getFilterEnvelopeParams(tree.getRawParameterValue("filterAttack"),
+            myVoice->setFilterEnvelopeParams(tree.getRawParameterValue("filterAttack"),
                                              tree.getRawParameterValue("filterDecay"),
                                              tree.getRawParameterValue("filterSustain"),
                                              tree.getRawParameterValue("filterRelease"));

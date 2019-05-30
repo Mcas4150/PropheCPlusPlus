@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="YZKjFM" name="PropheC++" projectType="audioplug" jucerVersion="5.4.3"
               headerPath="&#10;&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/PropheC++/Common&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/Maximilian"
-              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
+              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="ZH3u4d" name="PropheC++">
     <GROUP id="{F1DA65C9-5C9F-C4DC-8F81-A75AF0FEAFAA}" name="Source">
       <FILE id="BJeq4R" name="Wheels.cpp" compile="1" resource="0" file="Source/Wheels.cpp"/>
@@ -84,6 +84,7 @@
     </GROUP>
     <FILE id="FFtqy3" name="wood.png" compile="0" resource="1" file="../../../../Pictures/wood.png"/>
     <FILE id="yMyGkv" name="ProLogo1.png" compile="0" resource="1" file="../../../../Desktop/ProLogo1.png"/>
+    <FILE id="DLLKtO" name="saw.png" compile="0" resource="1" file="../../../../Desktop/saw.png"/>
     <FILE id="GfnKfm" name="plastic.png" compile="0" resource="1" file="../../../../Desktop/plastic.png"/>
     <FILE id="CRQByA" name="dialSwatch2.png" compile="0" resource="1" file="../../../../Desktop/dialSwatch2.png"/>
     <FILE id="OazklN" name="Edge.png" compile="0" resource="1" file="../../../../Desktop/Edge.png"/>

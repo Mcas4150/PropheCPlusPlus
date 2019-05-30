@@ -110,16 +110,51 @@ public:
     }
     
     
+    
+//    OSCILLATOR A
+    
+    
     void setOsc1Freq(float* setting)
     {
-        osc1Freq = *setting;
+        osc1FreqSetting = *setting;
     }
+    
+    
+    
+    void setOsc1Oct(float* setting)
+    {
+        osc1OctSetting = *setting;
+    }
+    
+    
+    
+    
+    
+//    OSCILLATOR B
+    
+    
     
     void setOsc2Freq(float* setting)
     {
         
-        osc2Freq = *setting;
+        osc2FreqSetting = *setting;
     }
+    
+    void setOsc2Oct(float* setting)
+    {
+        
+        osc2OctSetting = *setting;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     //
@@ -209,7 +244,7 @@ public:
     
     void setFilterCutoff (float* setting)
     {
-        cutoff = *setting;
+        cutoffSetting = *setting;
     }
     
     void setFilterRes (float* setting)
@@ -232,12 +267,12 @@ public:
         //        keyAmt = *setting;
     }
     
-    void getFilterEnvelopeParams(float* attack, float* decay, float* sustain, float* release)
+    void setFilterEnvelopeParams(float* attack, float* decay, float* sustain, float* release)
     {
-        env2.setAttack(*attack);
-        env2.setDecay(*decay);
-        env2.setSustain(*sustain);
-        env2.setRelease(*release);
+        filterEnvelope.setAttack(*attack);
+        filterEnvelope.setDecay(*decay);
+        filterEnvelope.setSustain(*sustain);
+        filterEnvelope.setRelease(*release);
     }
     
     void setMasterTune (float* setting)
@@ -257,12 +292,12 @@ public:
     
     void setOsc1Level(float* setting)
     {
-        osc1LevelSetting = *setting;
+        osc1OctSetting = *setting;
     }
     
     void setOsc2Level(float* setting)
     {
-        osc2LevelSetting = *setting;
+        osc2OctSetting = *setting;
     }
     
     
@@ -272,7 +307,7 @@ public:
         return
         //        getOsc1Sound()
         //        (
-        osc1.saw(processedFrequency * (std::pow(2, osc1Freq))) + osc2.saw(processedFrequency* (std::pow(2, osc2Freq))) / 2;
+        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting + osc1OctSetting))) + osc2.saw(processedFrequency* (std::pow(2, osc2FreqSetting + osc2OctSetting))) / 2;
         //        * osc1LevelSetting;
         
         //        +  osc2.saw(processedFrequency)   * osc2LevelSetting;
@@ -313,8 +348,17 @@ public:
         //            lfoPhase -= 1;
         //        }
         double cutoffValue = 0;
-        //        cutoffValue = currentVolume*filterEnvelope;
+        cutoffValue = currentVolume*cutoffSetting;
+//                cutoffValue = currentVolume*filterEnvelope;
         cutoffValue += getLfoValue()*lfoFilter;
+        if(cutoffValue < 30.0f)
+        {
+            cutoffValue = 30.0f;
+        }
+        else if (cutoffValue > 4000.0f)
+        {
+            cutoffValue = 4000.0f;
+        }
         return cutoffValue;
         
         
@@ -417,15 +461,15 @@ public:
             auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
             //            processedFrequency = freq + (freq * getLfoValue());
             processedFrequency = freq;
-            auto myCurrentVolume = env1.adsr(getMixerSound(), env1.trigger) * masterGain;
+            auto myCurrentVolume = env1.adsr(1., env1.trigger) * masterGain;
             
-            //            double oscSound = getMixerSound();
+                        double oscSound = getMixerSound();
             
-            //            double filteredSound = filter1.lores(myCurrentVolume, calculateFilterCutoff(myCurrentVolume), resonance);
+            double filteredSound = filter1.lores(oscSound * myCurrentVolume, calculateFilterCutoff(myCurrentVolume), resonance);
             
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
-                outputBuffer.addSample(channel, startSample, myCurrentVolume /4);
+                outputBuffer.addSample(channel, startSample, filteredSound /4);
             }
             ++startSample;
         }
@@ -452,13 +496,15 @@ private:
     float pitchBendDownSemitones = 2.0f;
     
     int filterChoice;
-    float cutoff;
+    float cutoffSetting;
     float lfoFilter;
     float resonance;
     float keyAmt;
     float envAmt;
-    float osc1Freq;
-    float osc2Freq;
+    float osc1FreqSetting;
+    float osc2FreqSetting;
+    float osc1OctSetting;
+    float osc2OctSetting;
     float masterTuneSetting;
     float pitchBendSetting;
     double pitchBendPosition;
@@ -471,7 +517,7 @@ private:
     
     maxiOsc osc1, osc2, osc3, lfo;
     maxiEnv env1;
-    maxiEnv env2;
+    maxiEnv filterEnvelope;
     maxiEnv lfoEnv;
     maxiFilter filter1;
     

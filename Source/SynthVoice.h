@@ -279,7 +279,7 @@ public:
     
     void setGlideMode(float* setting)
     {
-        glideModeSetting = *setting;
+        glideModeSetting = *setting == -1.0f ? false : true;
     }
     
     double calculateFilterCutoff(double currentVolume)
@@ -391,7 +391,17 @@ public:
         for (int sample = 0; sample < numSamples; ++sample)
         {
             
-            currentFrequency = frequency;
+            if(glideModeSetting && currentFrequency < frequency){
+                currentFrequency += .1 * (1-glideRateSetting);
+                currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
+            }
+            else if(glideModeSetting && currentFrequency > frequency){
+                currentFrequency -= .1 * (1-glideRateSetting);
+                currentFrequency = currentFrequency < frequency ? frequency : currentFrequency;
+            }
+            else {
+                currentFrequency = frequency;
+            }
             auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
             //            processedFrequency = freq + (freq * getLfoValue());
             processedFrequency = freq;
@@ -443,7 +453,7 @@ private:
     double osc1LevelSetting;
     double osc2LevelSetting;
     double glideRateSetting;
-    double glideModeSetting;
+    Boolean glideModeSetting;
     
     maxiOsc osc1, osc2, osc3, lfo;
     maxiEnv env1;

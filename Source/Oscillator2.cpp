@@ -6,7 +6,7 @@
 //==============================================================================
 Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, oscBFreqKnob(-2.0, 2.0, "")
+, oscBFreqKnob(-2.0, 2.0, "st")
 , labeledOscBFreqKnob("FREQUENCY", oscBFreqKnob)
 , oscBOctKnob(0.0f, 3.0f, "oct")
 , labeledOscBOctKnob("OCTAVE", oscBOctKnob)

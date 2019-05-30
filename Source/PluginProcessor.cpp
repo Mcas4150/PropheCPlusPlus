@@ -58,6 +58,11 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            std::make_unique<AudioParameterFloat>("glideMode", "GlideMode", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            
            
+           std::make_unique<AudioParameterFloat>("lfoModAmt", "LfoModAmt", NormalisableRange<float>(0.0f, 1.00f), 0),
+//           std::make_unique<AudioParameterFloat>("glideMode", "GlideMode", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
+
+           
+           
        }),
 lfoPhase(0.0f)
 #endif
@@ -276,6 +281,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setGlideMode(tree.getRawParameterValue("glideMode"));
             myVoice->setOsc1Freq(tree.getRawParameterValue("osc1Freq"));
             myVoice->setOsc2Freq(tree.getRawParameterValue("osc2Freq"));
+            
+            myVoice->setLfoModAmt(tree.getRawParameterValue("lfoModAmt"));
             
             
             

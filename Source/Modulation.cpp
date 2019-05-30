@@ -18,7 +18,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
 , labeledLfoFilterEnv("AMOUNT", lfoFilterEnv)
 , oscBModAmtKnob(1.0f, 5.0f, "")
 , labeledOscBModAmtKnob("AMOUNT", oscBModAmtKnob)
-, lfoModAmtKnob(1.0f, 5.0f, "")
+, lfoModAmtKnob(1, 100, "%")
 , labeledLfoModAmtKnob("AMOUNT", lfoModAmtKnob)
 {
     
@@ -40,8 +40,8 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(labeledOscBModAmtKnob);
     oscBModAmtVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBModAmt", oscBModAmtKnob);
     
-    lfoModAmtKnob.setRange(1, 5);
-    lfoModAmtKnob.setValue(1);
+    lfoModAmtKnob.setRange(0.00, 1.00);
+    lfoModAmtKnob.setValue(0.00);
     addAndMakeVisible(labeledLfoModAmtKnob);
     lfoModAmtVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "lfoModAmt", lfoModAmtKnob);
     

@@ -5,7 +5,7 @@
 //==============================================================================
 Glide::Glide(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, glideRateKnob(0.0f, 0.99f, "")
+, glideRateKnob(0.0f, 0.99f, "%")
 , labeledGlideRateKnob("RATE", glideRateKnob)
 
 {

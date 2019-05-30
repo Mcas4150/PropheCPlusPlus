@@ -391,6 +391,14 @@ public:
         return lfoValue;
     }
     
+    
+    void setLfoModAmt(float* setting)
+    {
+        lfoModAmtSetting = *setting;
+        
+    }
+    
+    
     //=======================================================
     
     void startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition) override
@@ -501,6 +509,7 @@ private:
     float resonance;
     float keyAmt;
     float envAmt;
+    float lfoModAmtSetting;
     float osc1FreqSetting;
     float osc2FreqSetting;
     float osc1OctSetting;
@@ -513,6 +522,7 @@ private:
     double osc1LevelSetting;
     double osc2LevelSetting;
     double glideRateSetting;
+    
     Boolean glideModeSetting;
     
     maxiOsc osc1, osc2, osc3, lfo;

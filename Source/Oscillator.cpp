@@ -5,9 +5,9 @@
 //==============================================================================
 Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, oscAFreqKnob(-2.0, 2.0f, "")
+, oscAFreqKnob(-2.0, 2.0f, "st")
 , labeledOscAFreqKnob("FREQUENCY", oscAFreqKnob)
-, oscAOctKnob(0.0f, 3.0f, "st")
+, oscAOctKnob(0.0f, 3.0f, "oct")
 , labeledOscAOctKnob("OCTAVE", oscAOctKnob)
 , oscAPulseWidthKnob(0, 3, "st")
 , labeledOscAPulseWidthKnob("PW", oscAPulseWidthKnob)

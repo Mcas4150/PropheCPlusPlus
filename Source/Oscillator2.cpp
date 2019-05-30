@@ -6,7 +6,7 @@
 //==============================================================================
 Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, oscBFreqKnob(20.0f, 5000.0f, "hz")
+, oscBFreqKnob(-2.0, 2.0, "")
 , labeledOscBFreqKnob("FREQUENCY", oscBFreqKnob)
 , oscBOctKnob(0, 3, "st")
 , labeledOscBOctKnob("OCTAVE", oscBOctKnob)
@@ -37,10 +37,10 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     ////
     //    //sends value of the sliders to the tree state in the processor
     //    blendVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "blend", Blendslider);
-    oscBFreqKnob.setRange(20.0f, 5000.0f);
-    oscBFreqKnob.setValue(440.0f);
+    oscBFreqKnob.setRange(-2.0, 2.0f);
+    oscBFreqKnob.setValue(0.0f);
     addAndMakeVisible(labeledOscBFreqKnob);
-    oscBFreqVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBFreq", oscBFreqKnob);
+    oscBFreqVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2Freq", oscBFreqKnob);
     
     oscBOctKnob.setRange(0, 3);
     oscBOctKnob.setValue(0);

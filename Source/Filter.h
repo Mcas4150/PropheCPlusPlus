@@ -9,7 +9,7 @@
 //==============================================================================
 /*
  */
-class Filter    : public Component
+class Filter    : public Component, public Slider::Listener
 {
 public:
     Filter(JuceSynthFrameworkAudioProcessor&);
@@ -17,6 +17,7 @@ public:
     
     void paint (Graphics&) override;
     void resized() override;
+    void sliderValueChanged (Slider*) override;
     
 private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;

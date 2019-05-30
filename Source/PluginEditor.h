@@ -30,7 +30,9 @@
 //==============================================================================
 /**
  */
-class JuceSynthFrameworkAudioProcessorEditor  : public AudioProcessorEditor
+class JuceSynthFrameworkAudioProcessorEditor  : public AudioProcessorEditor,
+                                                private MidiInputCallback,
+                                                private MidiKeyboardStateListener
 
 {
 public:
@@ -40,8 +42,10 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
-    
-    
+    void handleNoteOn (MidiKeyboardState *source, int midiChannel, int midiNoteNumber, float velocity) override;
+    void handleNoteOff(MidiKeyboardState *source, int midiChannel, int midiNoteNumber, float velocity) override;
+    void handleIncomingMidiMessage (MidiInput* source, const MidiMessage& message) override;
+     void sliderValueChanged (Slider* slider);
     
 private:
     // This reference is provided as a quick way for your editor to

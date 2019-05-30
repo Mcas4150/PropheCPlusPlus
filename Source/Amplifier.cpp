@@ -26,7 +26,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     attackSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     attackSlider.setRange(1.5f, 7400.0f);
     attackSlider.setValue(0.1f);
-    //        attackSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+    attackSlider.addListener(this);
     attackVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "attack", attackSlider);
     //        addAndMakeVisible(&attackSlider);
     addAndMakeVisible(labeledAmpAttackKnob);
@@ -34,6 +34,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     //        decaySlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     decaySlider.setRange(0.5f, 11000.0f);
     decaySlider.setValue(1.0f);
+    decaySlider.addListener(this);
     //        decaySlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
     //        addAndMakeVisible(&decaySlider);
     
@@ -43,6 +44,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     //        sustainSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     sustainSlider.setRange(0.0f, 1.0f);
     sustainSlider.setValue(0.8f);
+    sustainSlider.addListener(this);
     //        sustainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
     //        addAndMakeVisible(&sustainSlider);
     sustainVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "sustain", sustainSlider);
@@ -51,6 +53,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     //        releaseSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     releaseSlider.setRange(0.5f, 11000.0f);
     releaseSlider.setValue(0.8f);
+    releaseSlider.addListener(this);
     //        releaseSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
     //        addAndMakeVisible(&releaseSlider);
     releaseVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "release", releaseSlider);
@@ -118,3 +121,7 @@ void Amplifier::resized()
 
 
 
+void Amplifier::sliderValueChanged(Slider* slider)
+{
+    
+}

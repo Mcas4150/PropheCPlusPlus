@@ -5,7 +5,7 @@
 //==============================================================================
 Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, oscAFreqKnob(20.0f, 5000.0f, "hz")
+, oscAFreqKnob(-2.0, 2.0f, "")
 , labeledOscAFreqKnob("FREQUENCY", oscAFreqKnob)
 , oscAOctKnob(0, 3, "st")
 , labeledOscAOctKnob("OCTAVE", oscAOctKnob)
@@ -18,10 +18,10 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
     addAndMakeVisible(&mainGroup);
     
-    oscAFreqKnob.setRange(20.0f, 5000.0f);
-    oscAFreqKnob.setValue(440.0f);
+    oscAFreqKnob.setRange(-2.0, 2.0f);
+    oscAFreqKnob.setValue(0.0f);
     addAndMakeVisible(labeledOscAFreqKnob);
-    oscAFreqVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscAFreq", oscAFreqKnob);
+    oscAFreqVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Freq", oscAFreqKnob);
     
     oscAOctKnob.setRange(0, 3);
     oscAOctKnob.setValue(0);

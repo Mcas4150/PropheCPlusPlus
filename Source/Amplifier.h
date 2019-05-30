@@ -9,7 +9,7 @@
 //==============================================================================
 /*
  */
-class Amplifier    : public Component
+class Amplifier    : public Component, public Slider::Listener
 {
 public:
     Amplifier(JuceSynthFrameworkAudioProcessor&);
@@ -17,7 +17,8 @@ public:
     
     void paint (Graphics&) override;
     void resized() override;
-    
+    void sliderValueChanged (Slider*) override;
+
     
 private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;

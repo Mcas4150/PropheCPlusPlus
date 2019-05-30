@@ -46,6 +46,11 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            std::make_unique<AudioParameterFloat>("lfoRate", "LfoRate", NormalisableRange<float>(0.0f, 30.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("lfoDelay", "LfoDelay", NormalisableRange<float>(30.0f, 50000.0f), 30.0f),
            std::make_unique<AudioParameterFloat>("pitchBend", "PitchBend", NormalisableRange<float>(-1.0f, 1.0f), 0.0f),
+           
+           std::make_unique<AudioParameterFloat>("osc1Freq", "Osc1Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
+           std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
+           
+           
            std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
@@ -57,6 +62,7 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
 lfoPhase(0.0f)
 #endif
 {
+    
     mySynth.clearVoices();
     
     for (int i = 0; i < 5; i++)
@@ -268,6 +274,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setOsc2Level(tree.getRawParameterValue("osc2Level"));
             myVoice->setGlideRate(tree.getRawParameterValue("glideRate"));
             myVoice->setGlideMode(tree.getRawParameterValue("glideMode"));
+            myVoice->setOsc1Freq(tree.getRawParameterValue("osc1Freq"));
+            myVoice->setOsc2Freq(tree.getRawParameterValue("osc2Freq"));
             
             
             

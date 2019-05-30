@@ -136,3 +136,10 @@ void Filter::resized()
     //    filterCutoff.setBounds (40, 65, 25, 100);
     //    filterRes.setBounds (70, 65, 25, 100);
 }
+
+
+
+void Filter::sliderValueChanged(Slider* slider)
+{
+    
+}

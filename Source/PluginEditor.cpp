@@ -105,4 +105,23 @@ void JuceSynthFrameworkAudioProcessorEditor::resized()
     
 }
 
+void JuceSynthFrameworkAudioProcessorEditor::sliderValueChanged(Slider *slider)
+{
+    
+    
+}
 
+void JuceSynthFrameworkAudioProcessorEditor::handleNoteOn(MidiKeyboardState *source, int midiChannel, int midiNoteNumber, float velocity)
+{
+    
+}
+
+void JuceSynthFrameworkAudioProcessorEditor::handleNoteOff(MidiKeyboardState *source, int midiChannel, int midiNoteNumber, float velocity)
+{
+    
+}
+
+void JuceSynthFrameworkAudioProcessorEditor::handleIncomingMidiMessage (MidiInput* source, const MidiMessage& message)
+{
+    
+}

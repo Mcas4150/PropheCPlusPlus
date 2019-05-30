@@ -4,7 +4,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
-#include "Maximilian.h"
+#include "maximilian.h"
 
 
 class SynthVoice : public SynthesiserVoice
@@ -107,6 +107,18 @@ public:
         }
         
         return sample1 + osc2blend * sample2;
+    }
+    
+    
+    void setOsc1Freq(float* setting)
+    {
+        osc1Freq = *setting;
+    }
+    
+    void setOsc2Freq(float* setting)
+    {
+        
+        osc2Freq = *setting;
     }
     
     
@@ -260,7 +272,7 @@ public:
         return
         //        getOsc1Sound()
         //        (
-        osc1.saw(processedFrequency) + osc2.saw(processedFrequency) / 2;
+        osc1.saw(processedFrequency * (std::pow(2, osc1Freq))) + osc2.saw(processedFrequency* (std::pow(2, osc2Freq))) / 2;
         //        * osc1LevelSetting;
         
         //        +  osc2.saw(processedFrequency)   * osc2LevelSetting;
@@ -445,6 +457,8 @@ private:
     float resonance;
     float keyAmt;
     float envAmt;
+    float osc1Freq;
+    float osc2Freq;
     float masterTuneSetting;
     float pitchBendSetting;
     double pitchBendPosition;

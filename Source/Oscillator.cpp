@@ -49,7 +49,7 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     osc1SawShapeToggle.addListener(this);
     addAndMakeVisible(&osc1SawShapeToggle);
     
-    osc1SawShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1SawShape", osc1SawShapeToggle);
+    osc1SawShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1SawMode", osc1SawShapeToggle);
     
     osc1SquareShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     osc1SquareShapeToggle.setRange(0, 1);
@@ -57,7 +57,7 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     osc1SquareShapeToggle.addListener(this);
     addAndMakeVisible(&osc1SquareShapeToggle);
     
-    osc1SquareShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1SquareShape", osc1SquareShapeToggle);
+    osc1SquareShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1SquareMode", osc1SquareShapeToggle);
     
     
     osc1SyncToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);

@@ -58,7 +58,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     osc2SawShapeToggle.addListener(this);
     addAndMakeVisible(&osc2SawShapeToggle);
     
-    osc2SawShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2SawShape", osc2SawShapeToggle);
+    osc2SawShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2SawMode", osc2SawShapeToggle);
     
     osc2SquareShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     osc2SquareShapeToggle.setRange(0, 1);
@@ -66,7 +66,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     osc2SquareShapeToggle.addListener(this);
     addAndMakeVisible(&osc2SquareShapeToggle);
     
-    osc2SquareShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2SquareShape", osc2SquareShapeToggle);
+    osc2SquareShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2SquareMode", osc2SquareShapeToggle);
     
     
     osc2TriangleShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -75,7 +75,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     osc2TriangleShapeToggle.addListener(this);
     addAndMakeVisible(&osc2TriangleShapeToggle);
     
-    osc2TriangleShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2TriangleShape", osc2TriangleShapeToggle);
+    osc2TriangleShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2TriangleMode", osc2TriangleShapeToggle);
     
     
     osc2SawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);

@@ -33,44 +33,39 @@ public:
         osc1FreqSetting = *setting;
     }
     
-    
-    
     void setOsc1Oct(float* setting)
     {
         osc1OctSetting = *setting;
     }
     
-//    void setOsc1
-    
-    
-    void getOscType(float* selection)
+    void setOsc1SawMode(float* setting)
     {
-        theWave = *selection;
-        double sample1;
-        switch (theWave)
-        {
-            case 0:
-                sample1 = osc1.square(processedFrequency);
-                break;
-            case 1:
-                sample1 = osc1.saw(processedFrequency);
-                break;
-            case 2:
-                sample1 = osc1.triangle(processedFrequency);
-                break;
-            default:
-                sample1 = osc1.sinewave(processedFrequency);
-                break;
-        }
-    
+        osc1SawSetting = *setting;
     }
+    
+    void setOsc1SquareMode(float* setting)
+    {
+        osc1SquareSetting = *setting;
+    }
+    
+//    double getOsc1()
+//    {
+//
+//        return
+//     (
+//      osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   )
+//      );
+////      * osc1SawSetting
+////        +
+////        osc1.square(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   ) * osc1SquareSetting
+////      ) / osc1SawSetting + osc1SquareSetting;
+//
+//    }
     
    
     
     
-    
 
-    
 //============OSCILLATOR B======================
     
     
@@ -87,30 +82,31 @@ public:
         osc2OctSetting = *setting;
     }
     
-    
-    
-    void getOsc2Type(float* selection)
+    void setOsc2SawMode(float* setting)
     {
-        
-        theWave2 = *selection;
-        double sample2;
-        switch (theWave2)
-        {
-            case 0:
-                sample2 = osc2.saw(processedFrequency / 2.0);
-                break;
-            case 1:
-                sample2 = osc2.square(processedFrequency / 2.0);
-                break;
-            case 2:
-                sample2 = osc2.triangle(processedFrequency / 2.0);
-                break;
-            default:
-                sample2 = osc2.sinewave(processedFrequency / 2.0);
-                break;
-        }
+        osc2SawSetting = *setting;
     }
     
+    void setOsc2SquareMode(float* setting)
+    {
+        osc2SquareSetting = *setting;
+    }
+    
+//
+//    double getOsc2()
+//    {
+//        
+//        return
+//        (
+//         osc2.saw(processedFrequency * (std::pow(2, osc2FreqSetting)) * (std::pow(2, osc2OctSetting))   )
+//         );
+//         
+////         * osc2SawSetting
+////         +
+////         osc2.square(processedFrequency * (std::pow(2, osc2FreqSetting)) * (std::pow(2, osc2OctSetting))   ) * osc2SquareSetting
+////         ) / osc2SawSetting + osc2SquareSetting;
+//        
+//    }
 
     
     
@@ -139,12 +135,17 @@ public:
         
         return
 
-        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   )  * osc1LevelSetting
+//       getOsc1() * osc1LevelSetting
+//        +
+//       getOsc2() * osc2LevelSetting
+//        +
+//        osc3.noise() * noiseLevelSetting;
         
-        + osc2.saw(processedFrequency* (std::pow(2, osc2FreqSetting )) * (std::pow(2, osc2OctSetting))  ) * osc2LevelSetting
-        
-          + osc3.noise() * noiseLevelSetting
-        ;
+        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   ) * osc1LevelSetting
+        +
+        osc2.saw(processedFrequency * (std::pow(2, osc2FreqSetting)) * (std::pow(2, osc2OctSetting))   ) * osc2LevelSetting
+        +
+        osc3.noise() * noiseLevelSetting;
 
     }
     
@@ -169,11 +170,7 @@ public:
     
     //=========FILTER==========================
     
-    void setFilterType (float* setting)
-    {
-        filterChoice = *setting;
-    }
-    
+
     void setFilterCutoff (float* setting)
     {
         cutoffSetting = *setting;
@@ -493,12 +490,18 @@ private:
 
     //    double Setting;
     
-    
-    int theWave, theWave2;
+
     float osc1FreqSetting;
+     float osc1OctSetting;
+    float  osc1SawSetting;
+    float osc1SquareSetting;
+    
     float osc2FreqSetting;
-    float osc1OctSetting;
     float osc2OctSetting;
+    float   osc2SawSetting;
+    float osc2SquareSetting;
+   
+    
     float osc2blend;
     
     int noteNumber;
@@ -512,7 +515,6 @@ private:
     
     maxiFilter filter1;
     maxiEnv filterEnvelope;
-    int filterChoice;
     float cutoffSetting;
     float lfoFilter;
     float resonance;

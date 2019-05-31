@@ -32,9 +32,9 @@ public:
 private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
-    BasicKnob lfoFilterEnv; LabeledKnob labeledLfoFilterEnv;
+    BasicKnob modAmtFilterEnvKnob; LabeledKnob labeledModAmtFilterEnvKnob;
     BasicKnob oscBModAmtKnob; LabeledKnob labeledOscBModAmtKnob;
-    BasicKnob lfoModAmtKnob; LabeledKnob labeledLfoModAmtKnob;
+    BasicKnob modAmtLfoKnob; LabeledKnob labeledModAmtLfoKnob;
     
     Slider filterEnvRouteToggle;
     Slider oscBRouteToggle;
@@ -49,7 +49,7 @@ private:
     
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoFilterVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBModAmtVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoModAmtVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> modAmtLfoVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterEnvRouteToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBRouteToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoRouteToggleVal;

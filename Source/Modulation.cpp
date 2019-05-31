@@ -14,12 +14,12 @@
 //==============================================================================
 Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, lfoFilterEnv(0.0f, 1.0f, "")
-, labeledLfoFilterEnv("AMOUNT", lfoFilterEnv)
+, modAmtFilterEnvKnob(0.0f, 1.0f, "")
+, labeledModAmtFilterEnvKnob("AMOUNT", modAmtFilterEnvKnob)
 , oscBModAmtKnob(0.0f, 1.0f, "")
 , labeledOscBModAmtKnob("AMOUNT", oscBModAmtKnob)
-, lfoModAmtKnob(0.0f, 1.0f, "%")
-, labeledLfoModAmtKnob("AMOUNT", lfoModAmtKnob)
+, modAmtLfoKnob(0.0f, 1.0f, "%")
+, labeledModAmtLfoKnob("AMOUNT", modAmtLfoKnob)
 {
     
     setSize(150, 285);
@@ -30,20 +30,20 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
     
-    lfoFilterEnv.setRange(1, 5);
-    lfoFilterEnv.setValue(1);
-    addAndMakeVisible(labeledLfoFilterEnv);
-    lfoFilterVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "lfoFilterEnv", lfoFilterEnv);
+    modAmtFilterEnvKnob.setRange(1, 5);
+    modAmtFilterEnvKnob.setValue(1);
+    addAndMakeVisible(labeledModAmtFilterEnvKnob);
+    lfoFilterVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "", modAmtFilterEnvKnob);
     
     oscBModAmtKnob.setRange(1, 5);
     oscBModAmtKnob.setValue(1);
     addAndMakeVisible(labeledOscBModAmtKnob);
     oscBModAmtVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBModAmt", oscBModAmtKnob);
     
-    lfoModAmtKnob.setRange(0.00, 1.00);
-    lfoModAmtKnob.setValue(0.00);
-    addAndMakeVisible(labeledLfoModAmtKnob);
-    lfoModAmtVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "lfoModAmt", lfoModAmtKnob);
+    modAmtLfoKnob.setRange(0.00, 1.00);
+    modAmtLfoKnob.setValue(0.00);
+    addAndMakeVisible(labeledModAmtLfoKnob);
+    modAmtLfoVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "modAmtLfo", modAmtLfoKnob);
     
     filterEnvRouteToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     filterEnvRouteToggle.setRange(0, 1);
@@ -152,14 +152,12 @@ void Modulation::resized()
     widgetsArea.removeFromBottom(175);
     bottomWidgetsArea.removeFromBottom(5);
     bottomWidgetsArea.removeFromTop(80);
-    int width = (widgetsArea.getWidth() - (4 - 1) * 10) / 4;
-    int height = (widgetsArea.getHeight());
-    labeledLfoFilterEnv.setBounds(15, 25, 50, 65);
+    labeledModAmtFilterEnvKnob.setBounds(15, 25, 50, 65);
     filterEnvRouteToggle.setBounds(70, 35, 20, 30);
     
     labeledOscBModAmtKnob.setBounds(15, 115, 50, 65);
     oscBRouteToggle.setBounds(70, 125, 20, 30);
-    labeledLfoModAmtKnob.setBounds(15, 205, 50, 65);
+    labeledModAmtLfoKnob.setBounds(15, 205, 50, 65);
     lfoRouteToggle.setBounds(70, 215, 20, 30);
     
     oscAFreqToggle.setBounds(112, 25, 20, 40);
@@ -167,7 +165,7 @@ void Modulation::resized()
     oscBFreqToggle.setBounds(112, 125, 20, 40);
     oscBPWToggle.setBounds(112, 175, 20, 40);
     filterToggle.setBounds(112, 225, 20, 40);
-    //   lfoFilterEnv.setBounds (100, 65, 25, 100);
+    //   .setBounds (100, 65, 25, 100);
 }
 
 

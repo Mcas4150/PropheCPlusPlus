@@ -188,6 +188,8 @@ public:
         double cutoffValue = 0;
         cutoffValue = currentVolume*cutoffSetting;
         //                cutoffValue = currentVolume*filterEnvelope;
+        
+        
         cutoffValue += getLfoValue()*lfoFilter;
         if(cutoffValue < 30.0f)
         {
@@ -201,12 +203,12 @@ public:
         
     }
     
-    //    void getFilterParams (float* filterType, float* filterCutoff, float* filterRes, float* lfoFilterEnv)
+    //    void getFilterParams (float* filterType, float* filterCutoff, float* filterRes, float* )
     //    {
     //        filterChoice = *filterType;
     //        cutoff = *filterCutoff;
     //        resonance = *filterRes;
-    //        lfoFilter = *lfoFilterEnv;
+    //        lfoFilter = *;
     //    }
     
         //            stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
@@ -307,15 +309,15 @@ public:
     
     
     
-    void setLfoFilterEnv (float* setting)
+    void setModAmtFilterEnv (float* setting)
     {
         lfoFilter = *setting;
     }
     
     
-    void setLfoModAmt(float* setting)
+    void setmodAmtLfo(float* setting)
     {
-        lfoModAmtSetting = *setting ;
+        modAmtLfoSetting = *setting ;
     }
     
     
@@ -415,6 +417,20 @@ public:
         for (int sample = 0; sample < numSamples; ++sample)
         {
             
+            
+            
+            double oscSound = getMixerSound();
+            
+            
+            
+            
+            
+            auto myCurrentVolume = env1.adsr(1., env1.trigger) * masterGain;
+            
+           
+
+            
+            
             if(glideModeSetting && currentFrequency < frequency){
                 currentFrequency += .1 * (1-glideRateSetting);
                 currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
@@ -426,14 +442,24 @@ public:
             else {
                 currentFrequency = frequency;
             }
+            
             auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
             //            processedFrequency = freq + (freq * getLfoValue());
+           
             processedFrequency = freq;
-            auto myCurrentVolume = env1.adsr(1., env1.trigger) * masterGain;
             
-                        double oscSound = getMixerSound();
+        
             
+            
+            
+    
             double filteredSound = filter1.lores(oscSound * myCurrentVolume, calculateFilterCutoff(myCurrentVolume), resonance);
+    
+            
+            
+    
+
+            
             
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
@@ -452,7 +478,7 @@ private:
     double lfoRateSetting;
     double lfoDelaySetting;
     int lfoType;
-    //    double lfoFilterEnvSetting;
+    //    double Setting;
     int theWave, theWave2;
     
     float masterGain;
@@ -469,7 +495,7 @@ private:
     float resonance;
     float keyAmt;
     float envAmt;
-    float lfoModAmtSetting;
+    float modAmtLfoSetting;
     float osc1FreqSetting;
     float osc2FreqSetting;
     float osc1OctSetting;

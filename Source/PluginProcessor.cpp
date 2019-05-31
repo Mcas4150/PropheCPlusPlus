@@ -34,13 +34,15 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            
 //           OSCILLATOR B
            
+           std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
+           
+           std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
+          
+           
            std::make_unique<AudioParameterFloat>("wavetype2", "WaveType2", NormalisableRange<float>(0.0f, 2.0f), 0.0f),
            
-           std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
 
-           std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
-           
-
+        
            
 //           MIXER
            
@@ -53,10 +55,10 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            
            
 //          FILTER
-           
+        
            std::make_unique<AudioParameterFloat>("filterType", "FilterType", NormalisableRange<float>(0.0f, 2.0f), 0.0f),
+           
            std::make_unique<AudioParameterFloat>("filterCutoff", "FilterCutoff", NormalisableRange<float>(8.3f, 8500.0f), 5000.0f),
-
            std::make_unique<AudioParameterFloat>("filterRes", "FilterRes", NormalisableRange<float>(1.0f, 10.0f), 1.0f),
            std::make_unique<AudioParameterFloat>("envAmt", "EnvAmt", NormalisableRange<float>(0.0f, 1.0f), 1.0f),
            std::make_unique<AudioParameterFloat>("keyAmt", "keyAmt", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
@@ -66,7 +68,7 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            std::make_unique<AudioParameterFloat>("filterRelease", "FilterRelease", NormalisableRange<float>(0.5f, 11000.0f), 0.1f),
            
            
-           //           PITCH
+//           PITCH
            
            std::make_unique<AudioParameterFloat>("pitchBend", "PitchBend", NormalisableRange<float>(-1.0f, 1.0f), 0.0f),
            
@@ -75,24 +77,21 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            std::make_unique<AudioParameterFloat>("glideRate", "GlideRate", NormalisableRange<float>(0.0f, 0.99f), 0.0f),
            std::make_unique<AudioParameterFloat>("glideMode", "GlideMode", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            
-           
-           
-           
+         
 //           LFO
            
            std::make_unique<AudioParameterFloat>("lfoRate", "LfoRate", NormalisableRange<float>(0.0f, 30.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("lfoDelay", "LfoDelay", NormalisableRange<float>(30.0f, 50000.0f), 30.0f),
            
-           
-
-           
 //        MODULATION
            
+         std::make_unique<AudioParameterFloat>("modAmtFilterEnv", "ModAmtFilterEnv", NormalisableRange<float>(0.0f, 1.00), 0),
            
-            std::make_unique<AudioParameterFloat>("lfoFilterEnv", "LfoFilterEnv", NormalisableRange<float>(30.0f, 4000.0f), 30.0f),
-           std::make_unique<AudioParameterFloat>("lfoModAmt", "LfoModAmt", NormalisableRange<float>(0.0f, 1.00f), 0),
+         std::make_unique<AudioParameterFloat>("modAmtLfo", "ModAmtLfo", NormalisableRange<float>(0.0f, 1.00f), 0),
            
-           //          AMPLIFIER
+           
+           
+//          AMPLIFIER
            
            std::make_unique<AudioParameterFloat>("attack", "Attack", NormalisableRange<float>(1.5f, 7400.0f), 0.1f),
            std::make_unique<AudioParameterFloat>("decay", "Decay", NormalisableRange<float>(0.5f, 11000.0f), 1.0f),
@@ -325,8 +324,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 //            MODULATION
             
             
-            myVoice->setLfoModAmt(tree.getRawParameterValue("lfoModAmt"));
-              myVoice->setLfoFilterEnv(tree.getRawParameterValue("lfoFilterEnv"));
+        myVoice->setmodAmtLfo(tree.getRawParameterValue("modAmtLfo"));
+        myVoice->setModAmtFilterEnv(tree.getRawParameterValue("modAmtFilterEnv"));
             
             
 //           AMPLIFIER

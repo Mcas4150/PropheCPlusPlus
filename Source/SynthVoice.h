@@ -146,6 +146,26 @@ public:
         
         
     }
+    
+    
+    //  ========AMPLIFIER====================================
+    
+    void setAmpEnvelope(float* attack, float* decay, float* sustain, float* release)
+    {
+        ampEnvelope.setAttack(*attack);
+        ampEnvelope.setDecay(*decay);
+        ampEnvelope.setSustain(*sustain);
+        ampEnvelope.setRelease(*release);
+    }
+    
+    double getAmpEnvelope()
+    {
+        
+        return  ampEnvelope.adsr(1., ampEnvelope.trigger);
+        
+    }
+
+    
     //=========FILTER==========================
     
     void setFilterType (float* setting)
@@ -182,15 +202,21 @@ public:
         filterEnvelope.setRelease(*release);
     }
     
-    double calculateFilterCutoff(double currentVolume)
+    double getFilterEnvelope()
+    {
+        
+        return  filterEnvelope.adsr(1., filterEnvelope.trigger);
+        
+    }
+    
+    
+    double getFilterCutoff()
     {
         
         double cutoffValue = 0;
-        cutoffValue = currentVolume*cutoffSetting;
-        //                cutoffValue = currentVolume*filterEnvelope;
+        cutoffValue = getFilterEnvelope() *  cutoffSetting;
         
-        
-        cutoffValue += getLfoValue()*lfoFilter;
+        cutoffValue += getLfoValue()* lfoFilter;
         if(cutoffValue < 30.0f)
         {
             cutoffValue = 30.0f;
@@ -329,17 +355,7 @@ public:
  
     
     
-    
-    //  ========AMPLIFIER====================================
-    
-    void getEnvelopeParams(float* attack, float* decay, float* sustain, float* release)
-    {
-        env1.setAttack(*attack);
-        env1.setDecay(*decay);
-        env1.setSustain(*sustain);
-        env1.setRelease(*release);
-    }
-    
+
     
     // ////////////   MASTER
     
@@ -368,9 +384,12 @@ public:
     void startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition) override
     {
         noteNumber = midiNoteNumber;
-        env1.trigger = 1;
-        env1.attackphase=1;
-        env1.decayphase=0;
+        ampEnvelope.trigger = 1;
+        ampEnvelope.attackphase=1;
+        ampEnvelope.decayphase=0;
+        filterEnvelope.trigger = 1;
+        filterEnvelope.attackphase=1;
+        filterEnvelope.decayphase=0;
         lfoEnv.trigger = 1;
         lfoEnv.attackphase=1;
         lfoEnv.decayphase=0;
@@ -385,9 +404,12 @@ public:
     
     void stopNote (float velocity, bool allowTailOff) override
     {
-        env1.trigger = 0;
-        env1.attackphase=0;
-        env1.decayphase=1;
+        ampEnvelope.trigger = 0;
+        ampEnvelope.attackphase=0;
+        ampEnvelope.decayphase=1;
+        filterEnvelope.trigger = 0;
+        filterEnvelope.attackphase=0;
+        filterEnvelope.decayphase=1;
         lfoEnv.trigger = 0;
         lfoEnv.attackphase=0;
         lfoEnv.decayphase=1;
@@ -419,18 +441,13 @@ public:
             
             
             
-            double oscSound = getMixerSound();
+            double mixerOutput = getMixerSound();
+            double ampEnvOutput = getAmpEnvelope();
             
-            
-            
-            
-            
-            auto myCurrentVolume = env1.adsr(1., env1.trigger) * masterGain;
-            
-           
 
+            auto amplifierOutput = ampEnvOutput * mixerOutput ;
             
-            
+        
             if(glideModeSetting && currentFrequency < frequency){
                 currentFrequency += .1 * (1-glideRateSetting);
                 currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
@@ -443,27 +460,28 @@ public:
                 currentFrequency = frequency;
             }
             
+            
             auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
             //            processedFrequency = freq + (freq * getLfoValue());
            
             processedFrequency = freq;
             
         
-            
-            
-            
-    
-            double filteredSound = filter1.lores(oscSound * myCurrentVolume, calculateFilterCutoff(myCurrentVolume), resonance);
+
+            double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff(), resonance);
     
             
+            double processedOutput = filteredSound;
             
-    
+            double  masterOutput = processedOutput * masterGain;
+//
+//    * masterGain
 
             
             
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
-                outputBuffer.addSample(channel, startSample, filteredSound /4);
+                outputBuffer.addSample(channel, startSample, masterOutput /4);
             }
             ++startSample;
         }
@@ -512,7 +530,7 @@ private:
     Boolean glideModeSetting;
     
     maxiOsc osc1, osc2, osc3, lfo;
-    maxiEnv env1;
+    maxiEnv ampEnvelope;
     maxiEnv filterEnvelope;
     maxiEnv lfoEnv;
     maxiFilter filter1;

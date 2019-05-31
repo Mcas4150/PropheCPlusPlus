@@ -330,7 +330,7 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             
 //           AMPLIFIER
             
-            myVoice->getEnvelopeParams(tree.getRawParameterValue("attack"),
+            myVoice->setAmpEnvelope(tree.getRawParameterValue("attack"),
                                        tree.getRawParameterValue("decay"),
                                        tree.getRawParameterValue("sustain"),
                                        tree.getRawParameterValue("release"));

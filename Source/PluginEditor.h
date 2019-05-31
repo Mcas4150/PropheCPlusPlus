@@ -23,6 +23,9 @@
 #include "ScopeComponent.h"
 #include "Master.h"
 #include "Wheels.h"
+#include "Mode.h"
+#include "Arpeggiator.h"
+#include "Sequencer.h"
 #include "SliderLookAndFeel.h"
 #include "../Common/LabeledKnob.h"
 //#include "CustomLookAndFeel.h"
@@ -63,6 +66,9 @@ private:
     Glide glideGui;
     Wheels wheelsGui;
     Mixer mixerGui;
+    Mode modeGui;
+    Arpeggiator arpGui;
+    Sequencer sequencerGui;
     Modulation modulationGui;
     Master masterGui;
     SliderLookAndFeel sliderLookAndFeel;

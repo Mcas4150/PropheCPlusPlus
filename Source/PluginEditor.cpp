@@ -14,7 +14,7 @@
 
 //==============================================================================
 JuceSynthFrameworkAudioProcessorEditor::JuceSynthFrameworkAudioProcessorEditor (JuceSynthFrameworkAudioProcessor& p)
-: AudioProcessorEditor (&p), processor (p), oscGui(p), osc2Gui(p), lfoGui(p), glideGui(p), ampGui(p), modulationGui(p), filterGui(p), masterGui(p), wheelsGui(p), mixerGui(p), keyboardComponent(p.keyboardState, MidiKeyboardComponent::horizontalKeyboard), scopeComponent (processor.getAudioBufferQueue())
+: AudioProcessorEditor (&p), processor (p), oscGui(p), osc2Gui(p), lfoGui(p), glideGui(p), ampGui(p), modulationGui(p), filterGui(p), modeGui(p), sequencerGui(p), arpGui(p), masterGui(p), wheelsGui(p), mixerGui(p), keyboardComponent(p.keyboardState, MidiKeyboardComponent::horizontalKeyboard), scopeComponent (processor.getAudioBufferQueue())
 {
     setSize (1000, 600);
     
@@ -29,6 +29,9 @@ JuceSynthFrameworkAudioProcessorEditor::JuceSynthFrameworkAudioProcessorEditor (
     addAndMakeVisible(&glideGui);
     addAndMakeVisible(&scopeComponent);
     addAndMakeVisible(&mixerGui);
+    addAndMakeVisible(&sequencerGui);
+    addAndMakeVisible(&arpGui);
+    addAndMakeVisible(&modeGui);
     addAndMakeVisible(&wheelsGui);
     addAndMakeVisible(&masterGui);
     addAndMakeVisible(&keyboardComponent);
@@ -76,26 +79,32 @@ void JuceSynthFrameworkAudioProcessorEditor::paint (Graphics& g)
 
 void JuceSynthFrameworkAudioProcessorEditor::resized()
 {
-    juce::Rectangle<int> area = getLocalBounds();
-    
-    const int componentWidth = 200;
-    const int componentHeight = 200;
-    
-    oscGui.setBounds(175, 10 , 275 , 95);
-    osc2Gui.setBounds(175, 100, 330, 95);
-    filterGui.setBounds( 650, 10 , 250, 185) ;
-    lfoGui.setBounds(175, 190, 165, 95);
-    ampGui.setBounds( 650, 190, 250, 95 );
-    scopeComponent.setBounds( 30, 375, 130, 130);
-    masterGui.setBounds(910, 95, 70, 280 );
-    wheelsGui.setBounds(40, 500, 100, 100);
+
     modulationGui.setBounds(25, 5, 150, 285);
+    oscGui.setBounds(175, 10 , 275 , 95);
     mixerGui.setBounds( 450, 10 , 200 , 95 );
+    filterGui.setBounds( 650, 10 , 250, 185);
+    
+    osc2Gui.setBounds(175, 100, 330, 95);
     glideGui.setBounds ( 510 , 100 , 125, 95 );
-    //    frontGui.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
-    //    frontGui.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
+    masterGui.setBounds(910, 95, 70, 280 );
+    
+    lfoGui.setBounds(175, 190, 165, 95);
+    sequencerGui.setBounds(340, 190, 90 , 95);
+    arpGui.setBounds(425, 190, 75, 95 );
+    modeGui.setBounds( 500, 190, 150, 95 );
+    ampGui.setBounds( 650, 190, 250, 95 );
+    
+    
+    scopeComponent.setBounds( 30, 375, 130, 130);
+    wheelsGui.setBounds(40, 500, 100, 100);
     keyboardComponent.setBounds(170, 375, 810, 225);
     keyboardComponent.setKeyWidth(35);
+    
+  
+    //    frontGui.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
+    //    frontGui.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
+    
     //    scopeComponent.setTopLeftPosition(900, 200);
     //    scopeComponent.setSize( 200, 200);
     

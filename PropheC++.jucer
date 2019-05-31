@@ -5,6 +5,12 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="ZH3u4d" name="PropheC++">
     <GROUP id="{F1DA65C9-5C9F-C4DC-8F81-A75AF0FEAFAA}" name="Source">
+      <FILE id="KyFtQc" name="Sequencer.cpp" compile="1" resource="0" file="Source/Sequencer.cpp"/>
+      <FILE id="tkzWIx" name="Sequencer.h" compile="0" resource="0" file="Source/Sequencer.h"/>
+      <FILE id="mls9bU" name="Arpeggiator.cpp" compile="1" resource="0" file="Source/Arpeggiator.cpp"/>
+      <FILE id="Xuggal" name="Arpeggiator.h" compile="0" resource="0" file="Source/Arpeggiator.h"/>
+      <FILE id="nYwAcw" name="Mode.cpp" compile="1" resource="0" file="Source/Mode.cpp"/>
+      <FILE id="W8XlzW" name="Mode.h" compile="0" resource="0" file="Source/Mode.h"/>
       <FILE id="BJeq4R" name="Wheels.cpp" compile="1" resource="0" file="Source/Wheels.cpp"/>
       <FILE id="S93ngX" name="Wheels.h" compile="0" resource="0" file="Source/Wheels.h"/>
       <FILE id="EeS5Dh" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>

@@ -27,6 +27,16 @@ Glide::Glide(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(&glideModeToggle);
     glideModeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "glideMode", glideModeToggle);
     glideModeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    
+    autoLabel.setText("AUTO", dontSendNotification);
+    autoLabel.setFont (Font (9.0f, Font::bold));
+    addAndMakeVisible(&autoLabel);
+    normalLabel.setText("NORMAL", dontSendNotification);
+    normalLabel.setFont (Font (9.0f, Font::bold));
+    addAndMakeVisible(&normalLabel);
+    
+    
+    
 }
 
 Glide::~Glide()
@@ -53,7 +63,10 @@ void Glide::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
     labeledGlideRateKnob.setBounds(15, 20, 50, 65);
+    
+    autoLabel.setBounds(72, 25, 40, 10);
     glideModeToggle.setBounds(80, 35, 20, 30);
+    normalLabel.setBounds(70, 68, 40, 10);
 }
 
 void Glide::sliderValueChanged(Slider* slider)

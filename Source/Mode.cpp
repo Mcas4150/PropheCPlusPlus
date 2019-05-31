@@ -46,7 +46,7 @@ Mode::Mode(JuceSynthFrameworkAudioProcessor& p)
     
     repeatLabel.setText("REPEAT", dontSendNotification);
     repeatLabel.setFont (Font (8.0f, Font::bold));
-   addAndMakeVisible(&repeatLabel);
+    addAndMakeVisible(&repeatLabel);
     normalLabel2.setText("NORMAL", dontSendNotification);
     normalLabel2.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&normalLabel2);

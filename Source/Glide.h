@@ -24,6 +24,8 @@ private:
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     BasicKnob glideRateKnob; LabeledKnob labeledGlideRateKnob;
     Slider glideModeToggle;
+    Label normalLabel;
+    Label autoLabel;
     
     GroupComponent mainGroup;
     

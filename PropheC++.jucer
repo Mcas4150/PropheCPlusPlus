@@ -9,6 +9,8 @@
       <FILE id="S93ngX" name="Wheels.h" compile="0" resource="0" file="Source/Wheels.h"/>
       <FILE id="EeS5Dh" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
       <FILE id="lmkcWB" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
+      <FILE id="HYlaHV" name="CustomLookAndFeel.h" compile="0" resource="0"
+            file="Source/CustomLookAndFeel.h"/>
       <FILE id="NEuojI" name="SliderLookAndFeel.h" compile="0" resource="0"
             file="Source/SliderLookAndFeel.h"/>
       <FILE id="r1On2x" name="ScopeDataCollector.h" compile="0" resource="0"
@@ -85,6 +87,8 @@
     <FILE id="FFtqy3" name="wood.png" compile="0" resource="1" file="../../../../Pictures/wood.png"/>
     <FILE id="yMyGkv" name="ProLogo1.png" compile="0" resource="1" file="../../../../Desktop/ProLogo1.png"/>
     <FILE id="DLLKtO" name="saw.png" compile="0" resource="1" file="../../../../Desktop/saw.png"/>
+    <FILE id="flLNAb" name="square.png" compile="0" resource="1" file="../../../../Desktop/square.png"/>
+    <FILE id="nEPKCo" name="triangle.png" compile="0" resource="1" file="../../../../Desktop/triangle.png"/>
     <FILE id="GfnKfm" name="plastic.png" compile="0" resource="1" file="../../../../Desktop/plastic.png"/>
     <FILE id="CRQByA" name="dialSwatch2.png" compile="0" resource="1" file="../../../../Desktop/dialSwatch2.png"/>
     <FILE id="OazklN" name="Edge.png" compile="0" resource="1" file="../../../../Desktop/Edge.png"/>

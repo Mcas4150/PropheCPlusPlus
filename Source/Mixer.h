@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "../Common/LabeledKnob.h"
+#include "CustomLookAndFeel.h"
 
 //==============================================================================
 /*
@@ -39,7 +40,7 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBLevelVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> noiseLevelVal;
     
-    
+    GroupLookAndFeel groupLookAndFeel;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     JuceSynthFrameworkAudioProcessor& processor;

@@ -14,11 +14,11 @@
 //==============================================================================
 Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, lfoFilterEnv(1.0f, 5.0f, "")
+, lfoFilterEnv(0.0f, 1.0f, "")
 , labeledLfoFilterEnv("AMOUNT", lfoFilterEnv)
-, oscBModAmtKnob(1.0f, 5.0f, "")
+, oscBModAmtKnob(0.0f, 1.0f, "")
 , labeledOscBModAmtKnob("AMOUNT", oscBModAmtKnob)
-, lfoModAmtKnob(1, 100, "%")
+, lfoModAmtKnob(0.0f, 1.0f, "%")
 , labeledLfoModAmtKnob("AMOUNT", lfoModAmtKnob)
 {
     

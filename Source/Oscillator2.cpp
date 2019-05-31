@@ -92,8 +92,16 @@ void Oscillator2::paint (Graphics& g)
 
     
     juce::Rectangle <float> sawLabel (135, 25, 20, 10);
+    juce::Rectangle <float> triangleLabel (160, 25, 20, 10);
+    juce::Rectangle <float> squareLabel (185, 25, 20, 10);
+    
     Image sawImage = ImageCache::getFromMemory (BinaryData::saw_png, BinaryData::saw_pngSize);
+    Image triangleImage = ImageCache::getFromMemory (BinaryData::triangle_png, BinaryData::triangle_pngSize);
+    Image squareImage = ImageCache::getFromMemory (BinaryData::square_png, BinaryData::square_pngSize);
+    
     g.drawImage(sawImage, sawLabel);
+    g.drawImage(triangleImage, triangleLabel);
+    g.drawImage(squareImage, squareLabel);
 }
 
 void Oscillator2::resized()

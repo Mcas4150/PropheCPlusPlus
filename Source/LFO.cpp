@@ -131,9 +131,17 @@ LFO::~LFO()
 
 void LFO::paint (Graphics& g)
 {
-    juce::Rectangle <float> sawLabel (70, 20, 20, 10);
+    juce::Rectangle <float> sawLabel (70, 25, 20, 10);
+    juce::Rectangle <float> triangleLabel (95, 25, 20, 10);
+    juce::Rectangle <float> squareLabel (120, 25, 20, 10);
+    
     Image sawImage = ImageCache::getFromMemory (BinaryData::saw_png, BinaryData::saw_pngSize);
+    Image triangleImage = ImageCache::getFromMemory (BinaryData::triangle_png, BinaryData::triangle_pngSize);
+    Image squareImage = ImageCache::getFromMemory (BinaryData::square_png, BinaryData::square_pngSize);
+    
     g.drawImage(sawImage, sawLabel);
+    g.drawImage(triangleImage, triangleLabel);
+    g.drawImage(squareImage, squareLabel);
 }
 
 void LFO::resized()
@@ -147,11 +155,11 @@ void LFO::resized()
     auto widgetsArea = bounds.reduced(10);
     labeledLfoRate.setBounds(15, 20, 50, 65);
     widgetsArea.removeFromLeft(10);
-    lfoSawShapeToggle.setBounds(70, 30, 20, 30);
+    lfoSawShapeToggle.setBounds(70, 35, 20, 30);
     widgetsArea.removeFromLeft(5);
-    lfoTriangleShapeToggle.setBounds(95, 30, 20, 30);
+    lfoTriangleShapeToggle.setBounds(95, 35, 20, 30);
     widgetsArea.removeFromLeft(5);
-    lfoSquareShapeToggle.setBounds(120, 30, 20, 30);
+    lfoSquareShapeToggle.setBounds(120, 35, 20, 30);
 }
 
 

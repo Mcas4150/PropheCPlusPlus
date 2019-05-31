@@ -14,104 +14,18 @@ public:
     {
         return dynamic_cast <SynthSound*>(sound) != nullptr;
     }
+
     
-    //    void setPitchBend(int pitchWheelPos)
-    //    {
-    //        if (pitchWheelPos > 8192)
-    //        {
-    //            // shifting up
-    //            pitchBend = float(pitchWheelPos - 8192) / (16383 - 8192);
-    //        }
-    //        else
-    //        {
-    //            // shifting down
-    //            pitchBend = float(8192 - pitchWheelPos) / -8192;    // negative number
-    //        }
-    //    }
-    //
-    //    float pitchBendCents()
-    //    {
-    //        if (pitchBend >= 0.0f)
-    //        {
-    //            // shifting up
-    //            return pitchBend * pitchBendUpSemitones * 100;
-    //        }
-    //        else
-    //        {
-    //            // shifting down
-    //            return pitchBend * pitchBendDownSemitones * 100;
-    //        }
-    //    }
+//    static double noteHz(int midiNoteNumber, double centsOffset)
+//    {
+//        double hertz = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+//        hertz *= std::pow(2.0, centsOffset / 1200);
+//        return hertz;
+//    }
+
+
     
-    static double noteHz(int midiNoteNumber, double centsOffset)
-    {
-        double hertz = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-        hertz *= std::pow(2.0, centsOffset / 1200);
-        return hertz;
-    }
-    
-    //=======================================================
-    
-    void getOscType(float* selection)
-    {
-        theWave = *selection;
-        
-    }
-    
-    void getOsc2Type(float* selection)
-    {
-        
-        theWave2 = *selection;
-    }
-    //=======================================================
-    
-    double getDCOSound(){
-        return osc1.saw(processedFrequency);
-    }
-    
-    double setOscType ()
-    
-    {
-        double sample1, sample2;
-        
-        switch (theWave)
-        {
-            case 0:
-                sample1 = osc1.square(processedFrequency);
-                break;
-            case 1:
-                sample1 = osc1.saw(processedFrequency);
-                break;
-            case 2:
-                sample1 = osc1.triangle(processedFrequency);
-                break;
-            default:
-                sample1 = osc1.sinewave(processedFrequency);
-                break;
-        }
-        
-        switch (theWave2)
-        {
-            case 0:
-                sample2 = osc2.saw(processedFrequency / 2.0);
-                break;
-            case 1:
-                sample2 = osc2.square(processedFrequency / 2.0);
-                break;
-            case 2:
-                sample2 = osc2.triangle(processedFrequency / 2.0);
-                break;
-            default:
-                sample2 = osc2.sinewave(processedFrequency / 2.0);
-                break;
-        }
-        
-        return sample1 + osc2blend * sample2;
-    }
-    
-    
-    
-//    OSCILLATOR A
+//  ======================  OSCILLATOR A======================
     
     
     void setOsc1Freq(float* setting)
@@ -127,10 +41,35 @@ public:
     }
     
     
+    void getOscType(float* selection)
+    {
+        theWave = *selection;
+        double sample1;
+        switch (theWave)
+        {
+            case 0:
+                sample1 = osc1.square(processedFrequency);
+                break;
+            case 1:
+                sample1 = osc1.saw(processedFrequency);
+                break;
+            case 2:
+                sample1 = osc1.triangle(processedFrequency);
+                break;
+            default:
+                sample1 = osc1.sinewave(processedFrequency);
+                break;
+        }
+    
+    }
+    
+   
     
     
     
-//    OSCILLATOR B
+
+    
+//============OSCILLATOR B======================
     
     
     
@@ -148,34 +87,175 @@ public:
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //
-    //=======================================================
-    
-    void getEnvelopeParams(float* attack, float* decay, float* sustain, float* release)
+    void getOsc2Type(float* selection)
     {
-        env1.setAttack(*attack);
-        env1.setDecay(*decay);
-        env1.setSustain(*sustain);
-        env1.setRelease(*release);
+        
+        theWave2 = *selection;
+        double sample2;
+        switch (theWave2)
+        {
+            case 0:
+                sample2 = osc2.saw(processedFrequency / 2.0);
+                break;
+            case 1:
+                sample2 = osc2.square(processedFrequency / 2.0);
+                break;
+            case 2:
+                sample2 = osc2.triangle(processedFrequency / 2.0);
+                break;
+            default:
+                sample2 = osc2.sinewave(processedFrequency / 2.0);
+                break;
+        }
     }
     
-    //=======================================================
+
     
-    double setEnvelope()
+    
+    //=========MIXER========================
+    
+    
+    
+    void setNoiseLevel(float* setting)
     {
-        return env1.adsr(setOscType(), env1.trigger);
+        noiseLevelSetting = *setting;
     }
     
-    //=======================================================
+    void setOsc1Level(float* setting)
+    {
+        osc1OctSetting = *setting;
+    }
+    
+    void setOsc2Level(float* setting)
+    {
+        osc2OctSetting = *setting;
+    }
+    
+    
+    double getMixerSound()
+    {
+        
+        return
+
+        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting + osc1OctSetting))) + osc2.saw(processedFrequency* (std::pow(2, osc2FreqSetting + osc2OctSetting))) / 2;
+        //        * osc1LevelSetting;
+        
+        //        +  osc2.saw(processedFrequency)   * osc2LevelSetting;
+        //        + osc3.noise() * noiseLevelSetting ) /   ( osc1LevelSetting + osc2LevelSetting + noiseLevelSetting  )  ;
+        //        getOsc2Sound
+        
+        
+    }
+    //=========FILTER==========================
+    
+    void setFilterType (float* setting)
+    {
+        filterChoice = *setting;
+    }
+    
+    void setFilterCutoff (float* setting)
+    {
+        cutoffSetting = *setting;
+    }
+    
+    void setFilterRes (float* setting)
+    {
+        resonance = *setting;
+    }
+    
+    
+    void setEnvAmt (float* setting)
+    {
+        envAmt = *setting;
+    }
+    
+    void setKeyAmt (float* setting)
+    {
+        //        keyAmt = *setting;
+    }
+    
+    void setFilterEnvelopeParams(float* attack, float* decay, float* sustain, float* release)
+    {
+        filterEnvelope.setAttack(*attack);
+        filterEnvelope.setDecay(*decay);
+        filterEnvelope.setSustain(*sustain);
+        filterEnvelope.setRelease(*release);
+    }
+    
+    double calculateFilterCutoff(double currentVolume)
+    {
+        
+        double cutoffValue = 0;
+        cutoffValue = currentVolume*cutoffSetting;
+        //                cutoffValue = currentVolume*filterEnvelope;
+        cutoffValue += getLfoValue()*lfoFilter;
+        if(cutoffValue < 30.0f)
+        {
+            cutoffValue = 30.0f;
+        }
+        else if (cutoffValue > 4000.0f)
+        {
+            cutoffValue = 4000.0f;
+        }
+        return cutoffValue;
+        
+    }
+    
+    //    void getFilterParams (float* filterType, float* filterCutoff, float* filterRes, float* lfoFilterEnv)
+    //    {
+    //        filterChoice = *filterType;
+    //        cutoff = *filterCutoff;
+    //        resonance = *filterRes;
+    //        lfoFilter = *lfoFilterEnv;
+    //    }
+    
+        //            stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
+    
+    
+    
+//=============    PITCH  =============
+    
+    
+    void setPitchBend (float* setting){
+        pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
+        pitchBendSetting =  pitchBendPosition;
+    }
+    
+    
+    void pitchWheelMoved (int newPitchWheelValue) override
+    {
+        midiPitchWheel = (newPitchWheelValue-8191.5f)/8191.5f;
+    }
+    
+    
+    
+    
+    
+    //=========GLIDE========================
+    
+    
+    void setGlideRate(float* setting)
+    {
+        glideRateSetting = *setting;
+    }
+    
+    
+    void setGlideMode(float* setting)
+    {
+        glideModeSetting = *setting == -1.0f ? false : true;
+    }
+    
+    
+    
+
+    
+
+    
+    //=========LFO==========================
+    
+    
+    
+    
     
     void setLfoRateSetting(float* setting)
     {
@@ -221,168 +301,22 @@ public:
     }
     
     
-    void getWillsParams(float* mGain, float* blend)
-    {
-        masterGain = *mGain;
-        osc2blend = *blend;
-        //        pitchBendUpSemitones = *pbup;
-        //        pitchBendDownSemitones = *pbdn;
-    }
+
     
-    //    void getFilterParams (float* filterType, float* filterCutoff, float* filterRes, float* lfoFilterEnv)
-    //    {
-    //        filterChoice = *filterType;
-    //        cutoff = *filterCutoff;
-    //        resonance = *filterRes;
-    //        lfoFilter = *lfoFilterEnv;
-    //    }
+        //=========MODULATION========================
     
-    void setFilterType (float* setting)
-    {
-        filterChoice = *setting;
-    }
     
-    void setFilterCutoff (float* setting)
-    {
-        cutoffSetting = *setting;
-    }
-    
-    void setFilterRes (float* setting)
-    {
-        resonance = *setting;
-    }
     
     void setLfoFilterEnv (float* setting)
     {
         lfoFilter = *setting;
     }
     
-    void setEnvAmt (float* setting)
+    
+    void setLfoModAmt(float* setting)
     {
-        envAmt = *setting;
+        lfoModAmtSetting = *setting ;
     }
-    
-    void setKeyAmt (float* setting)
-    {
-        //        keyAmt = *setting;
-    }
-    
-    void setFilterEnvelopeParams(float* attack, float* decay, float* sustain, float* release)
-    {
-        filterEnvelope.setAttack(*attack);
-        filterEnvelope.setDecay(*decay);
-        filterEnvelope.setSustain(*sustain);
-        filterEnvelope.setRelease(*release);
-    }
-    
-    void setMasterTune (float* setting)
-    {
-        masterTuneSetting = *setting;
-    }
-    
-    void setPitchBend (float* setting){
-        pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
-        pitchBendSetting =  pitchBendPosition;
-    }
-    
-    void setNoiseLevel(float* setting)
-    {
-        noiseLevelSetting = *setting;
-    }
-    
-    void setOsc1Level(float* setting)
-    {
-        osc1OctSetting = *setting;
-    }
-    
-    void setOsc2Level(float* setting)
-    {
-        osc2OctSetting = *setting;
-    }
-    
-    
-    double getMixerSound()
-    {
-        
-        return
-        //        getOsc1Sound()
-        //        (
-        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting + osc1OctSetting))) + osc2.saw(processedFrequency* (std::pow(2, osc2FreqSetting + osc2OctSetting))) / 2;
-        //        * osc1LevelSetting;
-        
-        //        +  osc2.saw(processedFrequency)   * osc2LevelSetting;
-        //        + osc3.noise() * noiseLevelSetting ) /   ( osc1LevelSetting + osc2LevelSetting + noiseLevelSetting  )  ;
-        //        getOsc2Sound
-        
-        
-    }
-    
-    
-    void setGlideRate(float* setting)
-    {
-        glideRateSetting = *setting;
-    }
-    
-    
-    void setGlideMode(float* setting)
-    {
-        glideModeSetting = *setting == -1.0f ? false : true;
-    }
-    
-    double calculateFilterCutoff(double currentVolume)
-    {
-        
-        //        int menuChoice = *tree.getRawParameterValue("filterType");
-        //        int freq = *tree.getRawParameterValue("filterCutoff");
-        //        int res = *tree.getRawParameterValue("filterRes");
-        //        //    int lfoPhase = *tree.getRawParameterValue("lfoRate");
-        //        int lfoPhase = *tree.getRawParameterValue("lfoRate") * lastSampleRate;
-        //        //
-        //        float lfoOut = sin(2*M_PI * lfoPhase);
-        //        //    float lfoOut = sin(2*M_PI * 20);
-        //        //
-        //        float lfoOutMapped = jmap(lfoOut, -1.f, 1.f, 0.5f, 1.0f);
-        //        float frequency = freq * lfoOutMapped;
-        //
-        //        if (lfoPhase > 1){
-        //            lfoPhase -= 1;
-        //        }
-        double cutoffValue = 0;
-        cutoffValue = currentVolume*cutoffSetting;
-//                cutoffValue = currentVolume*filterEnvelope;
-        cutoffValue += getLfoValue()*lfoFilter;
-        if(cutoffValue < 30.0f)
-        {
-            cutoffValue = 30.0f;
-        }
-        else if (cutoffValue > 4000.0f)
-        {
-            cutoffValue = 4000.0f;
-        }
-        return cutoffValue;
-        
-        
-        //
-        
-    }
-    
-    //    if (menuChoice == 0)
-    //        {
-    //            stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
-    //        }
-    //
-    //        if (menuChoice == 1)
-    //        {
-    //            stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::highPass;
-    //        }
-    //
-    //        if (menuChoice == 2)
-    //        {
-    //            stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
-    //
-    //        }
-    //
-    //        stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
     
     
     double getLfoValue()
@@ -390,16 +324,44 @@ public:
         double lfoValue = lfoRateSetting != 0 ? lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger)) : 0;
         return lfoValue;
     }
+ 
     
     
-    void setLfoModAmt(float* setting)
+    
+    //  ========AMPLIFIER====================================
+    
+    void getEnvelopeParams(float* attack, float* decay, float* sustain, float* release)
     {
-        lfoModAmtSetting = *setting;
-        
+        env1.setAttack(*attack);
+        env1.setDecay(*decay);
+        env1.setSustain(*sustain);
+        env1.setRelease(*release);
     }
     
     
-    //=======================================================
+    // ////////////   MASTER
+    
+    
+    void setMasterTune (float* setting)
+    {
+        masterTuneSetting = *setting;
+    }
+    
+    
+    void setMasterGain(float* mGain)
+    {
+        masterGain = *mGain;
+
+
+    }
+    
+    
+
+    
+
+    
+    //==========PLAYING============================
+    
     
     void startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition) override
     {
@@ -417,8 +379,7 @@ public:
             currentFrequency = frequency;
         }
     }
-    
-    //=======================================================
+
     
     void stopNote (float velocity, bool allowTailOff) override
     {
@@ -434,21 +395,20 @@ public:
             clearCurrentNote();
     }
     
-    //=======================================================
-    
-    void pitchWheelMoved (int newPitchWheelValue) override
-    {
-        midiPitchWheel = (newPitchWheelValue-8191.5f)/8191.5f;
-    }
-    
-    //=======================================================
+
     
     void controllerMoved (int controllerNumber, int newControllerValue) override
     {
         
     }
     
-    //=======================================================
+    
+    
+    
+    
+    
+    //=================PROCESSING======================
+    
     
     void renderNextBlock (AudioBuffer <float> &outputBuffer, int startSample, int numSamples) override
     {

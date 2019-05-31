@@ -24,15 +24,39 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
 #endif
                   )
 , tree(*this, nullptr, "PARAMETERS",
-       {   std::make_unique<AudioParameterFloat>("attack", "Attack", NormalisableRange<float>(1.5f, 7400.0f), 0.1f),
-           std::make_unique<AudioParameterFloat>("decay", "Decay", NormalisableRange<float>(0.5f, 11000.0f), 1.0f),
-           std::make_unique<AudioParameterFloat>("sustain", "Sustain", NormalisableRange<float>(0.0f, 1.0f), 0.8f),
-           std::make_unique<AudioParameterFloat>("release", "Release", NormalisableRange<float>(0.5f, 11000.0f), 0.1f),
+       {
+           
+//           OSCILLATOR A
+           
            std::make_unique<AudioParameterFloat>("wavetype", "WaveType", NormalisableRange<float>(0.0f, 2.0f), 0.0f),
+        std::make_unique<AudioParameterFloat>("osc1Freq", "Osc1Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
+          std::make_unique<AudioParameterFloat>("osc1Oct", "Osc1Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
+           
+//           OSCILLATOR B
+           
            std::make_unique<AudioParameterFloat>("wavetype2", "WaveType2", NormalisableRange<float>(0.0f, 2.0f), 0.0f),
+           
+           std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
+
+           std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
+           
+
+           
+//           MIXER
+           
+           std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
+           std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
+           std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
+           
+           
+           std::make_unique<AudioParameterFloat>("blend", "Osc2Blend", NormalisableRange<float>(0.0f, 1.0f), 0.6f),
+           
+           
+//          FILTER
+           
            std::make_unique<AudioParameterFloat>("filterType", "FilterType", NormalisableRange<float>(0.0f, 2.0f), 0.0f),
            std::make_unique<AudioParameterFloat>("filterCutoff", "FilterCutoff", NormalisableRange<float>(8.3f, 8500.0f), 5000.0f),
-           std::make_unique<AudioParameterFloat>("lfoFilterEnv", "LfoFilterEnv", NormalisableRange<float>(30.0f, 4000.0f), 30.0f),
+
            std::make_unique<AudioParameterFloat>("filterRes", "FilterRes", NormalisableRange<float>(1.0f, 10.0f), 1.0f),
            std::make_unique<AudioParameterFloat>("envAmt", "EnvAmt", NormalisableRange<float>(0.0f, 1.0f), 1.0f),
            std::make_unique<AudioParameterFloat>("keyAmt", "keyAmt", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
@@ -40,28 +64,46 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            std::make_unique<AudioParameterFloat>("filterDecay", "FilterDecay", NormalisableRange<float>(0.5f, 11000.0f), 1.0f),
            std::make_unique<AudioParameterFloat>("filterSustain", "FilterSustain", NormalisableRange<float>(0.0f, 1.0f), 0.8f),
            std::make_unique<AudioParameterFloat>("filterRelease", "FilterRelease", NormalisableRange<float>(0.5f, 11000.0f), 0.1f),
-           std::make_unique<AudioParameterFloat>("blend", "Osc2Blend", NormalisableRange<float>(0.0f, 1.0f), 0.6f),
-           std::make_unique<AudioParameterFloat>("mastergain", "MasterGain", NormalisableRange<float>(0.0f, 1.0f), 0.3f),
-           std::make_unique<AudioParameterFloat>("masterTune", "MasterTune", NormalisableRange<float>(-1.0f, 1.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("lfoRate", "LfoRate", NormalisableRange<float>(0.0f, 30.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("lfoDelay", "LfoDelay", NormalisableRange<float>(30.0f, 50000.0f), 30.0f),
+           
+           
+           //           PITCH
+           
            std::make_unique<AudioParameterFloat>("pitchBend", "PitchBend", NormalisableRange<float>(-1.0f, 1.0f), 0.0f),
            
-           std::make_unique<AudioParameterFloat>("osc1Freq", "Osc1Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("osc1Oct", "Osc1Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
+           
+//           GLIDE
            std::make_unique<AudioParameterFloat>("glideRate", "GlideRate", NormalisableRange<float>(0.0f, 0.99f), 0.0f),
            std::make_unique<AudioParameterFloat>("glideMode", "GlideMode", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            
            
-           std::make_unique<AudioParameterFloat>("lfoModAmt", "LfoModAmt", NormalisableRange<float>(0.0f, 1.00f), 0),
-//           std::make_unique<AudioParameterFloat>("glideMode", "GlideMode", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
+           
+           
+//           LFO
+           
+           std::make_unique<AudioParameterFloat>("lfoRate", "LfoRate", NormalisableRange<float>(0.0f, 30.0f), 0.0f),
+           std::make_unique<AudioParameterFloat>("lfoDelay", "LfoDelay", NormalisableRange<float>(30.0f, 50000.0f), 30.0f),
+           
+           
 
            
+//        MODULATION
+           
+           
+            std::make_unique<AudioParameterFloat>("lfoFilterEnv", "LfoFilterEnv", NormalisableRange<float>(30.0f, 4000.0f), 30.0f),
+           std::make_unique<AudioParameterFloat>("lfoModAmt", "LfoModAmt", NormalisableRange<float>(0.0f, 1.00f), 0),
+           
+           //          AMPLIFIER
+           
+           std::make_unique<AudioParameterFloat>("attack", "Attack", NormalisableRange<float>(1.5f, 7400.0f), 0.1f),
+           std::make_unique<AudioParameterFloat>("decay", "Decay", NormalisableRange<float>(0.5f, 11000.0f), 1.0f),
+           std::make_unique<AudioParameterFloat>("sustain", "Sustain", NormalisableRange<float>(0.0f, 1.0f), 0.8f),
+           std::make_unique<AudioParameterFloat>("release", "Release", NormalisableRange<float>(0.5f, 11000.0f), 0.1f),
+          
+
+//           MASTER
+
+           std::make_unique<AudioParameterFloat>("mastergain", "MasterGain", NormalisableRange<float>(0.0f, 1.0f), 0.3f),
+           std::make_unique<AudioParameterFloat>("masterTune", "MasterTune", NormalisableRange<float>(-1.0f, 1.0f), 0.0f)
            
        }),
 lfoPhase(0.0f)
@@ -208,84 +250,104 @@ bool JuceSynthFrameworkAudioProcessor::isBusesLayoutSupported (const BusesLayout
 //    if (lfoPhase > 1){
 //        lfoPhase -= 1;
 //    }
-//
-//    if (menuChoice == 0)
-//    {
-//        stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
-////        stateVariableFilter.state->setCutOffFrequency(lastSampleRate, frequency , res);
-//    }
-//
-//    if (menuChoice == 1)
-//    {
-//        stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::highPass;
-////        stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
-//    }
-//
-//    if (menuChoice == 2)
-//    {
-//        stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
-////        stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
-//    }
-//}
+
 
 void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
     //const int totalNumInputChannels  = getTotalNumInputChannels();
     //const int totalNumOutputChannels = getTotalNumOutputChannels();
-    
-    //    float ph = lfoPhase;
-    //    float channel0EndPhase = lfoPhase;
-    //    float* lfoOut = sin(2*M_PI * 20);
-    //
+
     //get the voice and get the params needed to make the voice
     for (int i = 0; i < mySynth.getNumVoices(); i++)
     {
         //if myVoice sucessfully casts as a SynthVoice*, get the voice and set the params
         if ((myVoice = dynamic_cast<SynthVoice*>(mySynth.getVoice(i))))
         {
-            myVoice->getEnvelopeParams(tree.getRawParameterValue("attack"),
-                                       tree.getRawParameterValue("decay"),
-                                       tree.getRawParameterValue("sustain"),
-                                       tree.getRawParameterValue("release"));
+  
             
+//            OSCILLATOR A
+            
+            myVoice->setOsc1Freq(tree.getRawParameterValue("osc1Freq"));
             myVoice->getOscType(tree.getRawParameterValue("wavetype"));
+            
+            
+//            OSCILLATOR B
+            
+            myVoice->setOsc2Freq(tree.getRawParameterValue("osc2Freq"));
             myVoice->getOsc2Type(tree.getRawParameterValue("wavetype2"));
             
+            
+//            MIXER
+            
+            myVoice->setNoiseLevel(tree.getRawParameterValue("noiseLevel"));
+            myVoice->setOsc1Level(tree.getRawParameterValue("osc1Level"));
+            myVoice->setOsc2Level(tree.getRawParameterValue("osc2Level"));
+            
+            
+            
+//            Filter
+            
             myVoice->setFilterType(tree.getRawParameterValue("filterType"));
+            
             myVoice->setFilterCutoff(tree.getRawParameterValue("filterCutoff"));
             myVoice->setFilterRes(tree.getRawParameterValue("filterRes"));
-            myVoice->setLfoFilterEnv(tree.getRawParameterValue("lfoFilterEnv"));
             myVoice->setEnvAmt(tree.getRawParameterValue("envAmt"));
             myVoice->setKeyAmt(tree.getRawParameterValue("keyAMt"));
-            
             myVoice->setFilterEnvelopeParams(tree.getRawParameterValue("filterAttack"),
                                              tree.getRawParameterValue("filterDecay"),
                                              tree.getRawParameterValue("filterSustain"),
+             
                                              tree.getRawParameterValue("filterRelease"));
+            //PITCH
+            
+            
+            myVoice->setPitchBend(tree.getRawParameterValue("pitchBend"));
+            
+            
+//            GLIDE
+            
+            myVoice->setGlideRate(tree.getRawParameterValue("glideRate"));
+            myVoice->setGlideMode(tree.getRawParameterValue("glideMode"));
+            
+            
+        
+            
+//          LFO
+            
             
             myVoice->setLfoType(tree.getRawParameterValue("lfoMenu"));
             myVoice->setLfoRateSetting(tree.getRawParameterValue("lfoRate"));
             myVoice->setLfoDelaySetting(tree.getRawParameterValue("lfoDelay"));
             
-            myVoice->getWillsParams(tree.getRawParameterValue("mastergain"),
-                                    tree.getRawParameterValue("blend"));
+          
             
-            myVoice->setMasterTune(tree.getRawParameterValue("masterTune"));
-            myVoice->setPitchBend(tree.getRawParameterValue("pitchBend"));
+//            MODULATION
             
-            myVoice->setNoiseLevel(tree.getRawParameterValue("noiseLevel"));
-            myVoice->setOsc1Level(tree.getRawParameterValue("osc1Level"));
-            myVoice->setOsc2Level(tree.getRawParameterValue("osc2Level"));
-            myVoice->setGlideRate(tree.getRawParameterValue("glideRate"));
-            myVoice->setGlideMode(tree.getRawParameterValue("glideMode"));
-            myVoice->setOsc1Freq(tree.getRawParameterValue("osc1Freq"));
-            myVoice->setOsc2Freq(tree.getRawParameterValue("osc2Freq"));
             
             myVoice->setLfoModAmt(tree.getRawParameterValue("lfoModAmt"));
+              myVoice->setLfoFilterEnv(tree.getRawParameterValue("lfoFilterEnv"));
+            
+            
+//           AMPLIFIER
+            
+            myVoice->getEnvelopeParams(tree.getRawParameterValue("attack"),
+                                       tree.getRawParameterValue("decay"),
+                                       tree.getRawParameterValue("sustain"),
+                                       tree.getRawParameterValue("release"));
+            
+
+
+            
+        
+            
+//            MASTER
+            myVoice->setMasterTune(tree.getRawParameterValue("masterTune"));
+            myVoice->setMasterGain(tree.getRawParameterValue("mastergain"));
             
             
             
+
         }
     }
     

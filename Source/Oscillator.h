@@ -15,6 +15,7 @@
 #include "../Common/LabeledKnob.h"
 #include "SliderLookAndFeel.h"
 
+
 //==============================================================================
 /*
  */
@@ -46,6 +47,7 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAFreqVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAOctVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAPulseWidthVal;
+    
     
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     // This reference is provided as a quick way for your editor to

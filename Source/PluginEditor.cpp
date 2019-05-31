@@ -99,9 +99,9 @@ void JuceSynthFrameworkAudioProcessorEditor::resized()
     //    scopeComponent.setTopLeftPosition(900, 200);
     //    scopeComponent.setSize( 200, 200);
     
-    //    filterGui.setLookAndFeel(&sliderLookAndFeel);
-    //    ampGui.setLookAndFeel(&sliderLookAndFeel);
-    //    lfoGui.setLookAndFeel(&sliderLookAndFeel);
+//        filterGui.setLookAndFeel(&groupLookAndFeel);
+//        ampGui.setLookAndFeel(&groupLookAndFeel);
+//        lfoGui.setLookAndFeel(&groupLookAndFeel);
     
 }
 

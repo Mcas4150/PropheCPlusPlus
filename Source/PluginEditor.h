@@ -25,6 +25,7 @@
 #include "Wheels.h"
 #include "SliderLookAndFeel.h"
 #include "../Common/LabeledKnob.h"
+//#include "CustomLookAndFeel.h"
 
 
 //==============================================================================
@@ -65,6 +66,7 @@ private:
     Modulation modulationGui;
     Master masterGui;
     SliderLookAndFeel sliderLookAndFeel;
+//    GroupLookAndFeel groupLookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceSynthFrameworkAudioProcessorEditor)
 };

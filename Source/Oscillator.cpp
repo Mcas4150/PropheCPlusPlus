@@ -75,6 +75,7 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     oscASawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     oscASquareShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     oscASyncToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    
 }
 
 Oscillator::~Oscillator()
@@ -98,8 +99,13 @@ void Oscillator::paint (Graphics& g)
     //    g.drawRoundedRectangle(area, 20.0f, 2.0f);
     
     juce::Rectangle <float> sawLabel (135, 25, 20, 10);
+    juce::Rectangle <float> squareLabel (160, 25, 20, 10);
+    
     Image sawImage = ImageCache::getFromMemory (BinaryData::saw_png, BinaryData::saw_pngSize);
+    Image squareImage = ImageCache::getFromMemory (BinaryData::square_png, BinaryData::square_pngSize);
+    
     g.drawImage(sawImage, sawLabel);
+    g.drawImage(squareImage, squareLabel);
 }
 
 void Oscillator::resized()

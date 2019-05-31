@@ -28,19 +28,19 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            
 //           OSCILLATOR A
            
-           std::make_unique<AudioParameterFloat>("wavetype", "WaveType", NormalisableRange<float>(0.0f, 2.0f), 0.0f),
+         
         std::make_unique<AudioParameterFloat>("osc1Freq", "Osc1Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
           std::make_unique<AudioParameterFloat>("osc1Oct", "Osc1Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
+         std::make_unique<AudioParameterFloat>("osc1SawMode", "Osc1SawMode", NormalisableRange<float>(0, 1), 1),
+             std::make_unique<AudioParameterFloat>("osc1SquareMode", "Osc1SquareMode", NormalisableRange<float>(0, 1), 0),
+           
            
 //           OSCILLATOR B
            
            std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", NormalisableRange<float>(-2.0f, 2.0f), 0.0f),
-           
            std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f),
-          
-           
-           std::make_unique<AudioParameterFloat>("wavetype2", "WaveType2", NormalisableRange<float>(0.0f, 2.0f), 0.0f),
-           
+           std::make_unique<AudioParameterFloat>("osc2SawMode", "Osc2SawMode", NormalisableRange<float>(0, 1), 1),
+           std::make_unique<AudioParameterFloat>("osc2SquareMode", "Osc2SquareMode", NormalisableRange<float>(0, 1), 0),
 
         
            
@@ -51,13 +51,9 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            
            
-           std::make_unique<AudioParameterFloat>("blend", "Osc2Blend", NormalisableRange<float>(0.0f, 1.0f), 0.6f),
-           
            
 //          FILTER
         
-           std::make_unique<AudioParameterFloat>("filterType", "FilterType", NormalisableRange<float>(0.0f, 2.0f), 0.0f),
-           
            std::make_unique<AudioParameterFloat>("filterCutoff", "FilterCutoff", NormalisableRange<float>(8.3f, 8500.0f), 5000.0f),
            std::make_unique<AudioParameterFloat>("filterRes", "FilterRes", NormalisableRange<float>(1.0f, 10.0f), 1.0f),
            std::make_unique<AudioParameterFloat>("envAmt", "EnvAmt", NormalisableRange<float>(0.0f, 1.0f), 1.0f),
@@ -246,15 +242,15 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             
             myVoice->setOsc1Freq(tree.getRawParameterValue("osc1Freq"));
             myVoice->setOsc1Oct(tree.getRawParameterValue("osc1Oct"));
-            myVoice->getOscType(tree.getRawParameterValue("wavetype"));
-            
+            myVoice->setOsc1SawMode(tree.getRawParameterValue("osc1SawMode"));
+            myVoice->setOsc1SquareMode(tree.getRawParameterValue("osc1SquareMode"));
             
 //            OSCILLATOR B
             
             myVoice->setOsc2Freq(tree.getRawParameterValue("osc2Freq"));
             myVoice->setOsc2Oct(tree.getRawParameterValue("osc2Oct"));
-            myVoice->getOsc2Type(tree.getRawParameterValue("wavetype2"));
-            
+            myVoice->setOsc2SawMode(tree.getRawParameterValue("osc2SawMode"));
+            myVoice->setOsc2SquareMode(tree.getRawParameterValue("osc2SquareMode"));
             
 //            MIXER
             
@@ -266,7 +262,6 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             
 //            Filter
             
-            myVoice->setFilterType(tree.getRawParameterValue("filterType"));
             
             myVoice->setFilterCutoff(tree.getRawParameterValue("filterCutoff"));
             myVoice->setFilterRes(tree.getRawParameterValue("filterRes"));

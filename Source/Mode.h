@@ -35,6 +35,14 @@ private:
     Slider repeatModeToggle;
     Slider droneModeToggle;
     
+    Label offLabel;
+    Label droneLabel;
+    Label repeatLabel;
+    Label normalLabel;
+    Label normalLabel2;
+    Label retrigLabel;
+
+    
     GroupComponent mainGroup;
     
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> retrigModeToggleVal;

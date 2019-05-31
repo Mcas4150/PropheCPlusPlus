@@ -40,6 +40,8 @@ public:
         osc1OctSetting = *setting;
     }
     
+//    void setOsc1
+    
     
     void getOscType(float* selection)
     {
@@ -137,7 +139,9 @@ public:
         
         return
 
-        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting + osc1OctSetting))) + osc2.saw(processedFrequency* (std::pow(2, osc2FreqSetting + osc2OctSetting))) / 2;
+        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   )
+        
+        + osc2.saw(processedFrequency* (std::pow(2, osc2FreqSetting )) * (std::pow(2, osc2OctSetting))  ) / 2;
         //        * osc1LevelSetting;
         
         //        +  osc2.saw(processedFrequency)   * osc2LevelSetting;
@@ -274,15 +278,26 @@ public:
     }
     
     
-    
+    void processGlide()
+    {
+        if(glideModeSetting && currentFrequency < frequency){
+            currentFrequency += .1 * (1-glideRateSetting);
+            currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
+        }
+        else if(glideModeSetting && currentFrequency > frequency){
+            currentFrequency -= .1 * (1-glideRateSetting);
+            currentFrequency = currentFrequency < frequency ? frequency : currentFrequency;
+        }
+        else {
+            currentFrequency = frequency;
+        }
+        
+    }
 
     
 
     
     //=========LFO==========================
-    
-    
-    
     
     
     void setLfoRateSetting(float* setting)
@@ -329,6 +344,12 @@ public:
     }
     
     
+    double getLfoValue()
+    {
+        double lfoValue = lfoRateSetting != 0 ? lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger)) : 0;
+        return lfoValue;
+    }
+    
 
     
         //=========MODULATION========================
@@ -347,12 +368,7 @@ public:
     }
     
     
-    double getLfoValue()
-    {
-        double lfoValue = lfoRateSetting != 0 ? lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger)) : 0;
-        return lfoValue;
-    }
- 
+
     
     
 
@@ -440,33 +456,19 @@ public:
         {
             
             
-            
             double mixerOutput = getMixerSound();
             double ampEnvOutput = getAmpEnvelope();
             
 
             auto amplifierOutput = ampEnvOutput * mixerOutput ;
             
-        
-            if(glideModeSetting && currentFrequency < frequency){
-                currentFrequency += .1 * (1-glideRateSetting);
-                currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
-            }
-            else if(glideModeSetting && currentFrequency > frequency){
-                currentFrequency -= .1 * (1-glideRateSetting);
-                currentFrequency = currentFrequency < frequency ? frequency : currentFrequency;
-            }
-            else {
-                currentFrequency = frequency;
-            }
-            
+            processGlide();
             
             auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
             //            processedFrequency = freq + (freq * getLfoValue());
            
             processedFrequency = freq;
             
-        
 
             double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff(), resonance);
     
@@ -490,50 +492,67 @@ public:
     //=======================================================
 private:
     double level;
-    double frequency;
-    double currentFrequency;
-    double processedFrequency;
-    double lfoRateSetting;
-    double lfoDelaySetting;
-    int lfoType;
+
+
     //    double Setting;
-    int theWave, theWave2;
     
-    float masterGain;
+    
+    int theWave, theWave2;
+    float osc1FreqSetting;
+    float osc2FreqSetting;
+    float osc1OctSetting;
+    float osc2OctSetting;
     float osc2blend;
     
     int noteNumber;
+    
+    
     //    float pitchBend = 0.0f;
     float pitchBendUpSemitones = 2.0f;
     float pitchBendDownSemitones = 2.0f;
     
+    
+    
+    maxiFilter filter1;
+    maxiEnv filterEnvelope;
     int filterChoice;
     float cutoffSetting;
     float lfoFilter;
     float resonance;
     float keyAmt;
     float envAmt;
+    double frequency;
+    double currentFrequency;
+    double processedFrequency;
+    
+    
+    double lfoRateSetting;
+    double lfoDelaySetting;
+    int lfoType;
+    
+    
+    
     float modAmtLfoSetting;
-    float osc1FreqSetting;
-    float osc2FreqSetting;
-    float osc1OctSetting;
-    float osc2OctSetting;
-    float masterTuneSetting;
-    float pitchBendSetting;
-    double pitchBendPosition;
-    double midiPitchWheel;
+    
     double noiseLevelSetting;
     double osc1LevelSetting;
     double osc2LevelSetting;
-    double glideRateSetting;
     
+    float pitchBendSetting;
+    double pitchBendPosition;
+    double midiPitchWheel;
+    
+    double glideRateSetting;
     Boolean glideModeSetting;
     
+    float masterTuneSetting;
+    float masterGain;
+    
+
     maxiOsc osc1, osc2, osc3, lfo;
     maxiEnv ampEnvelope;
-    maxiEnv filterEnvelope;
     maxiEnv lfoEnv;
-    maxiFilter filter1;
+
     
     enum
     {

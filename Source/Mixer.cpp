@@ -16,8 +16,8 @@ Mixer::Mixer(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
 , oscALevel(0.0f, 1.0f, "")
 , labeledOscALevelKnob("OSC A", oscALevel)
-, oscBLevel(0.0f, 1.0f, "")
-, labeledOscBLevelKnob("OSC B", oscBLevel)
+, osc2Level(0.0f, 1.0f, "")
+, labeledOsc2LevelKnob("OSC B", osc2Level)
 , noiseLevel(0.0f, 1.0f, "")
 , labeledNoiseLevelKnob("NOISE", noiseLevel)
 {
@@ -32,10 +32,10 @@ Mixer::Mixer(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(labeledOscALevelKnob);
     oscALevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscALevel", oscALevel);
     
-    oscBLevel.setRange(0.0f, 1.0f);
-    oscBLevel.setValue(1.0f);
-    addAndMakeVisible(labeledOscBLevelKnob);
-    oscBLevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBLevel", oscBLevel);
+    osc2Level.setRange(0.0f, 1.0f);
+    osc2Level.setValue(1.0f);
+    addAndMakeVisible(labeledOsc2LevelKnob);
+    osc2LevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2Level", osc2Level);
     
     noiseLevel.setRange(0.0, 1.0f);
     noiseLevel.setValue(1.0f);
@@ -86,7 +86,7 @@ void Mixer::resized()
     int width = (widgetsArea.getWidth() - (7 - 1) * 7.5) / 3;
     labeledOscALevelKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(20);
-    labeledOscBLevelKnob.setBounds(widgetsArea.removeFromLeft(width));
+    labeledOsc2LevelKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(20);
     labeledNoiseLevelKnob.setBounds(widgetsArea.removeFromLeft(width));
     

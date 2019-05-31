@@ -16,8 +16,8 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
 , modAmtFilterEnvKnob(0.0f, 1.0f, "")
 , labeledModAmtFilterEnvKnob("AMOUNT", modAmtFilterEnvKnob)
-, oscBModAmtKnob(0.0f, 1.0f, "")
-, labeledOscBModAmtKnob("AMOUNT", oscBModAmtKnob)
+, osc2ModAmtKnob(0.0f, 1.0f, "")
+, labeledOsc2ModAmtKnob("AMOUNT", osc2ModAmtKnob)
 , modAmtLfoKnob(0.0f, 1.0f, "%")
 , labeledModAmtLfoKnob("AMOUNT", modAmtLfoKnob)
 {
@@ -35,10 +35,10 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(labeledModAmtFilterEnvKnob);
     lfoFilterVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "", modAmtFilterEnvKnob);
     
-    oscBModAmtKnob.setRange(1, 5);
-    oscBModAmtKnob.setValue(1);
-    addAndMakeVisible(labeledOscBModAmtKnob);
-    oscBModAmtVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBModAmt", oscBModAmtKnob);
+    osc2ModAmtKnob.setRange(1, 5);
+    osc2ModAmtKnob.setValue(1);
+    addAndMakeVisible(labeledOsc2ModAmtKnob);
+    osc2ModAmtVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2ModAmt", osc2ModAmtKnob);
     
     modAmtLfoKnob.setRange(0.00, 1.00);
     modAmtLfoKnob.setValue(0.00);
@@ -53,13 +53,13 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     
     filterEnvRouteToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterEnvRoute", filterEnvRouteToggle);
     
-    oscBRouteToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    oscBRouteToggle.setRange(0, 1);
-    oscBRouteToggle.setValue(1);
-    oscBRouteToggle.addListener(this);
-    addAndMakeVisible(&oscBRouteToggle);
+    osc2RouteToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc2RouteToggle.setRange(0, 1);
+    osc2RouteToggle.setValue(1);
+    osc2RouteToggle.addListener(this);
+    addAndMakeVisible(&osc2RouteToggle);
     
-    oscBRouteToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBRoute", oscBRouteToggle);
+    osc2RouteToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2Route", osc2RouteToggle);
     
     lfoRouteToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     lfoRouteToggle.setRange(0, 1);
@@ -75,7 +75,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     oscAFreqToggle.addListener(this);
     addAndMakeVisible(&oscAFreqToggle);
     
-    oscAFreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscAFreq", oscAFreqToggle);
+    oscAFreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscAFreqToggle", oscAFreqToggle);
     
     oscAPWToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     oscAPWToggle.setRange(0, 2);
@@ -85,21 +85,21 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     
     oscAPWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscAPW", oscAPWToggle);
     
-    oscBFreqToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    oscBFreqToggle.setRange(0, 2);
-    oscBFreqToggle.setValue(1);
-    oscBFreqToggle.addListener(this);
-    addAndMakeVisible(&oscBFreqToggle);
+    osc2FreqToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc2FreqToggle.setRange(0, 2);
+    osc2FreqToggle.setValue(1);
+    osc2FreqToggle.addListener(this);
+    addAndMakeVisible(&osc2FreqToggle);
     
-    oscBFreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBFreq", oscBFreqToggle);
+    osc2FreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2FreqToggle", osc2FreqToggle);
     
-    oscBPWToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    oscBPWToggle.setRange(0, 2);
-    oscBPWToggle.setValue(1);
-    oscBPWToggle.addListener(this);
-    addAndMakeVisible(&oscBPWToggle);
+    osc2PWToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc2PWToggle.setRange(0, 2);
+    osc2PWToggle.setValue(1);
+    osc2PWToggle.addListener(this);
+    addAndMakeVisible(&osc2PWToggle);
     
-    oscBPWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscBPW", oscBPWToggle);
+    osc2PWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2PW", osc2PWToggle);
     
     filterToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     filterToggle.setRange(0, 2);
@@ -111,12 +111,12 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     
     
     filterEnvRouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
-    oscBRouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc2RouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     lfoRouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     oscAFreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     oscAPWToggle.setLookAndFeel(&sliderToggleLookAndFeel);
-    oscBFreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);
-    oscBPWToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc2FreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc2PWToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     filterToggle.setLookAndFeel(&sliderToggleLookAndFeel);
 }
 
@@ -155,15 +155,15 @@ void Modulation::resized()
     labeledModAmtFilterEnvKnob.setBounds(15, 25, 50, 65);
     filterEnvRouteToggle.setBounds(70, 35, 20, 30);
     
-    labeledOscBModAmtKnob.setBounds(15, 115, 50, 65);
-    oscBRouteToggle.setBounds(70, 125, 20, 30);
+    labeledOsc2ModAmtKnob.setBounds(15, 115, 50, 65);
+    osc2RouteToggle.setBounds(70, 125, 20, 30);
     labeledModAmtLfoKnob.setBounds(15, 205, 50, 65);
     lfoRouteToggle.setBounds(70, 215, 20, 30);
     
     oscAFreqToggle.setBounds(112, 25, 20, 40);
     oscAPWToggle.setBounds(112, 75, 20, 40);
-    oscBFreqToggle.setBounds(112, 125, 20, 40);
-    oscBPWToggle.setBounds(112, 175, 20, 40);
+    osc2FreqToggle.setBounds(112, 125, 20, 40);
+    osc2PWToggle.setBounds(112, 175, 20, 40);
     filterToggle.setBounds(112, 225, 20, 40);
     //   .setBounds (100, 65, 25, 100);
 }

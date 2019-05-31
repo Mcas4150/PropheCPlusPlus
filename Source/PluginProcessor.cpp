@@ -156,10 +156,6 @@ bool JuceSynthFrameworkAudioProcessor::isMidiEffect() const
 #endif
 }
 
-double JuceSynthFrameworkAudioProcessor::getTailLengthSeconds() const
-{
-    return 0.0;
-}
 
 int JuceSynthFrameworkAudioProcessor::getNumPrograms()
 {
@@ -197,9 +193,7 @@ void JuceSynthFrameworkAudioProcessor::prepareToPlay (double sampleRate, int sam
     //    spec.maximumBlockSize = samplesPerBlock;
     //    spec.numChannels = getTotalNumOutputChannels();
     
-    //    stateVariableFilter.reset();
-    //    stateVariableFilter.prepare(spec);
-    //    updateFilter();
+
 }
 
 void JuceSynthFrameworkAudioProcessor::releaseResources()
@@ -232,23 +226,6 @@ bool JuceSynthFrameworkAudioProcessor::isBusesLayoutSupported (const BusesLayout
 }
 #endif
 
-//void JuceSynthFrameworkAudioProcessor::updateFilter()
-//{
-//    int menuChoice = *tree.getRawParameterValue("filterType");
-//    int freq = *tree.getRawParameterValue("filterCutoff");
-//    int res = *tree.getRawParameterValue("filterRes");
-////    int lfoPhase = *tree.getRawParameterValue("lfoRate");
-//    int lfoPhase = *tree.getRawParameterValue("lfoRate") * lastSampleRate;
-////
-//    float lfoOut = sin(2*M_PI * lfoPhase);
-////    float lfoOut = sin(2*M_PI * 20);
-////
-//    float lfoOutMapped = jmap(lfoOut, -1.f, 1.f, 0.5f, 1.0f);
-//    float frequency = freq * lfoOutMapped;
-//
-//    if (lfoPhase > 1){
-//        lfoPhase -= 1;
-//    }
 
 
 void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -268,12 +245,14 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 //            OSCILLATOR A
             
             myVoice->setOsc1Freq(tree.getRawParameterValue("osc1Freq"));
+            myVoice->setOsc1Oct(tree.getRawParameterValue("osc1Oct"));
             myVoice->getOscType(tree.getRawParameterValue("wavetype"));
             
             
 //            OSCILLATOR B
             
             myVoice->setOsc2Freq(tree.getRawParameterValue("osc2Freq"));
+            myVoice->setOsc2Oct(tree.getRawParameterValue("osc2Oct"));
             myVoice->getOsc2Type(tree.getRawParameterValue("wavetype2"));
             
             
@@ -293,11 +272,10 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setFilterRes(tree.getRawParameterValue("filterRes"));
             myVoice->setEnvAmt(tree.getRawParameterValue("envAmt"));
             myVoice->setKeyAmt(tree.getRawParameterValue("keyAMt"));
-            myVoice->setFilterEnvelopeParams(tree.getRawParameterValue("filterAttack"),
-                                             tree.getRawParameterValue("filterDecay"),
-                                             tree.getRawParameterValue("filterSustain"),
-             
-                                             tree.getRawParameterValue("filterRelease"));
+        myVoice->setFilterEnvelopeParams(tree.getRawParameterValue("filterAttack"),
+                                        tree.getRawParameterValue("filterDecay"),
+                                        tree.getRawParameterValue("filterSustain"),
+                                     tree.getRawParameterValue("filterRelease"));
             //PITCH
             
             
@@ -335,11 +313,6 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                        tree.getRawParameterValue("sustain"),
                                        tree.getRawParameterValue("release"));
             
-
-
-            
-        
-            
 //            MASTER
             myVoice->setMasterTune(tree.getRawParameterValue("masterTune"));
             myVoice->setMasterGain(tree.getRawParameterValue("mastergain"));
@@ -352,7 +325,7 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
     
     buffer.clear();
     keyboardState.processNextMidiBuffer (midiMessages, 0, buffer.getNumSamples(), true);
-    //    updateFilter();
+
     mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
     //
     //    dsp::AudioBlock<float> block (buffer);

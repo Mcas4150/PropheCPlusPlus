@@ -26,20 +26,20 @@ private:
     GroupComponent mainGroup;
     //    Slider Blendslider;
     
-    BasicKnob oscBFreqKnob; LabeledKnob labeledOscBFreqKnob;
-    BasicKnob oscBOctKnob; LabeledKnob labeledOscBOctKnob;
-    BasicKnob oscBPulseWidthKnob; LabeledKnob labeledOscBPulseWidthKnob;
-    Slider oscBSawShapeToggle;
-    Slider oscBSquareShapeToggle;
-    Slider oscBTriangleShapeToggle;
+    BasicKnob osc2FreqKnob; LabeledKnob labeledOsc2FreqKnob;
+    BasicKnob osc2OctKnob; LabeledKnob labeledOsc2OctKnob;
+    BasicKnob osc2PulseWidthKnob; LabeledKnob labeledOsc2PulseWidthKnob;
+    Slider osc2SawShapeToggle;
+    Slider osc2SquareShapeToggle;
+    Slider osc2TriangleShapeToggle;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBSawShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBSquareShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBTriangleShapeVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2SawShapeVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2SquareShapeVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2TriangleShapeVal;
     ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> waveSelection2;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBFreqVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBOctVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBPulseWidthVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2FreqVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2OctVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2PulseWidthVal;
     
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     // This reference is provided as a quick way for your editor to

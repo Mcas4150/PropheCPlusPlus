@@ -33,30 +33,30 @@ private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     BasicKnob modAmtFilterEnvKnob; LabeledKnob labeledModAmtFilterEnvKnob;
-    BasicKnob oscBModAmtKnob; LabeledKnob labeledOscBModAmtKnob;
+    BasicKnob osc2ModAmtKnob; LabeledKnob labeledOsc2ModAmtKnob;
     BasicKnob modAmtLfoKnob; LabeledKnob labeledModAmtLfoKnob;
     
     Slider filterEnvRouteToggle;
-    Slider oscBRouteToggle;
+    Slider osc2RouteToggle;
     Slider lfoRouteToggle;
     Slider oscAFreqToggle;
     Slider oscAPWToggle;
-    Slider oscBFreqToggle;
-    Slider oscBPWToggle;
+    Slider osc2FreqToggle;
+    Slider osc2PWToggle;
     Slider filterToggle;
     
     GroupComponent mainGroup;
     
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoFilterVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBModAmtVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2ModAmtVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> modAmtLfoVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterEnvRouteToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBRouteToggleVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2RouteToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoRouteToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAFreqToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAPWToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBFreqToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBPWToggleVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2FreqToggleVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2PWToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterToggleVal;
     
     

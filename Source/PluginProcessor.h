@@ -47,7 +47,7 @@ public:
     bool acceptsMidi() const override;
     bool producesMidi() const override;
     bool isMidiEffect () const override;
-    double getTailLengthSeconds() const override;
+    double getTailLengthSeconds() const override{ return 0.0;} ;
     
     //==============================================================================
     int getNumPrograms() override;

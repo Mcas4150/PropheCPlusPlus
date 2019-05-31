@@ -33,11 +33,11 @@ private:
     GroupComponent mainGroup;
     
     BasicKnob oscALevel; LabeledKnob labeledOscALevelKnob;
-    BasicKnob oscBLevel; LabeledKnob labeledOscBLevelKnob;
+    BasicKnob osc2Level; LabeledKnob labeledOsc2LevelKnob;
     BasicKnob noiseLevel; LabeledKnob labeledNoiseLevelKnob;
     
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscALevelVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscBLevelVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2LevelVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> noiseLevelVal;
     
     GroupLookAndFeel groupLookAndFeel;

@@ -125,12 +125,12 @@ public:
     
     void setOsc1Level(float* setting)
     {
-        osc1OctSetting = *setting;
+        osc1LevelSetting = *setting;
     }
     
     void setOsc2Level(float* setting)
     {
-        osc2OctSetting = *setting;
+        osc2LevelSetting = *setting;
     }
     
     
@@ -139,16 +139,13 @@ public:
         
         return
 
-        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   )
+        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   )  * osc1LevelSetting
         
-        + osc2.saw(processedFrequency* (std::pow(2, osc2FreqSetting )) * (std::pow(2, osc2OctSetting))  ) / 2;
-        //        * osc1LevelSetting;
+        + osc2.saw(processedFrequency* (std::pow(2, osc2FreqSetting )) * (std::pow(2, osc2OctSetting))  ) * osc2LevelSetting
         
-        //        +  osc2.saw(processedFrequency)   * osc2LevelSetting;
-        //        + osc3.noise() * noiseLevelSetting ) /   ( osc1LevelSetting + osc2LevelSetting + noiseLevelSetting  )  ;
-        //        getOsc2Sound
-        
-        
+          + osc3.noise() * noiseLevelSetting
+        ;
+
     }
     
     

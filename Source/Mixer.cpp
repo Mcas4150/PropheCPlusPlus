@@ -14,8 +14,8 @@
 //==============================================================================
 Mixer::Mixer(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, oscALevel(0.0f, 1.0f, "")
-, labeledOscALevelKnob("OSC A", oscALevel)
+, osc1Level(0.0f, 1.0f, "")
+, labeledoscALevelKnob("OSC A", osc1Level)
 , osc2Level(0.0f, 1.0f, "")
 , labeledOsc2LevelKnob("OSC B", osc2Level)
 , noiseLevel(0.0f, 1.0f, "")
@@ -27,10 +27,10 @@ Mixer::Mixer(JuceSynthFrameworkAudioProcessor& p)
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
     addAndMakeVisible(&mainGroup);
     
-    oscALevel.setRange(0.0f, 1.0f);
-    oscALevel.setValue(1.0f);
-    addAndMakeVisible(labeledOscALevelKnob);
-    oscALevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscALevel", oscALevel);
+    osc1Level.setRange(0.0f, 1.0f);
+    osc1Level.setValue(1.0f);
+    addAndMakeVisible(labeledoscALevelKnob);
+    osc1LevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Level", osc1Level);
     
     osc2Level.setRange(0.0f, 1.0f);
     osc2Level.setValue(1.0f);
@@ -38,7 +38,7 @@ Mixer::Mixer(JuceSynthFrameworkAudioProcessor& p)
     osc2LevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2Level", osc2Level);
     
     noiseLevel.setRange(0.0, 1.0f);
-    noiseLevel.setValue(1.0f);
+    noiseLevel.setValue(0.0f);
     addAndMakeVisible(labeledNoiseLevelKnob);
     noiseLevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "noiseLevel", noiseLevel);
     
@@ -84,7 +84,7 @@ void Mixer::resized()
     auto widgetsArea = bounds.reduced(10);
     widgetsArea.removeFromTop(5);
     int width = (widgetsArea.getWidth() - (7 - 1) * 7.5) / 3;
-    labeledOscALevelKnob.setBounds(widgetsArea.removeFromLeft(width));
+    labeledoscALevelKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(20);
     labeledOsc2LevelKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(20);

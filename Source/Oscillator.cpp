@@ -5,12 +5,12 @@
 //==============================================================================
 Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, oscAFreqKnob(-2.0, 2.0f, "st")
-, labeledOscAFreqKnob("FREQUENCY", oscAFreqKnob)
-, oscAOctKnob(0.0f, 3.0f, "oct")
-, labeledOscAOctKnob("OCTAVE", oscAOctKnob)
-, oscAPulseWidthKnob(0, 3, "st")
-, labeledOscAPulseWidthKnob("PW", oscAPulseWidthKnob)
+, osc1FreqKnob(-2.0, 2.0f, "st")
+, labeledoscAFreqKnob("FREQUENCY", osc1FreqKnob)
+, osc1OctKnob(0.0f, 3.0f, "oct")
+, labeledoscAOctKnob("OCTAVE", osc1OctKnob)
+, osc1PulseWidthKnob(0, 3, "st")
+, labeledoscAPulseWidthKnob("PW", osc1PulseWidthKnob)
 {
     setSize(275, 95);
     setLookAndFeel(lookAndFeel);
@@ -18,20 +18,20 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
     addAndMakeVisible(&mainGroup);
     
-    oscAFreqKnob.setRange(-2.0, 2.0f);
-    oscAFreqKnob.setValue(0.0f);
-    addAndMakeVisible(labeledOscAFreqKnob);
-    oscAFreqVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Freq", oscAFreqKnob);
+    osc1FreqKnob.setRange(-2.0, 2.0f);
+    osc1FreqKnob.setValue(0.0f);
+    addAndMakeVisible(labeledoscAFreqKnob);
+    osc1FreqVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Freq", osc1FreqKnob);
     
-    oscAOctKnob.setRange(0.0f, 3.0f);
-    oscAOctKnob.setValue(0.0f);
-    addAndMakeVisible(labeledOscAOctKnob);
-    oscAOctVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Oct", oscAOctKnob);
+    osc1OctKnob.setRange(0.0f, 3.0f);
+    osc1OctKnob.setValue(0.0f);
+    addAndMakeVisible(labeledoscAOctKnob);
+    osc1OctVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Oct", osc1OctKnob);
     
-    oscAPulseWidthKnob.setRange(0, 3);
-    oscAPulseWidthKnob.setValue(0);
-    addAndMakeVisible(labeledOscAPulseWidthKnob);
-    oscAPulseWidthVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscAPulseWidth", oscAPulseWidthKnob);
+    osc1PulseWidthKnob.setRange(0, 3);
+    osc1PulseWidthKnob.setValue(0);
+    addAndMakeVisible(labeledoscAPulseWidthKnob);
+    osc1PulseWidthVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1PulseWidth", osc1PulseWidthKnob);
     
     
     
@@ -43,38 +43,38 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     //    oscMenu.setJustificationType(Justification::centred);
     //    addAndMakeVisible(&oscMenu);
     
-    oscASawShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    oscASawShapeToggle.setRange(0, 1);
-    oscASawShapeToggle.setValue(1);
-    oscASawShapeToggle.addListener(this);
-    addAndMakeVisible(&oscASawShapeToggle);
+    osc1SawShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc1SawShapeToggle.setRange(0, 1);
+    osc1SawShapeToggle.setValue(1);
+    osc1SawShapeToggle.addListener(this);
+    addAndMakeVisible(&osc1SawShapeToggle);
     
-    oscASawShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscASawShape", oscASawShapeToggle);
+    osc1SawShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1SawShape", osc1SawShapeToggle);
     
-    oscASquareShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    oscASquareShapeToggle.setRange(0, 1);
-    oscASquareShapeToggle.setValue(0);
-    oscASquareShapeToggle.addListener(this);
-    addAndMakeVisible(&oscASquareShapeToggle);
+    osc1SquareShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc1SquareShapeToggle.setRange(0, 1);
+    osc1SquareShapeToggle.setValue(0);
+    osc1SquareShapeToggle.addListener(this);
+    addAndMakeVisible(&osc1SquareShapeToggle);
     
-    oscASquareShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscASquareShape", oscASquareShapeToggle);
+    osc1SquareShapeVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1SquareShape", osc1SquareShapeToggle);
     
     
-    oscASyncToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    oscASyncToggle.setRange(0, 1);
-    oscASyncToggle.setValue(0);
-    oscASyncToggle.addListener(this);
-    addAndMakeVisible(&oscASyncToggle);
+    osc1SyncToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc1SyncToggle.setRange(0, 1);
+    osc1SyncToggle.setValue(0);
+    osc1SyncToggle.addListener(this);
+    addAndMakeVisible(&osc1SyncToggle);
     
-    oscASyncVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscASync", oscASyncToggle);
+    osc1SyncVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Sync", osc1SyncToggle);
     
     
     waveSelection = new AudioProcessorValueTreeState::ComboBoxAttachment (processor.tree, "wavetype", oscMenu);
     
     
-    oscASawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
-    oscASquareShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
-    oscASyncToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc1SawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc1SquareShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc1SyncToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     
 }
 
@@ -122,17 +122,17 @@ void Oscillator::resized()
     auto widgetsArea = bounds.reduced(10);
     widgetsArea.removeFromTop(5);
     int width = (widgetsArea.getWidth() - (4 - 1) * 10) / 4;
-    labeledOscAFreqKnob.setBounds(widgetsArea.removeFromLeft(width));
+    labeledoscAFreqKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(10);
-    labeledOscAOctKnob.setBounds(widgetsArea.removeFromLeft(width));
+    labeledoscAOctKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(10);
-    oscASawShapeToggle.setBounds(135, 35, 20, 30);
+    osc1SawShapeToggle.setBounds(135, 35, 20, 30);
     widgetsArea.removeFromLeft(5);
-    oscASquareShapeToggle.setBounds(160, 35, 20, 30);
+    osc1SquareShapeToggle.setBounds(160, 35, 20, 30);
     widgetsArea.removeFromLeft(40);
-    labeledOscAPulseWidthKnob.setBounds(widgetsArea.removeFromLeft(width));
+    labeledoscAPulseWidthKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(5);
-    oscASyncToggle.setBounds(235, 35, 20, 30);
+    osc1SyncToggle.setBounds(235, 35, 20, 30);
 }
 
 

@@ -33,20 +33,20 @@ private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     ComboBox oscMenu;
     GroupComponent mainGroup;
-    BasicKnob oscAFreqKnob; LabeledKnob labeledOscAFreqKnob;
-    BasicKnob oscAOctKnob; LabeledKnob labeledOscAOctKnob;
-    BasicKnob oscAPulseWidthKnob; LabeledKnob labeledOscAPulseWidthKnob;
-    Slider oscASawShapeToggle;
-    Slider oscASquareShapeToggle;
-    Slider oscASyncToggle;
+    BasicKnob osc1FreqKnob; LabeledKnob labeledoscAFreqKnob;
+    BasicKnob osc1OctKnob; LabeledKnob labeledoscAOctKnob;
+    BasicKnob osc1PulseWidthKnob; LabeledKnob labeledoscAPulseWidthKnob;
+    Slider osc1SawShapeToggle;
+    Slider osc1SquareShapeToggle;
+    Slider osc1SyncToggle;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscASawShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscASquareShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscASyncVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1SawShapeVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1SquareShapeVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1SyncVal;
     ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> waveSelection;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAFreqVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAOctVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAPulseWidthVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1FreqVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1OctVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1PulseWidthVal;
     
     
     SliderToggleLookAndFeel sliderToggleLookAndFeel;

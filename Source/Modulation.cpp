@@ -69,21 +69,21 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     
     lfoRouteToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "lfoRoute",  lfoRouteToggle);
     
-    oscAFreqToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    oscAFreqToggle.setRange(0, 2);
-    oscAFreqToggle.setValue(1);
-    oscAFreqToggle.addListener(this);
-    addAndMakeVisible(&oscAFreqToggle);
+    osc1FreqToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc1FreqToggle.setRange(0, 2);
+    osc1FreqToggle.setValue(1);
+    osc1FreqToggle.addListener(this);
+    addAndMakeVisible(&osc1FreqToggle);
     
-    oscAFreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscAFreqToggle", oscAFreqToggle);
+    osc1FreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1FreqToggle", osc1FreqToggle);
     
-    oscAPWToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    oscAPWToggle.setRange(0, 2);
-    oscAPWToggle.setValue(1);
-    oscAPWToggle.addListener(this);
-    addAndMakeVisible(&oscAPWToggle);
+    osc1PWToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc1PWToggle.setRange(0, 2);
+    osc1PWToggle.setValue(1);
+    osc1PWToggle.addListener(this);
+    addAndMakeVisible(&osc1PWToggle);
     
-    oscAPWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "oscAPW", oscAPWToggle);
+    osc1PWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1PW", osc1PWToggle);
     
     osc2FreqToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     osc2FreqToggle.setRange(0, 2);
@@ -113,8 +113,8 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     filterEnvRouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     osc2RouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     lfoRouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
-    oscAFreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);
-    oscAPWToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc1FreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc1PWToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     osc2FreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     osc2PWToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     filterToggle.setLookAndFeel(&sliderToggleLookAndFeel);
@@ -160,8 +160,8 @@ void Modulation::resized()
     labeledModAmtLfoKnob.setBounds(15, 205, 50, 65);
     lfoRouteToggle.setBounds(70, 215, 20, 30);
     
-    oscAFreqToggle.setBounds(112, 25, 20, 40);
-    oscAPWToggle.setBounds(112, 75, 20, 40);
+    osc1FreqToggle.setBounds(112, 25, 20, 40);
+    osc1PWToggle.setBounds(112, 75, 20, 40);
     osc2FreqToggle.setBounds(112, 125, 20, 40);
     osc2PWToggle.setBounds(112, 175, 20, 40);
     filterToggle.setBounds(112, 225, 20, 40);

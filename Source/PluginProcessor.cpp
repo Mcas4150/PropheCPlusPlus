@@ -46,8 +46,8 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
            
 //           MIXER
            
-           std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
-           std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
+           std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", NormalisableRange<float>(0.0f, 1.0f), 0.5f),
+           std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", NormalisableRange<float>(0.0f, 1.0f), 0.5f),
            std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", NormalisableRange<float>(0.0f, 1.0f), 0.0f),
            
            

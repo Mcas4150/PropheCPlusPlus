@@ -39,8 +39,8 @@ private:
     Slider filterEnvRouteToggle;
     Slider osc2RouteToggle;
     Slider lfoRouteToggle;
-    Slider oscAFreqToggle;
-    Slider oscAPWToggle;
+    Slider osc1FreqToggle;
+    Slider osc1PWToggle;
     Slider osc2FreqToggle;
     Slider osc2PWToggle;
     Slider filterToggle;
@@ -53,8 +53,8 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterEnvRouteToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2RouteToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoRouteToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAFreqToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> oscAPWToggleVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1FreqToggleVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1PWToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2FreqToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2PWToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterToggleVal;

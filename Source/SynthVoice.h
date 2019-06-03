@@ -30,12 +30,12 @@ public:
     
     void setOsc1Freq(float* setting)
     {
-        osc1FreqSetting = *setting;
+        osc1FreqSetting = std::pow(2,*setting);
     }
     
     void setOsc1Oct(float* setting)
     {
-        osc1OctSetting = *setting;
+        osc1OctSetting =  std::pow(2, *setting);
     }
     
     void setOsc1SawMode(float* setting)
@@ -73,13 +73,13 @@ public:
     void setOsc2Freq(float* setting)
     {
         
-        osc2FreqSetting = *setting;
+        osc2FreqSetting = std::pow(2, *setting);
     }
     
     void setOsc2Oct(float* setting)
     {
         
-        osc2OctSetting = *setting;
+        osc2OctSetting =  std::pow(2, *setting);
     }
     
     void setOsc2SawMode(float* setting)
@@ -141,9 +141,9 @@ public:
 //        +
 //        osc3.noise() * noiseLevelSetting;
         
-        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   ) * osc1LevelSetting
+        osc1.saw(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1LevelSetting
         +
-        osc2.saw(processedFrequency * (std::pow(2, osc2FreqSetting)) * (std::pow(2, osc2OctSetting))   ) * osc2LevelSetting
+        osc2.saw(processedFrequency * osc2FreqSetting * osc2OctSetting ) * osc2LevelSetting
         +
         osc3.noise() * noiseLevelSetting;
 

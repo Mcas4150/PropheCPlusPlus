@@ -32,6 +32,7 @@ public:
 private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
+    GroupLookAndFeel groupLookAndFeel;
     BasicKnob modAmtFilterEnvKnob; LabeledKnob labeledModAmtFilterEnvKnob;
     BasicKnob osc2ModAmtKnob; LabeledKnob labeledOsc2ModAmtKnob;
     BasicKnob modAmtLfoKnob; LabeledKnob labeledModAmtLfoKnob;

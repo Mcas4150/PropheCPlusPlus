@@ -22,6 +22,7 @@ public:
 private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
+    GroupLookAndFeel groupLookAndFeel;
     BasicKnob glideRateKnob; LabeledKnob labeledGlideRateKnob;
     Slider glideModeToggle;
     Label normalLabel;

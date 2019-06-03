@@ -30,6 +30,7 @@ public:
 private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
+    GroupLookAndFeel groupLookAndFeel;
     
     Slider retrigModeToggle;
     Slider repeatModeToggle;

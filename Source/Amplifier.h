@@ -5,6 +5,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "../Common/LabeledKnob.h"
+#include "SliderLookAndFeel.h"
 
 //==============================================================================
 /*
@@ -22,6 +23,7 @@ public:
     
 private:
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
+    GroupLookAndFeel groupLookAndFeel;
     
     GroupComponent mainGroup;
     

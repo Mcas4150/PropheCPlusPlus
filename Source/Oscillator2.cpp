@@ -17,6 +17,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     setLookAndFeel(lookAndFeel);
     mainGroup.setText("OSCILLATOR B");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
     
     //    osc2Menu.addItem("Saw", 1);

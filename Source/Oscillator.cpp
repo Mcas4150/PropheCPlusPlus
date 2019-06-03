@@ -16,6 +16,7 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     setLookAndFeel(lookAndFeel);
     mainGroup.setText("OSCILLATOR A");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
     
     osc1FreqKnob.setRange(-2.0, 2.0f);

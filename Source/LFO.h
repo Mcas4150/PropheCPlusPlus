@@ -35,6 +35,7 @@ private:
     
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
+    GroupLookAndFeel groupLookAndFeel;
     
     GroupComponent mainGroup;
     

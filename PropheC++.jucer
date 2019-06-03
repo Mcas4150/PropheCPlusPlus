@@ -4,75 +4,75 @@
               headerPath="&#10;&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/PropheC++/Common&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/Maximilian"
               pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="ZH3u4d" name="PropheC++">
-    <GROUP id="{F1DA65C9-5C9F-C4DC-8F81-A75AF0FEAFAA}" name="Source">
-      <FILE id="KyFtQc" name="Sequencer.cpp" compile="1" resource="0" file="Source/Sequencer.cpp"/>
-      <FILE id="tkzWIx" name="Sequencer.h" compile="0" resource="0" file="Source/Sequencer.h"/>
-      <FILE id="mls9bU" name="Arpeggiator.cpp" compile="1" resource="0" file="Source/Arpeggiator.cpp"/>
-      <FILE id="Xuggal" name="Arpeggiator.h" compile="0" resource="0" file="Source/Arpeggiator.h"/>
-      <FILE id="nYwAcw" name="Mode.cpp" compile="1" resource="0" file="Source/Mode.cpp"/>
-      <FILE id="W8XlzW" name="Mode.h" compile="0" resource="0" file="Source/Mode.h"/>
-      <FILE id="BJeq4R" name="Wheels.cpp" compile="1" resource="0" file="Source/Wheels.cpp"/>
-      <FILE id="S93ngX" name="Wheels.h" compile="0" resource="0" file="Source/Wheels.h"/>
-      <FILE id="EeS5Dh" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
-      <FILE id="lmkcWB" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
-      <FILE id="HYlaHV" name="CustomLookAndFeel.h" compile="0" resource="0"
-            file="Source/CustomLookAndFeel.h"/>
-      <FILE id="NEuojI" name="SliderLookAndFeel.h" compile="0" resource="0"
-            file="Source/SliderLookAndFeel.h"/>
-      <FILE id="r1On2x" name="ScopeDataCollector.h" compile="0" resource="0"
-            file="Source/ScopeDataCollector.h"/>
-      <FILE id="JZ9I5j" name="ScopeComponent.h" compile="0" resource="0"
-            file="Source/ScopeComponent.h"/>
-      <FILE id="eS2rpf" name="Oscillator2.cpp" compile="1" resource="0" file="Source/Oscillator2.cpp"/>
-      <FILE id="IRDB5x" name="Oscillator2.h" compile="0" resource="0" file="Source/Oscillator2.h"/>
-      <FILE id="CaJofY" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
-      <FILE id="nrndSP" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
-      <FILE id="GNarpY" name="Modulation.cpp" compile="1" resource="0" file="Source/Modulation.cpp"/>
-      <FILE id="ioS1Li" name="Modulation.h" compile="0" resource="0" file="Source/Modulation.h"/>
-      <FILE id="aXtRUv" name="Mixer.cpp" compile="1" resource="0" file="Source/Mixer.cpp"/>
-      <FILE id="RvgfU3" name="Mixer.h" compile="0" resource="0" file="Source/Mixer.h"/>
-      <FILE id="DTybLH" name="Master.cpp" compile="1" resource="0" file="Source/Master.cpp"/>
-      <FILE id="iHcpJr" name="Master.h" compile="0" resource="0" file="Source/Master.h"/>
-      <FILE id="wn4Syr" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
-      <FILE id="fgdc7e" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
-      <FILE id="KpGDdx" name="Glide.cpp" compile="1" resource="0" file="Source/Glide.cpp"/>
-      <FILE id="jtYYvp" name="Glide.h" compile="0" resource="0" file="Source/Glide.h"/>
-      <FILE id="TXQDJh" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
-      <FILE id="NcSSWD" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
-      <FILE id="wgTrhP" name="AudioBufferQueue.h" compile="0" resource="0"
-            file="Source/AudioBufferQueue.h"/>
-      <FILE id="N5iVJK" name="Amplifier.cpp" compile="1" resource="0" file="Source/Amplifier.cpp"/>
-      <FILE id="RaYTDm" name="Amplifier.h" compile="0" resource="0" file="Source/Amplifier.h"/>
-      <FILE id="NgW2AB" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="Rx77pR" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="Z9QA8k" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="rXzq8b" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <GROUP id="{C2A02A31-78A9-65AD-1B66-A1CB2BF7167F}" name="Maximilian">
-        <GROUP id="{B0B08A67-3401-4B05-8142-B6C2DE13515D}" name="libs">
-          <FILE id="l5VoOO" name="fft.cpp" compile="1" resource="0" file="../Maximilian/libs/fft.cpp"/>
-          <FILE id="ut8Bik" name="fft.h" compile="0" resource="0" file="../Maximilian/libs/fft.h"/>
-          <FILE id="QOFU1h" name="maxiAtoms.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiAtoms.cpp"/>
-          <FILE id="T0UtPi" name="maxiAtoms.h" compile="0" resource="0" file="../Maximilian/libs/maxiAtoms.h"/>
-          <FILE id="e0d69L" name="maxiBark.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiBark.cpp"/>
-          <FILE id="EybRDb" name="maxiBark.h" compile="0" resource="0" file="../Maximilian/libs/maxiBark.h"/>
-          <FILE id="XG1SdI" name="maxiFFT.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiFFT.cpp"/>
-          <FILE id="CRkaer" name="maxiFFT.h" compile="0" resource="0" file="../Maximilian/libs/maxiFFT.h"/>
-          <FILE id="RuzCYS" name="maxiGrains.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiGrains.cpp"/>
-          <FILE id="CDx1HM" name="maxiGrains.h" compile="0" resource="0" file="../Maximilian/libs/maxiGrains.h"/>
-          <FILE id="XAI3y8" name="maxim.h" compile="0" resource="0" file="../Maximilian/libs/maxim.h"/>
-          <FILE id="mL3uey" name="maxiMFCC.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiMFCC.cpp"/>
-          <FILE id="b91Lye" name="maxiMFCC.h" compile="0" resource="0" file="../Maximilian/libs/maxiMFCC.h"/>
-          <FILE id="g9veqI" name="sineTable.h" compile="0" resource="0" file="../Maximilian/libs/sineTable.h"/>
+    <GROUP id="{B238ACAB-885D-0A40-AC34-21BE749E1045}" name="Source">
+      <GROUP id="{01CA4099-C8CD-7D0E-6C56-8030D2FF67DD}" name="Maximilian">
+        <GROUP id="{4752A061-8B73-6BF6-0D95-9818D33E4214}" name="libs">
+          <FILE id="PyrikA" name="fft.cpp" compile="1" resource="0" file="../Maximilian/libs/fft.cpp"/>
+          <FILE id="ZjgpPZ" name="fft.h" compile="0" resource="0" file="../Maximilian/libs/fft.h"/>
+          <FILE id="mmQbKQ" name="maxiAtoms.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiAtoms.cpp"/>
+          <FILE id="xrRc8e" name="maxiAtoms.h" compile="0" resource="0" file="../Maximilian/libs/maxiAtoms.h"/>
+          <FILE id="bdgLpY" name="maxiBark.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiBark.cpp"/>
+          <FILE id="BZYuxF" name="maxiBark.h" compile="0" resource="0" file="../Maximilian/libs/maxiBark.h"/>
+          <FILE id="gmqW5U" name="maxiFFT.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiFFT.cpp"/>
+          <FILE id="YI8Nvv" name="maxiFFT.h" compile="0" resource="0" file="../Maximilian/libs/maxiFFT.h"/>
+          <FILE id="EBsIHE" name="maxiGrains.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiGrains.cpp"/>
+          <FILE id="yvKAFN" name="maxiGrains.h" compile="0" resource="0" file="../Maximilian/libs/maxiGrains.h"/>
+          <FILE id="oyJUsw" name="maxim.h" compile="0" resource="0" file="../Maximilian/libs/maxim.h"/>
+          <FILE id="CrNmqD" name="maxiMFCC.cpp" compile="1" resource="0" file="../Maximilian/libs/maxiMFCC.cpp"/>
+          <FILE id="jNze5b" name="maxiMFCC.h" compile="0" resource="0" file="../Maximilian/libs/maxiMFCC.h"/>
+          <FILE id="MkY7LV" name="sineTable.h" compile="0" resource="0" file="../Maximilian/libs/sineTable.h"/>
         </GROUP>
-        <FILE id="ztmU2i" name="main.cpp" compile="1" resource="0" file="../Maximilian/main.cpp"/>
-        <FILE id="IQGoem" name="maximilian.cpp" compile="1" resource="0" file="../Maximilian/maximilian.cpp"/>
-        <FILE id="IFZPqm" name="maximilian.h" compile="0" resource="0" file="../Maximilian/maximilian.h"/>
-        <FILE id="A6OASt" name="stb_vorbis.c" compile="1" resource="0" file="../Maximilian/stb_vorbis.c"/>
-        <FILE id="P8lhZo" name="stb_vorbis.h" compile="0" resource="0" file="../Maximilian/stb_vorbis.h"/>
+        <FILE id="YMJeux" name="main.cpp" compile="1" resource="0" file="../Maximilian/main.cpp"/>
+        <FILE id="ndO8Vf" name="maximilian.cpp" compile="1" resource="0" file="../Maximilian/maximilian.cpp"/>
+        <FILE id="xVikFv" name="maximilian.h" compile="0" resource="0" file="../Maximilian/maximilian.h"/>
+        <FILE id="fTOifU" name="stb_vorbis.c" compile="1" resource="0" file="../Maximilian/stb_vorbis.c"/>
+        <FILE id="hKjS78" name="stb_vorbis.h" compile="0" resource="0" file="../Maximilian/stb_vorbis.h"/>
       </GROUP>
+      <FILE id="o1Obsi" name="Amplifier.cpp" compile="1" resource="0" file="Source/Amplifier.cpp"/>
+      <FILE id="o11Up1" name="Amplifier.h" compile="0" resource="0" file="Source/Amplifier.h"/>
+      <FILE id="i7abmW" name="Arpeggiator.cpp" compile="1" resource="0" file="Source/Arpeggiator.cpp"/>
+      <FILE id="TuRMY5" name="Arpeggiator.h" compile="0" resource="0" file="Source/Arpeggiator.h"/>
+      <FILE id="UtDedp" name="AudioBufferQueue.h" compile="0" resource="0"
+            file="Source/AudioBufferQueue.h"/>
+      <FILE id="Vgzu0r" name="CustomLookAndFeel.h" compile="0" resource="0"
+            file="Source/CustomLookAndFeel.h"/>
+      <FILE id="gC2GVt" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
+      <FILE id="RLimGz" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
+      <FILE id="l9fCGB" name="Glide.cpp" compile="1" resource="0" file="Source/Glide.cpp"/>
+      <FILE id="U2leIn" name="Glide.h" compile="0" resource="0" file="Source/Glide.h"/>
+      <FILE id="Z8126b" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
+      <FILE id="NdtFak" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
+      <FILE id="yUl9cZ" name="Master.cpp" compile="1" resource="0" file="Source/Master.cpp"/>
+      <FILE id="YqpSBj" name="Master.h" compile="0" resource="0" file="Source/Master.h"/>
+      <FILE id="gDQR6T" name="Mixer.cpp" compile="1" resource="0" file="Source/Mixer.cpp"/>
+      <FILE id="YvQoRA" name="Mixer.h" compile="0" resource="0" file="Source/Mixer.h"/>
+      <FILE id="oYQ56K" name="Mode.cpp" compile="1" resource="0" file="Source/Mode.cpp"/>
+      <FILE id="XfmWRM" name="Mode.h" compile="0" resource="0" file="Source/Mode.h"/>
+      <FILE id="ioKWLL" name="Modulation.cpp" compile="1" resource="0" file="Source/Modulation.cpp"/>
+      <FILE id="qTZ2Rx" name="Modulation.h" compile="0" resource="0" file="Source/Modulation.h"/>
+      <FILE id="E7MU0L" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
+      <FILE id="qBdvkt" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
+      <FILE id="H7pgeD" name="Oscillator2.cpp" compile="1" resource="0" file="Source/Oscillator2.cpp"/>
+      <FILE id="a7Yduv" name="Oscillator2.h" compile="0" resource="0" file="Source/Oscillator2.h"/>
+      <FILE id="i3053m" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="THMgz6" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="ZTO5X9" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="cLXKQ8" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="EfSYXI" name="ScopeComponent.h" compile="0" resource="0"
+            file="Source/ScopeComponent.h"/>
+      <FILE id="Ao6K6k" name="ScopeDataCollector.h" compile="0" resource="0"
+            file="Source/ScopeDataCollector.h"/>
+      <FILE id="fF8TIj" name="Sequencer.cpp" compile="1" resource="0" file="Source/Sequencer.cpp"/>
+      <FILE id="IOeQFH" name="Sequencer.h" compile="0" resource="0" file="Source/Sequencer.h"/>
+      <FILE id="QZjING" name="SliderLookAndFeel.h" compile="0" resource="0"
+            file="Source/SliderLookAndFeel.h"/>
+      <FILE id="M6dEY3" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
+      <FILE id="DpzCh6" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
+      <FILE id="GbDx2O" name="Wheels.cpp" compile="1" resource="0" file="Source/Wheels.cpp"/>
+      <FILE id="lKXAxR" name="Wheels.h" compile="0" resource="0" file="Source/Wheels.h"/>
     </GROUP>
     <GROUP id="{52987BA8-4A6F-BAAF-D41A-706B67C56BDB}" name="Common">
       <FILE id="bd3rU6" name="BarGraph.cpp" compile="1" resource="0" file="Common/BarGraph.cpp"/>

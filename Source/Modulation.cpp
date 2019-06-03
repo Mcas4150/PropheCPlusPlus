@@ -26,6 +26,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     setLookAndFeel(lookAndFeel);
     mainGroup.setText("MODULATION");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.

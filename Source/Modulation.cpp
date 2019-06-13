@@ -18,7 +18,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
 , labeledModAmtFilterEnvKnob("AMOUNT", modAmtFilterEnvKnob)
 , osc2ModAmtKnob(0.0f, 1.0f, "")
 , labeledOsc2ModAmtKnob("AMOUNT", osc2ModAmtKnob)
-, modAmtLfoKnob(0.0f, 1.0f, "%")
+, modAmtLfoKnob(0.0f, 1.0f, "")
 , labeledModAmtLfoKnob("AMOUNT", modAmtLfoKnob)
 {
     

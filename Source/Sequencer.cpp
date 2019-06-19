@@ -19,6 +19,7 @@ Sequencer::Sequencer(JuceSynthFrameworkAudioProcessor& p)
     setLookAndFeel(lookAndFeel);
     mainGroup.setText("SEQUENCER");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
 
     sequenceModeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);

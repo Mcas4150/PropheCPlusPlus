@@ -14,7 +14,23 @@
 
 //==============================================================================
 JuceSynthFrameworkAudioProcessorEditor::JuceSynthFrameworkAudioProcessorEditor (JuceSynthFrameworkAudioProcessor& p)
-: AudioProcessorEditor (&p), processor (p), oscGui(p), osc2Gui(p), lfoGui(p), glideGui(p), ampGui(p), modulationGui(p), filterGui(p), modeGui(p), sequencerGui(p), arpGui(p), masterGui(p), wheelsGui(p), mixerGui(p), keyboardComponent(p.keyboardState, MidiKeyboardComponent::horizontalKeyboard), scopeComponent (processor.getAudioBufferQueue())
+    : AudioProcessorEditor (&p)
+    , processor (p)
+    , keyboardComponent(p.keyboardState, MidiKeyboardComponent::horizontalKeyboard)
+    , scopeComponent (processor.getAudioBufferQueue())
+    , oscGui(p)
+    , osc2Gui(p)
+    , ampGui(p)
+    , filterGui(p)
+    , lfoGui(p)
+    , glideGui(p)
+    , wheelsGui(p)
+    , mixerGui(p)
+    , modeGui(p)
+    , arpGui(p)
+    , sequencerGui(p)
+    , modulationGui(p)
+    , masterGui(p)
 {
     setSize (1000, 600);
     

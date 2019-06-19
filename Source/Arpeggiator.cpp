@@ -17,8 +17,9 @@ Arpeggiator::Arpeggiator(JuceSynthFrameworkAudioProcessor& p)
 {
     setSize(75, 95);
     setLookAndFeel(lookAndFeel);
-    mainGroup.setText("ARPEGGIATE");
+    mainGroup.setText("ARP");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
     
     arpModeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);

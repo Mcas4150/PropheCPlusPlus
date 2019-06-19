@@ -14,6 +14,7 @@
 #include "PluginProcessor.h"
 #include "../Common/LabeledKnob.h"
 #include "SliderLookAndFeel.h"
+#include "CustomLookAndFeel.h"
 
 
 //==============================================================================
@@ -48,7 +49,7 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1OctVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1PulseWidthVal;
     
-    
+    GroupLookAndFeel groupLookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

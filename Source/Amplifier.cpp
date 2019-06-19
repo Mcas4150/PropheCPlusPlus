@@ -19,6 +19,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     setLookAndFeel(lookAndFeel);
     mainGroup.setText("AMPLIFIER");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
     
     

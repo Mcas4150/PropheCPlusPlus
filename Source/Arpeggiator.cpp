@@ -17,7 +17,7 @@ Arpeggiator::Arpeggiator(JuceSynthFrameworkAudioProcessor& p)
 {
     setSize(75, 95);
     setLookAndFeel(lookAndFeel);
-    mainGroup.setText("ARPEGGIATE");
+    mainGroup.setText("ARP EGGIATE");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
     addAndMakeVisible(&mainGroup);
     

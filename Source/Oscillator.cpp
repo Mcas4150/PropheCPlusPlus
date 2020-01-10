@@ -30,7 +30,8 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     
     osc1PulseWidthKnob.setRange(0, 3);
     osc1PulseWidthKnob.setValue(0);
-    addAndMakeVisible(labeledoscAPulseWidthKnob);
+    addAndMakeVisible(labeledoscAPulseWidthKnob)
+    ;
     osc1PulseWidthVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1PulseWidth", osc1PulseWidthKnob);
     
     

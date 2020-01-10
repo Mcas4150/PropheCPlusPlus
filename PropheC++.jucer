@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="YZKjFM" name="PropheC++" projectType="audioplug" jucerVersion="5.4.3"
+<JUCERPROJECT id="YZKjFM" name="PropheC++" projectType="audioplug" jucerVersion="5.4.5"
               headerPath="&#10;&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/PropheC++/Common&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/Maximilian"
-              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
+              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              companyName="mikecassidy">
   <MAINGROUP id="ZH3u4d" name="PropheC++">
     <GROUP id="{F1DA65C9-5C9F-C4DC-8F81-A75AF0FEAFAA}" name="Source">
       <FILE id="KyFtQc" name="Sequencer.cpp" compile="1" resource="0" file="Source/Sequencer.cpp"/>

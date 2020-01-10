@@ -203,7 +203,7 @@ public:
     double getFilterEnvelope()
     {
         
-        return  filterEnvelope.adsr(1., filterEnvelope.trigger);
+        return filterEnvelope.adsr(1., filterEnvelope.trigger);
         
     }
     

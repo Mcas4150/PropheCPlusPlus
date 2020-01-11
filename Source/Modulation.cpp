@@ -71,45 +71,64 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     lfoRouteToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "lfoRoute",  lfoRouteToggle);
     
     osc1FreqToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    osc1FreqToggle.setRange(0, 2);
+    osc1FreqToggle.setRange(0, 1);
     osc1FreqToggle.setValue(1);
     osc1FreqToggle.addListener(this);
     addAndMakeVisible(&osc1FreqToggle);
     
     osc1FreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1FreqToggle", osc1FreqToggle);
     
+    osc1FreqLabel.setText("OSC A FREQ", dontSendNotification);
+    osc1FreqLabel.setFont (Font (8.0f, Font::bold));
+    addAndMakeVisible(&osc1FreqLabel);
+    
     osc1PWToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    osc1PWToggle.setRange(0, 2);
+    osc1PWToggle.setRange(0, 1);
     osc1PWToggle.setValue(1);
     osc1PWToggle.addListener(this);
     addAndMakeVisible(&osc1PWToggle);
     
+    osc1PWLabel.setText("OSC A PW", dontSendNotification);
+       osc1PWLabel.setFont (Font (8.0f, Font::bold));
+       addAndMakeVisible(&osc1PWLabel);
+    
     osc1PWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1PW", osc1PWToggle);
     
     osc2FreqToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    osc2FreqToggle.setRange(0, 2);
+    osc2FreqToggle.setRange(0, 1);
     osc2FreqToggle.setValue(1);
     osc2FreqToggle.addListener(this);
     addAndMakeVisible(&osc2FreqToggle);
     
     osc2FreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2FreqToggle", osc2FreqToggle);
     
+    osc2FreqLabel.setText("OSC B FREQ", dontSendNotification);
+    osc2FreqLabel.setFont (Font (8.0f, Font::bold));
+    addAndMakeVisible(&osc2FreqLabel);
+    
     osc2PWToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    osc2PWToggle.setRange(0, 2);
-    osc2PWToggle.setValue(1);
+    osc2PWToggle.setRange(0, 1);
+    osc2PWToggle.setValue(0);
     osc2PWToggle.addListener(this);
     addAndMakeVisible(&osc2PWToggle);
-    
+
     osc2PWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2PW", osc2PWToggle);
     
+    osc2PWLabel.setText("OSC B PW", dontSendNotification);
+    osc2PWLabel.setFont (Font (8.0f, Font::bold));
+    addAndMakeVisible(&osc2PWLabel);
+    
     filterToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    filterToggle.setRange(0, 2);
-    filterToggle.setValue(1);
+    filterToggle.setRange(0, 1);
+    filterToggle.setValue(0);
     filterToggle.addListener(this);
     addAndMakeVisible(&filterToggle);
     
     filterToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterToggle", filterToggle);
     
+    filterLabel.setText("FILTER", dontSendNotification);
+    filterLabel.setFont (Font (8.0f, Font::bold));
+    addAndMakeVisible(&filterLabel);
     
     filterEnvRouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     osc2RouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
@@ -162,11 +181,15 @@ void Modulation::resized()
     lfoRouteToggle.setBounds(70, 215, 20, 30);
     
     osc1FreqToggle.setBounds(112, 25, 20, 40);
+    osc1FreqLabel.setBounds(102, 52, 40, 30);
     osc1PWToggle.setBounds(112, 75, 20, 40);
+    osc1PWLabel.setBounds(102, 102, 40, 30);
     osc2FreqToggle.setBounds(112, 125, 20, 40);
+    osc2FreqLabel.setBounds(102, 152, 40, 30);
     osc2PWToggle.setBounds(112, 175, 20, 40);
+    osc2PWLabel.setBounds(102, 202, 40, 30);
     filterToggle.setBounds(112, 225, 20, 40);
-    //   .setBounds (100, 65, 25, 100);
+    filterLabel.setBounds(102, 252, 40, 30);
 }
 
 

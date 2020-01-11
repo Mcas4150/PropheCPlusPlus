@@ -317,8 +317,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 
         }
     }
-    
     buffer.clear();
+    
     keyboardState.processNextMidiBuffer (midiMessages, 0, buffer.getNumSamples(), true);
 
     mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());

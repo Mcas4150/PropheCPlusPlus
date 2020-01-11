@@ -21,6 +21,7 @@ public:
     void sliderValueChanged (Slider*) override;
     
 private:
+    JuceSynthFrameworkAudioProcessor& processor;
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     ComboBox osc2Menu;
     GroupComponent mainGroup;
@@ -45,7 +46,7 @@ private:
     GroupLookAndFeel groupLookAndFeel;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    JuceSynthFrameworkAudioProcessor& processor;
+    
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Oscillator2)

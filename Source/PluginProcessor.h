@@ -65,7 +65,7 @@ public:
     AudioProcessorValueTreeState tree;
     MidiKeyboardState keyboardState;
     //
-    
+ 
     AudioBufferQueue<float>& getAudioBufferQueue() noexcept  { return audioBufferQueue; }
     
     

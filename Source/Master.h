@@ -28,6 +28,7 @@ public:
     void resized() override;
     
 private:
+    JuceSynthFrameworkAudioProcessor& processor;
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     BasicKnob mastergainSlider; LabeledKnob labeledMasterGainKnob;
     BasicKnob masterTuneSlider; LabeledKnob labeledMasterTuneKnob;
@@ -36,7 +37,7 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> masterTuneVal;
     
     
-    JuceSynthFrameworkAudioProcessor& processor;
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Master)
 };

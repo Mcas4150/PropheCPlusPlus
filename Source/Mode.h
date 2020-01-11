@@ -28,6 +28,7 @@ public:
       void sliderValueChanged (Slider*) override;
 
 private:
+    JuceSynthFrameworkAudioProcessor& processor;
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     GroupLookAndFeel groupLookAndFeel;
@@ -50,6 +51,6 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> repeatModeToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> droneModeToggleVal;
     
-    JuceSynthFrameworkAudioProcessor& processor;
+   
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Mode)
 };

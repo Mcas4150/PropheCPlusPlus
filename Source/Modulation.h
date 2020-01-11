@@ -30,6 +30,8 @@ public:
     void sliderValueChanged (Slider*) override;
     
 private:
+    
+     JuceSynthFrameworkAudioProcessor& processor;
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     GroupLookAndFeel groupLookAndFeel;
@@ -45,6 +47,11 @@ private:
     Slider osc2FreqToggle;
     Slider osc2PWToggle;
     Slider filterToggle;
+    Label osc1FreqLabel;
+    Label osc1PWLabel;
+    Label osc2FreqLabel;
+    Label osc2PWLabel;
+    Label filterLabel;
     
     GroupComponent mainGroup;
     
@@ -61,6 +68,6 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterToggleVal;
     
     
-    JuceSynthFrameworkAudioProcessor& processor;
+   
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Modulation)
 };

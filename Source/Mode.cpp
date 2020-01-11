@@ -19,6 +19,7 @@ Mode::Mode(JuceSynthFrameworkAudioProcessor& p)
     setLookAndFeel(lookAndFeel);
     mainGroup.setText("MODE");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
     
     retrigModeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);

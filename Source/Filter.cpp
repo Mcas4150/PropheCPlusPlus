@@ -28,6 +28,7 @@ Filter::Filter(JuceSynthFrameworkAudioProcessor& p)
     setLookAndFeel(lookAndFeel);
     mainGroup.setText("FILTER");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
     
     filterMenu.addItem("Low Pass", 1);

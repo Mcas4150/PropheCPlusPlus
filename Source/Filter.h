@@ -5,6 +5,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "../Common/LabeledKnob.h"
+#include "SliderLookAndFeel.h"
 
 //==============================================================================
 /*
@@ -20,6 +21,7 @@ public:
     void sliderValueChanged (Slider*) override;
     
 private:
+    GroupLookAndFeel groupLookAndFeel;
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     BasicKnob filterCutoff; LabeledKnob labeledFilterCutoff;
     BasicKnob filterRes; LabeledKnob labeledFilterRes;

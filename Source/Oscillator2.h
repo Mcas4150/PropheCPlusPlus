@@ -42,6 +42,7 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2PulseWidthVal;
     
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
+    GroupLookAndFeel groupLookAndFeel;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     JuceSynthFrameworkAudioProcessor& processor;

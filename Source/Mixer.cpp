@@ -25,6 +25,7 @@ Mixer::Mixer(JuceSynthFrameworkAudioProcessor& p)
     setLookAndFeel(lookAndFeel);
     mainGroup.setText("MIXER");
     mainGroup.setTextLabelPosition(juce::Justification::centredTop);
+    mainGroup.setLookAndFeel(&groupLookAndFeel);
     addAndMakeVisible(&mainGroup);
     
     osc1Level.setRange(0.0f, 1.0f);
@@ -42,7 +43,7 @@ Mixer::Mixer(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(labeledNoiseLevelKnob);
     noiseLevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "noiseLevel", noiseLevel);
     
-    mainGroup.setLookAndFeel(&groupLookAndFeel);
+   
 }
 
 Mixer::~Mixer()

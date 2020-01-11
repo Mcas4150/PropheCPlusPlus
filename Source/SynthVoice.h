@@ -30,12 +30,12 @@ public:
     
     void setOsc1Freq(float* setting)
     {
-        osc1FreqSetting = *setting;
+        osc1FreqSetting = std::pow(2,*setting);
     }
     
     void setOsc1Oct(float* setting)
     {
-        osc1OctSetting = *setting;
+        osc1OctSetting =  std::pow(2, *setting);
     }
     
     void setOsc1SawMode(float* setting)
@@ -52,13 +52,11 @@ public:
 //    {
 //
 //        return
-//     (
-//      osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   )
+//     ( osc1.saw(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1SawSetting
+//        +
+//     osc1.square(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1SquareSetting
 //      );
-////      * osc1SawSetting
-////        +
-////        osc1.square(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   ) * osc1SquareSetting
-////      ) / osc1SawSetting + osc1SquareSetting;
+////  needs to be averaged properly
 //
 //    }
     
@@ -73,13 +71,13 @@ public:
     void setOsc2Freq(float* setting)
     {
         
-        osc2FreqSetting = *setting;
+        osc2FreqSetting = std::pow(2, *setting);
     }
     
     void setOsc2Oct(float* setting)
     {
         
-        osc2OctSetting = *setting;
+        osc2OctSetting =  std::pow(2, *setting);
     }
     
     void setOsc2SawMode(float* setting)
@@ -92,20 +90,17 @@ public:
         osc2SquareSetting = *setting;
     }
     
-//
+
 //    double getOsc2()
 //    {
-//        
+//
 //        return
-//        (
-//         osc2.saw(processedFrequency * (std::pow(2, osc2FreqSetting)) * (std::pow(2, osc2OctSetting))   )
+//        ( osc2.saw(processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SawSetting
+//         +
+//         osc2.square(processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SquareSetting
 //         );
-//         
-////         * osc2SawSetting
-////         +
-////         osc2.square(processedFrequency * (std::pow(2, osc2FreqSetting)) * (std::pow(2, osc2OctSetting))   ) * osc2SquareSetting
-////         ) / osc2SawSetting + osc2SquareSetting;
-//        
+//        //  needs to be averaged properly
+//
 //    }
 
     
@@ -141,9 +136,9 @@ public:
 //        +
 //        osc3.noise() * noiseLevelSetting;
         
-        osc1.saw(processedFrequency * (std::pow(2, osc1FreqSetting)) * (std::pow(2, osc1OctSetting))   ) * osc1LevelSetting
+        osc1.saw(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1SawSetting * osc1LevelSetting
         +
-        osc2.saw(processedFrequency * (std::pow(2, osc2FreqSetting)) * (std::pow(2, osc2OctSetting))   ) * osc2LevelSetting
+        osc2.saw(processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SawSetting * osc2LevelSetting
         +
         osc3.noise() * noiseLevelSetting;
 
@@ -214,7 +209,7 @@ public:
         double cutoffValue = 0;
         cutoffValue = getFilterEnvelope() *  cutoffSetting;
         
-        cutoffValue += getLfoValue()* lfoFilter;
+        cutoffValue += getLfoValue()* modAmtFilterEnvSetting;
         if(cutoffValue < 30.0f)
         {
             cutoffValue = 30.0f;
@@ -340,7 +335,7 @@ public:
     
     double getLfoValue()
     {
-        double lfoValue = lfoRateSetting != 0 ? lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger)) : 0;
+        double lfoValue = lfoRateSetting != 0 ? lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger))  : 0;
         return lfoValue;
     }
     
@@ -352,7 +347,7 @@ public:
     
     void setModAmtFilterEnv (float* setting)
     {
-        lfoFilter = *setting;
+        modAmtFilterEnvSetting = *setting;
     }
     
     
@@ -460,8 +455,8 @@ public:
             
             auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
             //            processedFrequency = freq + (freq * getLfoValue());
-           
-            processedFrequency = freq;
+//              processedFrequency = freq
+            processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting);
             
 
             double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff(), resonance);
@@ -516,7 +511,6 @@ private:
     maxiFilter filter1;
     maxiEnv filterEnvelope;
     float cutoffSetting;
-    float lfoFilter;
     float resonance;
     float keyAmt;
     float envAmt;
@@ -530,7 +524,7 @@ private:
     int lfoType;
     
     
-    
+    float modAmtFilterEnvSetting;
     float modAmtLfoSetting;
     
     double noiseLevelSetting;

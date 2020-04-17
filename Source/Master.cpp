@@ -57,7 +57,7 @@ void Master::paint (Graphics& g)
 void Master::resized()
 {
     
-    auto bounds = getLocalBounds().reduced(5);
+   
     // This method is where you should set the bounds of any child
     // components that your component contains..
     //    labeledMasterGainKnob.setBounds(915, 250, 50, 50);

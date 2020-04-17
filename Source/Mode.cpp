@@ -82,7 +82,7 @@ void Mode::paint (Graphics& g)
 void Mode::resized()
 {
     juce::Rectangle<int> area = getLocalBounds().reduced(5);
-    auto bounds = getLocalBounds().reduced(5);
+ 
     mainGroup.setBounds(area);
     mainGroup.setColour(0, Colours::white);
     

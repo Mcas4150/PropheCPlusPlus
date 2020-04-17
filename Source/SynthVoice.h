@@ -122,12 +122,14 @@ public:
     void setOsc2Level(float* setting)
     {
         osc2LevelSetting = *setting;
+   
     }
     
     
     double getMixerSound()
     {
-        
+       
+
         return
 
 //       getOsc1() * osc1LevelSetting
@@ -141,6 +143,8 @@ public:
         osc2.saw(processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SawSetting * osc2LevelSetting
         +
         osc3.noise() * noiseLevelSetting;
+        
+        
 
     }
     
@@ -306,6 +310,8 @@ public:
     
     double setLfoType(float* setting)
     
+//    Not a switch but an aggregate
+    
     {
         
         double lfoChoice;
@@ -339,6 +345,8 @@ public:
         return lfoValue;
     }
     
+//    void
+    
 
     
         //=========MODULATION========================
@@ -350,11 +358,23 @@ public:
         modAmtFilterEnvSetting = *setting;
     }
     
+//    void setModAmtOscB(float* setting)
+//    {
+//        modAmtOscBSetting = *setting ;
+//    }
     
-    void setmodAmtLfo(float* setting)
+    void setModAmtLfo(float* setting)
     {
         modAmtLfoSetting = *setting ;
     }
+    
+//    void setToggleFilter(float* setting)
+//    {
+////        toggleFilterSetting = *setting ;
+//        toggleFilterSetting   = *setting == -1.0f ? false : true;
+//    }
+//
+   
     
     
 
@@ -373,7 +393,7 @@ public:
     
     void setMasterGain(float* mGain)
     {
-        masterGain = *mGain;
+          masterGain = *mGain;
 
 
     }
@@ -455,7 +475,11 @@ public:
             
             auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
             //            processedFrequency = freq + (freq * getLfoValue());
-//              processedFrequency = freq
+//            processedFrequency = freq;
+//            processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * toggleFilterSetting);
+                     
+            
+            
             processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting);
             
 
@@ -525,7 +549,10 @@ private:
     
     
     float modAmtFilterEnvSetting;
+//    float modAmtOscBSetting;
     float modAmtLfoSetting;
+    
+//    Boolean toggleFilterSetting;
     
     double noiseLevelSetting;
     double osc1LevelSetting;

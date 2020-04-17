@@ -46,7 +46,7 @@ void Arpeggiator::paint (Graphics& g)
 void Arpeggiator::resized()
 {
     juce::Rectangle<int> area = getLocalBounds().reduced(5);
-    auto bounds = getLocalBounds().reduced(5);
+   
     mainGroup.setBounds(area);
     mainGroup.setColour(0, Colours::white);
     arpModeToggle.setBounds(30, 30, 20, 40);

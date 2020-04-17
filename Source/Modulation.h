@@ -22,7 +22,9 @@
 class Modulation    : public Component, public Slider::Listener
 {
 public:
-    Modulation(JuceSynthFrameworkAudioProcessor&);
+    void extracted();
+    
+Modulation(JuceSynthFrameworkAudioProcessor&);
     ~Modulation();
     
     void paint (Graphics&) override;
@@ -31,7 +33,7 @@ public:
     
 private:
     
-     JuceSynthFrameworkAudioProcessor& processor;
+    JuceSynthFrameworkAudioProcessor& processor;
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     GroupLookAndFeel groupLookAndFeel;
@@ -47,6 +49,9 @@ private:
     Slider osc2FreqToggle;
     Slider osc2PWToggle;
     Slider filterToggle;
+    Label modAmtFilterEnvLabel;
+    Label modAmtOscBLabel;
+    Label modAmtLfoLabel;
     Label osc1FreqLabel;
     Label osc1PWLabel;
     Label osc2FreqLabel;
@@ -55,8 +60,8 @@ private:
     
     GroupComponent mainGroup;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoFilterVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2ModAmtVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> modAmtFilterEnvVal;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> modAmtOscBVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> modAmtLfoVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterEnvRouteToggleVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2RouteToggleVal;

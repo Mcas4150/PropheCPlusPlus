@@ -178,9 +178,9 @@ struct PitchBendLookAndFeel    : public LookAndFeel_V4
     {
         auto sliderRadius = (float) getSliderThumbRadius (slider);
         auto grey = Colour(0xff2b2e33);
-        auto knobColour = slider.findColour (Slider::rotarySliderFillColourId)
-        .withMultipliedSaturation ((slider.hasKeyboardFocus (false)) ? 1.3f : 0.9f)
-        .withMultipliedAlpha (slider.isEnabled() ? 1.0f : 0.7f);
+//        auto knobColour = slider.findColour (Slider::rotarySliderFillColourId)
+//        .withMultipliedSaturation ((slider.hasKeyboardFocus (false)) ? 1.3f : 0.9f)
+//        .withMultipliedAlpha (slider.isEnabled() ? 1.0f : 0.7f);
         
         
         g.setColour (Colour(grey).withMultipliedSaturation(0.8f));
@@ -634,7 +634,7 @@ struct GroupLookAndFeel    : public LookAndFeel_V4
         p.addArc (x, y, cs2, cs2, MathConstants<float>::pi * 1.5f, MathConstants<float>::twoPi);
         p.lineTo (x + textX, y);
         
-        auto alpha = group.isEnabled() ? 1.0f : 0.5f;
+//        auto alpha = group.isEnabled() ? 1.0f : 0.5f;
         
         g.setColour (Colours::silver);
         

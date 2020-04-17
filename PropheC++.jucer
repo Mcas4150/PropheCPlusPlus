@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="YZKjFM" name="PropheC++" projectType="audioplug" jucerVersion="5.4.5"
+<JUCERPROJECT id="YZKjFM" name="PropheC++" projectType="audioplug" jucerVersion="5.4.7"
               headerPath="&#10;&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/PropheC++/Common&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/Maximilian&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/DSPFilters-master/shared/DSPFilters"
               pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="ZH3u4d" name="PropheC++">
@@ -22,10 +22,13 @@
           <FILE id="jNze5b" name="maxiMFCC.h" compile="0" resource="0" file="../Maximilian/libs/maxiMFCC.h"/>
           <FILE id="MkY7LV" name="sineTable.h" compile="0" resource="0" file="../Maximilian/libs/sineTable.h"/>
         </GROUP>
-        <FILE id="YMJeux" name="main.cpp" compile="1" resource="0" file="../Maximilian/main.cpp"/>
-        <FILE id="ndO8Vf" name="maximilian.cpp" compile="1" resource="0" file="../Maximilian/maximilian.cpp"/>
+        <FILE id="YMJeux" name="main.cpp" compile="1" resource="0" file="../Maximilian/main.cpp"
+              xcodeResource="0"/>
+        <FILE id="ndO8Vf" name="maximilian.cpp" compile="1" resource="0" file="../Maximilian/maximilian.cpp"
+              xcodeResource="0"/>
         <FILE id="xVikFv" name="maximilian.h" compile="0" resource="0" file="../Maximilian/maximilian.h"/>
-        <FILE id="fTOifU" name="stb_vorbis.c" compile="1" resource="0" file="../Maximilian/stb_vorbis.c"/>
+        <FILE id="fTOifU" name="stb_vorbis.c" compile="1" resource="0" file="../Maximilian/stb_vorbis.c"
+              xcodeResource="0"/>
         <FILE id="hKjS78" name="stb_vorbis.h" compile="0" resource="0" file="../Maximilian/stb_vorbis.h"/>
       </GROUP>
       <FILE id="o1Obsi" name="Amplifier.cpp" compile="1" resource="0" file="Source/Amplifier.cpp"/>
@@ -90,15 +93,17 @@
       <FILE id="LIDBiV" name="ResonantLowpassFilter.h" compile="0" resource="0"
             file="Common/ResonantLowpassFilter.h"/>
     </GROUP>
-    <FILE id="FFtqy3" name="wood.png" compile="0" resource="1" file="../../../../Pictures/wood.png"/>
-    <FILE id="yMyGkv" name="ProLogo1.png" compile="0" resource="1" file="../../../../Desktop/ProLogo1.png"/>
-    <FILE id="DLLKtO" name="saw.png" compile="0" resource="1" file="../../../../Desktop/saw.png"/>
-    <FILE id="flLNAb" name="square.png" compile="0" resource="1" file="../../../../Desktop/square.png"/>
-    <FILE id="nEPKCo" name="triangle.png" compile="0" resource="1" file="../../../../Desktop/triangle.png"/>
-    <FILE id="GfnKfm" name="plastic.png" compile="0" resource="1" file="../../../../Desktop/plastic.png"/>
-    <FILE id="CRQByA" name="dialSwatch2.png" compile="0" resource="1" file="../../../../Desktop/dialSwatch2.png"/>
-    <FILE id="OazklN" name="Edge.png" compile="0" resource="1" file="../../../../Desktop/Edge.png"/>
-    <FILE id="rMSrmX" name="metal.jpg" compile="0" resource="1" file="../../../../Pictures/metal.jpg"/>
+    <GROUP id="{4A100898-640D-A252-6B82-7D04C2BFD354}" name="Imgs">
+      <FILE id="hfs3zY" name="dialSwatch2.png" compile="0" resource="1" file="Imgs/dialSwatch2.png"/>
+      <FILE id="Loi0qu" name="metal.jpg" compile="0" resource="1" file="Imgs/metal.jpg"/>
+      <FILE id="lDJmSs" name="wood.png" compile="0" resource="1" file="Imgs/wood.png"/>
+      <FILE id="McJUsd" name="Edge.png" compile="0" resource="1" file="Imgs/Edge.png"/>
+      <FILE id="FdtUaq" name="plastic.png" compile="0" resource="1" file="Imgs/plastic.png"/>
+      <FILE id="r4F6PG" name="ProLogo1.png" compile="0" resource="1" file="Imgs/ProLogo1.png"/>
+      <FILE id="kWnelz" name="saw.png" compile="0" resource="1" file="Imgs/saw.png"/>
+      <FILE id="Kaif9H" name="square.png" compile="0" resource="1" file="Imgs/square.png"/>
+      <FILE id="hzP8XR" name="triangle.png" compile="0" resource="1" file="Imgs/triangle.png"/>
+    </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">

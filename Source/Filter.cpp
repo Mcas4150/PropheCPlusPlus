@@ -118,7 +118,7 @@ void Filter::resized()
     bottomWidgetsArea.removeFromBottom(5);
     bottomWidgetsArea.removeFromTop(80);
     int width = (widgetsArea.getWidth() - (4 - 1) * 10) / 4;
-    int height = (widgetsArea.getHeight());
+   
     labeledFilterCutoff.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(10);
     labeledFilterRes.setBounds(widgetsArea.removeFromLeft(width));

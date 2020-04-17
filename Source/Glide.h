@@ -20,6 +20,8 @@ public:
     void sliderValueChanged (Slider*) override;
     
 private:
+    JuceSynthFrameworkAudioProcessor& processor;
+    
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     GroupLookAndFeel groupLookAndFeel;
@@ -33,7 +35,7 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> glideRateVal;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> glideModeVal;
     
-    JuceSynthFrameworkAudioProcessor& processor;
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Glide)
 };

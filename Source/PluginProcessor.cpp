@@ -267,10 +267,10 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setFilterRes(tree.getRawParameterValue("filterRes"));
             myVoice->setEnvAmt(tree.getRawParameterValue("envAmt"));
             myVoice->setKeyAmt(tree.getRawParameterValue("keyAMt"));
-        myVoice->setFilterEnvelopeParams(tree.getRawParameterValue("filterAttack"),
+            myVoice->setFilterEnvelopeParams(tree.getRawParameterValue("filterAttack"),
                                         tree.getRawParameterValue("filterDecay"),
                                         tree.getRawParameterValue("filterSustain"),
-                                     tree.getRawParameterValue("filterRelease"));
+                                        tree.getRawParameterValue("filterRelease"));
             //PITCH
             
             
@@ -297,8 +297,13 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 //            MODULATION
             
             
-        myVoice->setmodAmtLfo(tree.getRawParameterValue("modAmtLfo"));
         myVoice->setModAmtFilterEnv(tree.getRawParameterValue("modAmtFilterEnv"));
+        myVoice->setModAmtLfo(tree.getRawParameterValue("modAmtLfo"));
+//        myVoice->setModAmtOscB(tree.getRawParameterValue("modAmtOscB"));
+       
+//            myVoice->setToggleFilter(tree.getRawParameterValue("filterToggle"));
+            
+            
             
             
 //           AMPLIFIER
@@ -345,12 +350,20 @@ void JuceSynthFrameworkAudioProcessor::getStateInformation (MemoryBlock& destDat
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    auto state = tree.copyState();
+         std::unique_ptr<XmlElement> xml (state.createXml());
+         copyXmlToBinary (*xml, destData);
 }
 
 void JuceSynthFrameworkAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+
+           if (xmlState.get() != nullptr)
+               if (xmlState->hasTagName (parameters.state.getType()))
+                   tree.replaceState (ValueTree::fromXml (*xmlState));
 }
 
 //==============================================================================

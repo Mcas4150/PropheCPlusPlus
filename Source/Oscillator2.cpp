@@ -114,10 +114,10 @@ void Oscillator2::resized()
     mainGroup.setBounds(area);
     mainGroup.setColour(0, Colours::white);
     auto widgetsArea = bounds.reduced(10);
-    auto bottomWidgetsArea = bounds.reduced(10);
+   
     widgetsArea.removeFromTop(5);
     int width = (widgetsArea.getWidth() - (4 - 1) * 10) / 5;
-    int height = (widgetsArea.getHeight());
+   
     labeledOsc2FreqKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(10);
     labeledOsc2OctKnob.setBounds(widgetsArea.removeFromLeft(width));

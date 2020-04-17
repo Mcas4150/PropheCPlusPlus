@@ -58,7 +58,7 @@ void Glide::paint (Graphics& g)
 void Glide::resized()
 {
     juce::Rectangle<int> area = getLocalBounds().reduced(5);
-    auto bounds = getLocalBounds().reduced(5);
+  
     mainGroup.setBounds(area);
     mainGroup.setColour(0, Colours::white);
     // This method is where you should set the bounds of any child

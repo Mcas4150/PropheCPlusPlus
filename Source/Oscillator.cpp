@@ -9,7 +9,7 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
 , labeledoscAFreqKnob("FREQUENCY", osc1FreqKnob)
 , osc1OctKnob(0.0f, 3.0f, "oct")
 , labeledoscAOctKnob("OCTAVE", osc1OctKnob)
-, osc1PulseWidthKnob(0, 3, "st")
+, osc1PulseWidthKnob(0.0f, 0.99f, "st")
 , labeledoscAPulseWidthKnob("PW", osc1PulseWidthKnob)
 {
     setSize(275, 95);
@@ -29,11 +29,11 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(labeledoscAOctKnob);
     osc1OctVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1Oct", osc1OctKnob);
     
-    osc1PulseWidthKnob.setRange(0, 3);
-    osc1PulseWidthKnob.setValue(0);
+    osc1PulseWidthKnob.setRange(0.0f, 0.99f);
+    osc1PulseWidthKnob.setValue(0.0);
     addAndMakeVisible(labeledoscAPulseWidthKnob)
     ;
-    osc1PulseWidthVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1PulseWidth", osc1PulseWidthKnob);
+    osc1PulseWidthVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1PW", osc1PulseWidthKnob);
     
     
     

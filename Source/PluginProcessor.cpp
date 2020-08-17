@@ -56,6 +56,7 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("osc1Oct", "Osc1Oct", Range {0.0f, 3.0f, 0.01f}, 0.0f)) ;
     params.add ( std::make_unique<AudioParameterInt>("osc1SawMode", "Osc1SawMode", 0, 1, 1));
     params.add ( std::make_unique<AudioParameterInt>("osc1SquareMode", "Osc1SquareMode", 0, 1, 0));
+    params.add ( std::make_unique<AudioParameterFloat>("osc1PW", "Osc1PW", Range {0.0f, 0.99f, 0.01f}, 0.0f));
 
     ////           OSCILLATOR B
     params.add ( std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", Range { -2.0f, 2.0f, 0.1f } , 0.0f));
@@ -275,6 +276,7 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setOsc1Oct(valTreeState.getRawParameterValue("osc1Oct"));
             myVoice->setOsc1SawMode(valTreeState.getRawParameterValue("osc1SawMode"));
             myVoice->setOsc1SquareMode(valTreeState.getRawParameterValue("osc1SquareMode"));
+            myVoice->setOsc1PWSetting(valTreeState.getRawParameterValue("osc1PW"));
             
 //            OSCILLATOR B
             

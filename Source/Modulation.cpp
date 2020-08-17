@@ -118,8 +118,8 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc1PWLabel.setText("OSC A PW", dontSendNotification);
     osc1PWLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc1PWLabel);
-    osc1PWToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1PW", osc1PWToggle);
-
+    osc1PWToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1PWToggle", osc1PWToggle);
+// TODO:: eventually MODToggle
     
     
     osc2FreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);

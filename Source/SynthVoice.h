@@ -48,6 +48,52 @@ public:
         osc1SquareSetting = *setting;
     }
     
+    void setOsc1PWSetting(std::atomic<float>* setting)
+    {
+        osc1PWSetting = *setting;
+    }
+    
+    
+    double getOsc1PWSetting(){
+        double pwm = osc1PWSetting;
+//        pwm = pwmSetting - pwmSetting * lfoPwmSetting * pwmModeSetting * getLfoValue();
+        if(pwm > 0.99f){
+            return 0.99;
+        } else if (pwm < 0){
+            return 0;
+        } else {
+            return pwm;
+        }
+    }
+    
+    double getOsc1Saw() {
+        if(osc1SawSetting)
+        {
+//           TODO:: ADD PITCH RANGE
+//            return sawOsc.saw(processedFrequency/getPitchRangeSetting());
+            
+            return osc1saw.saw(processedFrequency * osc1FreqSetting * osc1OctSetting);
+        }
+        return 0;
+    }
+    
+    double getOsc1Square() {
+        if(osc1SquareSetting)
+        {
+//           TODO:: ADD PITCH RANGE
+//            double squareFrequency = osc1square.square(processedFrequency/getPitchRangeSetting());
+            double squareFrequency = osc1square.square(processedFrequency * osc1FreqSetting * osc1OctSetting);
+            
+            if(osc1PWSetting > 0){
+            return osc1square.pulse(squareFrequency, getOsc1PWSetting());
+            } else {
+                return squareFrequency;
+            }
+
+        }
+        return 0;
+    }
+    
 //    double getOsc1()
 //    {
 //
@@ -138,7 +184,10 @@ public:
 //        +
 //        osc3.noise() * noiseLevelSetting;
         
-        osc1.saw(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1SawSetting * osc1LevelSetting
+//        osc1.saw(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1SawSetting * osc1LevelSetting
+        getOsc1Saw() * osc1LevelSetting
+        +
+        getOsc1Square() * osc1LevelSetting
         +
         osc2.saw(processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SawSetting * osc2LevelSetting
         +
@@ -514,11 +563,13 @@ private:
      float osc1OctSetting;
     float  osc1SawSetting;
     float osc1SquareSetting;
+    float osc1PWSetting;
     
     float osc2FreqSetting;
     float osc2OctSetting;
     float   osc2SawSetting;
     float osc2SquareSetting;
+    
    
     
     float osc2blend;
@@ -569,7 +620,7 @@ private:
     float masterGain;
     
 
-    maxiOsc osc1, osc2, osc3, lfo;
+    maxiOsc osc1saw, osc1square, osc2, osc3, lfo;
     maxiEnv ampEnvelope;
     maxiEnv lfoEnv;
 

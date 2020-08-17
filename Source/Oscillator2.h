@@ -34,13 +34,13 @@ private:
     Slider osc2SquareShapeToggle;
     Slider osc2TriangleShapeToggle;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2SawShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2SquareShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2TriangleShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> waveSelection2;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2FreqVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2OctVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2PulseWidthVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2SawShapeVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2SquareShapeVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2TriangleShapeVal;
+    std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> waveSelection2;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2FreqVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2OctVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2PulseWidthVal;
     
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     GroupLookAndFeel groupLookAndFeel;

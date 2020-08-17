@@ -27,7 +27,7 @@ Sequencer::Sequencer(JuceSynthFrameworkAudioProcessor& p)
     sequenceModeToggle.setValue(1);
     sequenceModeToggle.addListener(this);
     addAndMakeVisible(&sequenceModeToggle);
-    sequenceModeToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "sequenceMode", sequenceModeToggle);
+    sequenceModeToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "sequenceMode", sequenceModeToggle);
     sequenceModeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     
     sequenceRecordToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -35,7 +35,7 @@ Sequencer::Sequencer(JuceSynthFrameworkAudioProcessor& p)
     sequenceRecordToggle.setValue(1);
     sequenceRecordToggle.addListener(this);
     addAndMakeVisible(&sequenceRecordToggle);
-    sequenceRecordToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "sequenceRecord", sequenceRecordToggle);
+    sequenceRecordToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "sequenceRecord", sequenceRecordToggle);
     sequenceRecordToggle.setLookAndFeel(&sliderToggleLookAndFeel);
 }
 

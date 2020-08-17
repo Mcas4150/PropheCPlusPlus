@@ -32,8 +32,8 @@ private:
     
     GroupComponent mainGroup;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> glideRateVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> glideModeVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> glideRateVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> glideModeVal;
     
     
     

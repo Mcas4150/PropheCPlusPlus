@@ -39,7 +39,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     modAmtFilterEnvKnob.setRange(0.00, 1.00);
     modAmtFilterEnvKnob.setValue(0.00);
     addAndMakeVisible(labeledModAmtFilterEnvKnob);
-    modAmtFilterEnvVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "modAmtFilterEnv", modAmtFilterEnvKnob);
+    modAmtFilterEnvVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "modAmtFilterEnv", modAmtFilterEnvKnob);
     modAmtFilterEnvLabel.setText("FIL ENV", dontSendNotification);
     modAmtFilterEnvLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&modAmtFilterEnvLabel);
@@ -49,7 +49,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc2ModAmtKnob.setRange(0.00, 1.00);
     osc2ModAmtKnob.setValue(0.00);
     addAndMakeVisible(labeledOsc2ModAmtKnob);
-    modAmtOscBVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "modAmtOscB", osc2ModAmtKnob);
+    modAmtOscBVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "modAmtOscB", osc2ModAmtKnob);
     modAmtOscBLabel.setText("OSC B", dontSendNotification);
     modAmtOscBLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&modAmtOscBLabel);
@@ -59,7 +59,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     modAmtLfoKnob.setRange(0.00, 1.00);
     modAmtLfoKnob.setValue(0.00);
     addAndMakeVisible(labeledModAmtLfoKnob);
-    modAmtLfoVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "modAmtLfo", modAmtLfoKnob);
+    modAmtLfoVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "modAmtLfo", modAmtLfoKnob);
     modAmtLfoLabel.setText("LFO", dontSendNotification);
     modAmtLfoLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&modAmtLfoLabel);
@@ -75,7 +75,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     filterEnvRouteToggle.setValue(0);
     filterEnvRouteToggle.addListener(this);
     addAndMakeVisible(&filterEnvRouteToggle);
-    filterEnvRouteToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterEnvRoute", filterEnvRouteToggle);
+    filterEnvRouteToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "filterEnvRoute", filterEnvRouteToggle);
     
     
     osc2RouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
@@ -84,7 +84,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc2RouteToggle.setValue(0);
     osc2RouteToggle.addListener(this);
     addAndMakeVisible(&osc2RouteToggle);
-    osc2RouteToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2Route", osc2RouteToggle);
+    osc2RouteToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2Route", osc2RouteToggle);
     
     lfoRouteToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     lfoRouteToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -92,7 +92,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     lfoRouteToggle.setValue(0);
     lfoRouteToggle.addListener(this);
     addAndMakeVisible(& lfoRouteToggle);
-    lfoRouteToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "lfoRoute",  lfoRouteToggle);
+    lfoRouteToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "lfoRoute",  lfoRouteToggle);
     
     
     // TO TOGGLES
@@ -103,7 +103,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc1FreqToggle.setValue(0);
     osc1FreqToggle.addListener(this);
     addAndMakeVisible(&osc1FreqToggle);
-    osc1FreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1FreqToggle", osc1FreqToggle);
+    osc1FreqToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1FreqToggle", osc1FreqToggle);
     osc1FreqLabel.setText("OSC A FREQ", dontSendNotification);
     osc1FreqLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc1FreqLabel);
@@ -118,7 +118,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc1PWLabel.setText("OSC A PW", dontSendNotification);
     osc1PWLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc1PWLabel);
-    osc1PWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1PW", osc1PWToggle);
+    osc1PWToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1PW", osc1PWToggle);
 
     
     
@@ -131,7 +131,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc2FreqLabel.setText("OSC B FREQ", dontSendNotification);
     osc2FreqLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc2FreqLabel);
-    osc2FreqToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2FreqToggle", osc2FreqToggle);
+    osc2FreqToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2FreqToggle", osc2FreqToggle);
     
     
     osc2PWToggle.setLookAndFeel(&sliderToggleLookAndFeel);
@@ -143,7 +143,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc2PWLabel.setText("OSC B PW", dontSendNotification);
     osc2PWLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc2PWLabel);
-    osc2PWToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2PW", osc2PWToggle);
+    osc2PWToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2PW", osc2PWToggle);
     
     
     filterToggle.setLookAndFeel(&sliderToggleLookAndFeel);
@@ -155,7 +155,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     filterLabel.setText("FILTER", dontSendNotification);
     filterLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&filterLabel);
-    filterToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterToggle", filterToggle);
+    filterToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "filterToggle", filterToggle);
     
 }
 

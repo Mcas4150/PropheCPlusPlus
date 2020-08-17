@@ -62,16 +62,17 @@ public:
     
     void updateFilter();
     
-    AudioProcessorValueTreeState tree;
+    std::unique_ptr<UndoManager>                  mUndoManager;
+    std::unique_ptr<AudioProcessorValueTreeState> valTreeState;
     MidiKeyboardState keyboardState;
     //
- 
+    AudioProcessorValueTreeState::ParameterLayout createParameters();
     AudioBufferQueue<float>& getAudioBufferQueue() noexcept  { return audioBufferQueue; }
-    
-    
-private:
     Synthesiser mySynth;
     SynthVoice* myVoice;
+    
+private:
+  
     
     float lfoPhase;
     

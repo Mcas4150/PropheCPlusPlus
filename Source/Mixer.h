@@ -38,9 +38,9 @@ private:
     BasicKnob osc2Level; LabeledKnob labeledOsc2LevelKnob;
     BasicKnob noiseLevel; LabeledKnob labeledNoiseLevelKnob;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1LevelVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2LevelVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> noiseLevelVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc1LevelVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2LevelVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> noiseLevelVal;
     
     GroupLookAndFeel groupLookAndFeel;
     // This reference is provided as a quick way for your editor to

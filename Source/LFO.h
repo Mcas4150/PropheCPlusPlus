@@ -45,12 +45,12 @@ private:
     Slider lfoSquareShapeToggle;
     Slider lfoTriangleShapeToggle;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoSawShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoSquareShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoTriangleShapeVal;
-    ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> lfoSelect;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> rateVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> delayVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lfoSawShapeVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lfoSquareShapeVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lfoTriangleShapeVal;
+    std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> lfoSelect;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rateVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayVal;
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="YZKjFM" name="PropheC++" projectType="audioplug" jucerVersion="5.4.7"
-              headerPath="&#10;&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/PropheC++/Common&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/Maximilian&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/DSPFilters-master/shared/DSPFilters"
-              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
+<JUCERPROJECT id="YZKjFM" name="PropheC++" projectType="audioplug" headerPath="&#10;&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/PropheC++/Common&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/Maximilian&#10;&#10;/Users/mikecassidy/Documents/code/JuceProjects/DSPFilters-master/shared/DSPFilters"
+              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="ZH3u4d" name="PropheC++">
     <GROUP id="{B238ACAB-885D-0A40-AC34-21BE749E1045}" name="Source">
       <GROUP id="{01CA4099-C8CD-7D0E-6C56-8030D2FF67DD}" name="Maximilian">

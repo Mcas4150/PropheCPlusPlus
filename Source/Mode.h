@@ -47,9 +47,9 @@ private:
     
     GroupComponent mainGroup;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> retrigModeToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> repeatModeToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> droneModeToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> retrigModeToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> repeatModeToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> droneModeToggleVal;
     
    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Mode)

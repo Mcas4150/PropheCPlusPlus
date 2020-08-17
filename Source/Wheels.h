@@ -29,7 +29,7 @@ public:
     
 private:
     Slider pitchBendSlider;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> pitchBendVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> pitchBendVal;
     PitchBendLookAndFeel pitchBendLookAndFeel;
     JuceSynthFrameworkAudioProcessor& processor;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Wheels)

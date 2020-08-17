@@ -27,13 +27,13 @@ Master::Master(JuceSynthFrameworkAudioProcessor& p)
     mastergainSlider.setRange(0.0f, 1.0f);
     mastergainSlider.setValue(1.0f);
     addAndMakeVisible(labeledMasterGainKnob);
-    mastergainVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "mastergain", mastergainSlider);
+    mastergainVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "mastergain", mastergainSlider);
     
     
     masterTuneSlider.setRange(-1.0f, 1.0f);
     masterTuneSlider.setValue(0);
     addAndMakeVisible(labeledMasterTuneKnob);
-    masterTuneVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "masterTune", masterTuneSlider);
+    masterTuneVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "masterTune", masterTuneSlider);
     
     //       addAndMakeVisible (scopeComponent);
 }

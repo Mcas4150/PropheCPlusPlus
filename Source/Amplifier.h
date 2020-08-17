@@ -34,10 +34,10 @@ private:
     BasicKnob sustainSlider; LabeledKnob labeledAmpSustainKnob;
     BasicKnob releaseSlider; LabeledKnob labeledAmpReleaseKnob;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> attackVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> decayVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> sustainVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> releaseVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> attackVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> decayVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sustainVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> releaseVal;
     
     
     // This reference is provided as a quick way for your editor to

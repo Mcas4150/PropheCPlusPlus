@@ -27,7 +27,7 @@ Mode::Mode(JuceSynthFrameworkAudioProcessor& p)
     retrigModeToggle.setValue(1);
     retrigModeToggle.addListener(this);
     addAndMakeVisible(&retrigModeToggle);
-    retrigModeToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "retrigMode", retrigModeToggle);
+    retrigModeToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "retrigMode", retrigModeToggle);
     retrigModeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     
     retrigLabel.setText("RETRIG", dontSendNotification);
@@ -42,7 +42,7 @@ Mode::Mode(JuceSynthFrameworkAudioProcessor& p)
     repeatModeToggle.setValue(1);
     repeatModeToggle.addListener(this);
     addAndMakeVisible(&repeatModeToggle);
-    repeatModeToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "repeatMode", repeatModeToggle);
+    repeatModeToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "repeatMode", repeatModeToggle);
     repeatModeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     
     repeatLabel.setText("REPEAT", dontSendNotification);
@@ -58,7 +58,7 @@ Mode::Mode(JuceSynthFrameworkAudioProcessor& p)
     droneModeToggle.setValue(1);
     droneModeToggle.addListener(this);
     addAndMakeVisible(&droneModeToggle);
-    droneModeToggleVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "droneMode", droneModeToggle);
+    droneModeToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "droneMode", droneModeToggle);
     droneModeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     
     droneLabel.setText("DRONE", dontSendNotification);

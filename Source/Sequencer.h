@@ -37,8 +37,8 @@ private:
     
     GroupComponent mainGroup;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> sequenceModeToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> sequenceRecordToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sequenceModeToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sequenceRecordToggleVal;
     
     JuceSynthFrameworkAudioProcessor& processor;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Sequencer)

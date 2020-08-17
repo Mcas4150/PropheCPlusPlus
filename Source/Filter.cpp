@@ -36,52 +36,52 @@ Filter::Filter(JuceSynthFrameworkAudioProcessor& p)
     filterMenu.addItem("Band Pass", 3);
     filterMenu.setJustificationType(Justification::centred);
     //    addAndMakeVisible(&filterMenu);
-    filterTypeVal = new AudioProcessorValueTreeState::ComboBoxAttachment (processor.tree, "filterType", filterMenu);
+    filterTypeVal = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (*processor.valTreeState, "filterType", filterMenu);
     
     filterCutoff.setRange(8.3, 8500.0);
     filterCutoff.setValue (3000.0);
     filterCutoff.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(labeledFilterCutoff);
-    filterVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterCutoff", filterCutoff);
+    filterVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "filterCutoff", filterCutoff);
     filterCutoff.setSkewFactorFromMidPoint(1000.0);
     
     filterRes.setRange(1, 10);
     filterRes.setValue(1);
     addAndMakeVisible(labeledFilterRes);
-    resVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterRes", filterRes);
+    resVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "filterRes", filterRes);
     
     
     envAmt.setRange(0, 1);
     envAmt.setValue(1);
     envAmt.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(labeledEnvAmt);
-    envAmtVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "envAmt", envAmt);
+    envAmtVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "envAmt", envAmt);
     
     keyAmt.setRange(0, 1);
     keyAmt.setValue(0);
     keyAmt.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(labeledKeyAmt);
-    keyAmtVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "keyAmt", keyAmt);
+    keyAmtVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "keyAmt", keyAmt);
     
     filterAttack.setRange(1.5, 7400.0f);
     filterAttack.setValue(0.1);
     addAndMakeVisible(labeledFilterAttack);
-    filterAttackVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterAttack", filterAttack);
+    filterAttackVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "filterAttack", filterAttack);
     
     filterDecay.setRange(0.5f, 11000.0f);
     filterDecay.setValue(1.0f);
     addAndMakeVisible(labeledFilterDecay);
-    filterDecayVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterDecay", filterDecay);
+    filterDecayVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "filterDecay", filterDecay);
     
     filterSustain.setRange(0.1f, 1.0f);
     filterSustain.setValue(0.8f);
     addAndMakeVisible(labeledFilterSustain);
-    filterSustainVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterSustain", filterSustain);
+    filterSustainVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "filterSustain", filterSustain);
     
     filterRelease.setRange(0.5f, 11000.0f);
     filterRelease.setValue(0.8f);
     addAndMakeVisible(labeledFilterRelease);
-    filterReleaseVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "filterRelease", filterRelease);
+    filterReleaseVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "filterRelease", filterRelease);
     //
     //
     //

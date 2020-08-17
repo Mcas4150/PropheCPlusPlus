@@ -31,17 +31,17 @@ Mixer::Mixer(JuceSynthFrameworkAudioProcessor& p)
     osc1Level.setRange(0.0f, 1.0f);
     osc1Level.setValue(1.0f);
     addAndMakeVisible(labeledoscALevelKnob);
-    osc1LevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc1Level", osc1Level);
+    osc1LevelVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1Level", osc1Level);
     
     osc2Level.setRange(0.0f, 1.0f);
     osc2Level.setValue(1.0f);
     addAndMakeVisible(labeledOsc2LevelKnob);
-    osc2LevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "osc2Level", osc2Level);
+    osc2LevelVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2Level", osc2Level);
     
     noiseLevel.setRange(0.0, 1.0f);
     noiseLevel.setValue(0.0f);
     addAndMakeVisible(labeledNoiseLevelKnob);
-    noiseLevelVal = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "noiseLevel", noiseLevel);
+    noiseLevelVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "noiseLevel", noiseLevel);
     
    
 }

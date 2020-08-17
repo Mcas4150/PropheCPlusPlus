@@ -38,15 +38,15 @@ private:
     
     ComboBox filterMenu;
     
-    ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> filterTypeVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> resVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> envAmtVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> keyAmtVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterAttackVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterDecayVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterSustainVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterReleaseVal;
+    std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> filterTypeVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> resVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> envAmtVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> keyAmtVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterAttackVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterDecayVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterSustainVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterReleaseVal;
     
     
     // This reference is provided as a quick way for your editor to

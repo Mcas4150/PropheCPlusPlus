@@ -60,17 +60,17 @@ private:
     
     GroupComponent mainGroup;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> modAmtFilterEnvVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> modAmtOscBVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> modAmtLfoVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterEnvRouteToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2RouteToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> lfoRouteToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1FreqToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc1PWToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2FreqToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> osc2PWToggleVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> modAmtFilterEnvVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> modAmtOscBVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> modAmtLfoVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterEnvRouteToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2RouteToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lfoRouteToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc1FreqToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc1PWToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2FreqToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2PWToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterToggleVal;
     
     
    

@@ -28,22 +28,22 @@ public:
 //  ======================  OSCILLATOR A======================
     
     
-    void setOsc1Freq(float* setting)
+    void setOsc1Freq(std::atomic<float>* setting)
     {
         osc1FreqSetting = std::pow(2,*setting);
     }
     
-    void setOsc1Oct(float* setting)
+    void setOsc1Oct(std::atomic<float>* setting)
     {
         osc1OctSetting =  std::pow(2, *setting);
     }
     
-    void setOsc1SawMode(float* setting)
+    void setOsc1SawMode(std::atomic<float>* setting)
     {
         osc1SawSetting = *setting;
     }
     
-    void setOsc1SquareMode(float* setting)
+    void setOsc1SquareMode(std::atomic<float>* setting)
     {
         osc1SquareSetting = *setting;
     }
@@ -68,24 +68,24 @@ public:
     
     
     
-    void setOsc2Freq(float* setting)
+    void setOsc2Freq(std::atomic<float>* setting)
     {
         
         osc2FreqSetting = std::pow(2, *setting);
     }
     
-    void setOsc2Oct(float* setting)
+    void setOsc2Oct(std::atomic<float>* setting)
     {
         
         osc2OctSetting =  std::pow(2, *setting);
     }
     
-    void setOsc2SawMode(float* setting)
+    void setOsc2SawMode(std::atomic<float>* setting)
     {
         osc2SawSetting = *setting;
     }
     
-    void setOsc2SquareMode(float* setting)
+    void setOsc2SquareMode(std::atomic<float>* setting)
     {
         osc2SquareSetting = *setting;
     }
@@ -109,17 +109,17 @@ public:
     
     
     
-    void setNoiseLevel(float* setting)
+    void setNoiseLevel(std::atomic<float>* setting)
     {
         noiseLevelSetting = *setting;
     }
     
-    void setOsc1Level(float* setting)
+    void setOsc1Level(std::atomic<float>* setting)
     {
         osc1LevelSetting = *setting;
     }
     
-    void setOsc2Level(float* setting)
+    void setOsc2Level(std::atomic<float>* setting)
     {
         osc2LevelSetting = *setting;
    
@@ -151,7 +151,7 @@ public:
     
     //  ========AMPLIFIER====================================
     
-    void setAmpEnvelope(float* attack, float* decay, float* sustain, float* release)
+    void setAmpEnvelope(std::atomic<float>* attack, std::atomic<float>* decay, std::atomic<float>* sustain, std::atomic<float>* release)
     {
         ampEnvelope.setAttack(*attack);
         ampEnvelope.setDecay(*decay);
@@ -170,28 +170,28 @@ public:
     //=========FILTER==========================
     
 
-    void setFilterCutoff (float* setting)
+    void setFilterCutoff (std::atomic<float>* setting)
     {
         cutoffSetting = *setting;
     }
     
-    void setFilterRes (float* setting)
+    void setFilterRes (std::atomic<float>*setting)
     {
         resonance = *setting;
     }
     
     
-    void setEnvAmt (float* setting)
+    void setEnvAmt (std::atomic<float>* setting)
     {
         envAmt = *setting;
     }
     
-    void setKeyAmt (float* setting)
+    void setKeyAmt (std::atomic<float>* setting)
     {
         //        keyAmt = *setting;
     }
     
-    void setFilterEnvelopeParams(float* attack, float* decay, float* sustain, float* release)
+    void setFilterEnvelopeParams(std::atomic<float>* attack, std::atomic<float>* decay, std::atomic<float>* sustain, std::atomic<float>* release)
     {
         filterEnvelope.setAttack(*attack);
         filterEnvelope.setDecay(*decay);
@@ -241,9 +241,9 @@ public:
 //=============    PITCH  =============
     
     
-    void setPitchBend (float* setting){
-        pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
-        pitchBendSetting =  pitchBendPosition;
+    void setPitchBend (std::atomic<float>* setting){
+//        pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
+//        pitchBendSetting =  pitchBendPosition;
     }
     
     
@@ -259,13 +259,13 @@ public:
     //=========GLIDE========================
     
     
-    void setGlideRate(float* setting)
+    void setGlideRate(std::atomic<float>* setting)
     {
         glideRateSetting = *setting;
     }
     
     
-    void setGlideMode(float* setting)
+    void setGlideMode(std::atomic<float>* setting)
     {
         glideModeSetting = *setting == -1.0f ? false : true;
     }
@@ -293,13 +293,13 @@ public:
     //=========LFO==========================
     
     
-    void setLfoRateSetting(float* setting)
+    void setLfoRateSetting(std::atomic<float>* setting)
     {
         
         lfoRateSetting = *setting;
     }
     
-    void setLfoDelaySetting(float* setting)
+    void setLfoDelaySetting(std::atomic<float>* setting)
     {
         lfoEnv.setAttack(*setting);
         lfoEnv.setDecay(1.0f);
@@ -308,7 +308,7 @@ public:
         lfoDelaySetting = *setting;
     }
     
-    double setLfoType(float* setting)
+    double setLfoType(std::atomic<float>* setting)
     
 //    Not a switch but an aggregate
     
@@ -353,7 +353,7 @@ public:
     
     
     
-    void setModAmtFilterEnv (float* setting)
+    void setModAmtFilterEnv (std::atomic<float>* setting)
     {
         modAmtFilterEnvSetting = *setting;
     }
@@ -363,7 +363,7 @@ public:
 //        modAmtOscBSetting = *setting ;
 //    }
     
-    void setModAmtLfo(float* setting)
+    void setModAmtLfo(std::atomic<float>* setting)
     {
         modAmtLfoSetting = *setting ;
     }
@@ -385,13 +385,13 @@ public:
     // ////////////   MASTER
     
     
-    void setMasterTune (float* setting)
+    void setMasterTune (std::atomic<float>* setting)
     {
         masterTuneSetting = *setting;
     }
     
     
-    void setMasterGain(float* mGain)
+    void setMasterGain(std::atomic<float>* mGain)
     {
           masterGain = *mGain;
 
@@ -563,7 +563,7 @@ private:
     double midiPitchWheel;
     
     double glideRateSetting;
-    Boolean glideModeSetting;
+    bool glideModeSetting;
     
     float masterTuneSetting;
     float masterGain;

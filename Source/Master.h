@@ -33,8 +33,8 @@ private:
     BasicKnob mastergainSlider; LabeledKnob labeledMasterGainKnob;
     BasicKnob masterTuneSlider; LabeledKnob labeledMasterTuneKnob;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> mastergainVal;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> masterTuneVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> mastergainVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> masterTuneVal;
     
     
     

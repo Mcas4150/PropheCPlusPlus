@@ -36,7 +36,7 @@ private:
     
     GroupComponent mainGroup;
     
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> arpModeToggleVal;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> arpModeToggleVal;
  
     
     JuceSynthFrameworkAudioProcessor& processor;

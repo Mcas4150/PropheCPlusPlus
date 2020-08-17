@@ -22,18 +22,18 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     osc1FreqKnob.setRange(-2.0, 2.0f);
     osc1FreqKnob.setValue(0.0f);
     addAndMakeVisible(labeledoscAFreqKnob);
-    osc1FreqVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1Freq", osc1FreqKnob);
+    osc1FreqVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1Freq", osc1FreqKnob);
     
     osc1OctKnob.setRange(0.0f, 3.0f);
     osc1OctKnob.setValue(0.0f);
     addAndMakeVisible(labeledoscAOctKnob);
-    osc1OctVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1Oct", osc1OctKnob);
+    osc1OctVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1Oct", osc1OctKnob);
     
     osc1PulseWidthKnob.setRange(0, 3);
     osc1PulseWidthKnob.setValue(0);
     addAndMakeVisible(labeledoscAPulseWidthKnob)
     ;
-    osc1PulseWidthVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1PulseWidth", osc1PulseWidthKnob);
+    osc1PulseWidthVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1PulseWidth", osc1PulseWidthKnob);
     
     
     
@@ -51,7 +51,7 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     osc1SawShapeToggle.addListener(this);
     addAndMakeVisible(&osc1SawShapeToggle);
     
-    osc1SawShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1SawMode", osc1SawShapeToggle);
+    osc1SawShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1SawMode", osc1SawShapeToggle);
     
     osc1SquareShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     osc1SquareShapeToggle.setRange(0, 1);
@@ -59,7 +59,7 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     osc1SquareShapeToggle.addListener(this);
     addAndMakeVisible(&osc1SquareShapeToggle);
     
-    osc1SquareShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1SquareMode", osc1SquareShapeToggle);
+    osc1SquareShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1SquareMode", osc1SquareShapeToggle);
     
     
     osc1SyncToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -68,10 +68,10 @@ Oscillator::Oscillator(JuceSynthFrameworkAudioProcessor& p)
     osc1SyncToggle.addListener(this);
     addAndMakeVisible(&osc1SyncToggle);
     
-    osc1SyncVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc1Sync", osc1SyncToggle);
+    osc1SyncVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1Sync", osc1SyncToggle);
     
     
-    waveSelection = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (*processor.valTreeState, "wavetype", oscMenu);
+    waveSelection = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (processor.valTreeState, "wavetype", oscMenu);
     
     
     osc1SawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);

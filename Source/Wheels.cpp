@@ -27,7 +27,7 @@ Wheels::Wheels(JuceSynthFrameworkAudioProcessor& p)
     pitchBendSlider.setLookAndFeel(&pitchBendLookAndFeel);
     pitchBendSlider.addListener(this);
     
-    pitchBendVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "pitchBend", pitchBendSlider);
+    pitchBendVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "pitchBend", pitchBendSlider);
     
 }
 

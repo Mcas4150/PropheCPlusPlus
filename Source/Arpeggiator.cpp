@@ -29,7 +29,7 @@ Arpeggiator::Arpeggiator(JuceSynthFrameworkAudioProcessor& p)
     arpModeToggle.setValue(1);
     arpModeToggle.addListener(this);
     addAndMakeVisible(&arpModeToggle);
-    arpModeToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "arpMode", arpModeToggle);
+    arpModeToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "arpMode", arpModeToggle);
     arpModeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
 
 }

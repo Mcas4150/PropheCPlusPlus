@@ -32,7 +32,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     //    osc2Menu.setJustificationType(Justification::centred);
     ////    addAndMakeVisible(&osc2Menu);
     ////
-    //    waveSelection2 = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (*processor.valTreeState, "wavetype2", osc2Menu);
+    //    waveSelection2 = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (processor.valTreeState, "wavetype2", osc2Menu);
     //
     //    //slider initialization values
     //    Blendslider.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -42,21 +42,21 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     ////    addAndMakeVisible(&Blendslider);
     ////
     //    //sends value of the sliders to the tree state in the processor
-    //    blendVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "blend", Blendslider);
+    //    blendVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "blend", Blendslider);
     osc2FreqKnob.setRange(-2.0, 2.0f);
     osc2FreqKnob.setValue(0.0f);
     addAndMakeVisible(labeledOsc2FreqKnob);
-    osc2FreqVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2Freq", osc2FreqKnob);
+    osc2FreqVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2Freq", osc2FreqKnob);
     
     osc2OctKnob.setRange(0.0f, 3.0f);
     osc2OctKnob.setValue(0.0f);
     addAndMakeVisible(labeledOsc2OctKnob);
-    osc2OctVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2Oct", osc2OctKnob);
+    osc2OctVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2Oct", osc2OctKnob);
     
     osc2PulseWidthKnob.setRange(0, 3);
     osc2PulseWidthKnob.setValue(0);
     addAndMakeVisible(labeledOsc2PulseWidthKnob);
-    osc2PulseWidthVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2PulseWidth", osc2PulseWidthKnob);
+    osc2PulseWidthVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2PulseWidth", osc2PulseWidthKnob);
     
     osc2SawShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     osc2SawShapeToggle.setRange(0, 1);
@@ -64,7 +64,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     osc2SawShapeToggle.addListener(this);
     addAndMakeVisible(&osc2SawShapeToggle);
     
-    osc2SawShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2SawMode", osc2SawShapeToggle);
+    osc2SawShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2SawMode", osc2SawShapeToggle);
     
     osc2SquareShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     osc2SquareShapeToggle.setRange(0, 1);
@@ -72,7 +72,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     osc2SquareShapeToggle.addListener(this);
     addAndMakeVisible(&osc2SquareShapeToggle);
     
-    osc2SquareShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2SquareMode", osc2SquareShapeToggle);
+    osc2SquareShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2SquareMode", osc2SquareShapeToggle);
     
     
     osc2TriangleShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -81,7 +81,7 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     osc2TriangleShapeToggle.addListener(this);
     addAndMakeVisible(&osc2TriangleShapeToggle);
     
-    osc2TriangleShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "osc2TriangleMode", osc2TriangleShapeToggle);
+    osc2TriangleShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2TriangleMode", osc2TriangleShapeToggle);
     
     
     osc2SawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);

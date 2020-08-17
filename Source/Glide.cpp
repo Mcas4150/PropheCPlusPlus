@@ -19,14 +19,14 @@ Glide::Glide(JuceSynthFrameworkAudioProcessor& p)
     glideRateKnob.setRange(0.0f, 0.99f);
     glideRateKnob.setValue(0);
     addAndMakeVisible(labeledGlideRateKnob);
-    glideRateVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "glideRate", glideRateKnob);
+    glideRateVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "glideRate", glideRateKnob);
     
     glideModeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     glideModeToggle.setRange(0, 1);
     glideModeToggle.setValue(0);
     glideModeToggle.addListener(this);
     addAndMakeVisible(&glideModeToggle);
-    glideModeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "glideMode", glideModeToggle);
+    glideModeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "glideMode", glideModeToggle);
     glideModeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     
     autoLabel.setText("AUTO", dontSendNotification);

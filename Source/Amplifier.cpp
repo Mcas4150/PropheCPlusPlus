@@ -28,7 +28,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     attackSlider.setRange(1.5f, 7400.0f);
     attackSlider.setValue(0.1f);
     attackSlider.addListener(this);
-    attackVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "attack", attackSlider);
+    attackVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "attack", attackSlider);
     //        addAndMakeVisible(&attackSlider);
     addAndMakeVisible(labeledAmpAttackKnob);
     
@@ -39,7 +39,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     //        decaySlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
     //        addAndMakeVisible(&decaySlider);
     
-    decayVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "decay", decaySlider);
+    decayVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "decay", decaySlider);
     addAndMakeVisible(labeledAmpDecayKnob);
     
     //        sustainSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -48,7 +48,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     sustainSlider.addListener(this);
     //        sustainSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
     //        addAndMakeVisible(&sustainSlider);
-    sustainVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "sustain", sustainSlider);
+    sustainVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "sustain", sustainSlider);
     addAndMakeVisible(labeledAmpSustainKnob);
     
     //        releaseSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -57,7 +57,7 @@ Amplifier::Amplifier(JuceSynthFrameworkAudioProcessor& p)
     releaseSlider.addListener(this);
     //        releaseSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
     //        addAndMakeVisible(&releaseSlider);
-    releaseVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (*processor.valTreeState, "release", releaseSlider);
+    releaseVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "release", releaseSlider);
     addAndMakeVisible(labeledAmpReleaseKnob);
     //sends value of the sliders to the tree state in the processor
     

@@ -62,8 +62,9 @@ public:
     
     void updateFilter();
     
-    std::unique_ptr<UndoManager>                  mUndoManager;
-    std::unique_ptr<AudioProcessorValueTreeState> valTreeState;
+    UndoManager              mUndoManager;
+//    std::unique_ptr<AudioProcessorValueTreeState> valTreeState;
+    AudioProcessorValueTreeState valTreeState;
     MidiKeyboardState keyboardState;
     //
     AudioProcessorValueTreeState::ParameterLayout createParameters();

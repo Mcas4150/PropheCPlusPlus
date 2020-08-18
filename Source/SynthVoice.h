@@ -85,7 +85,7 @@ public:
             double squareFrequency = osc1square.square(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
             
             if(osc1PWSetting > 0){
-            return osc1square.pulse(squareFrequency, getOsc1PWSetting());
+            return osc1square.pulse(squareFrequency, getOsc1PWSetting() * getLfoValue() * modAmtLfoSetting * modOscAPWSetting);
             } else {
                 return squareFrequency;
             }
@@ -262,7 +262,7 @@ public:
         double cutoffValue = 0;
         cutoffValue = getFilterEnvelope() *  cutoffSetting;
         
-        cutoffValue += getLfoValue()* modAmtFilterEnvSetting;
+        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
         if(cutoffValue < 30.0f)
         {
             cutoffValue = 30.0f;
@@ -416,13 +416,6 @@ public:
         modAmtLfoSetting = *setting ;
     }
     
-//    void setToggleFilter(float* setting)
-//    {
-////        toggleFilterSetting = *setting ;
-//        toggleFilterSetting   = *setting == -1.0f ? false : true;
-//    }
-//
-   
     
     void setModModeOscAFreq(std::atomic<float>* setting)
     {
@@ -449,6 +442,7 @@ public:
         modFilterSetting = *setting;
     }
     
+//    TODO::Likely unneccesary
 
     double getModModeOscAFreq(){
         double modMode = modOscAFreqSetting;

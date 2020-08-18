@@ -54,7 +54,7 @@ float LFO::getSample(float phase, Waveform waveform)
 
 LFO::LFO(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, lfoRate(0, 30, "")
+, lfoRate(0, 30, "Hz")
 , labeledLfoRate("FREQUENCY", lfoRate)
 {
     setSize(165, 95);

@@ -103,7 +103,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc1FreqToggle.setValue(0);
     osc1FreqToggle.addListener(this);
     addAndMakeVisible(&osc1FreqToggle);
-    osc1FreqToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1FreqToggle", osc1FreqToggle);
+    osc1FreqToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "modOscAFreqMode", osc1FreqToggle);
     osc1FreqLabel.setText("OSC A FREQ", dontSendNotification);
     osc1FreqLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc1FreqLabel);
@@ -118,8 +118,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc1PWLabel.setText("OSC A PW", dontSendNotification);
     osc1PWLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc1PWLabel);
-    osc1PWToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc1PWToggle", osc1PWToggle);
-// TODO:: eventually MODToggle
+    osc1PWToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "modOscAPWMode", osc1PWToggle);
     
     
     osc2FreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);
@@ -131,7 +130,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc2FreqLabel.setText("OSC B FREQ", dontSendNotification);
     osc2FreqLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc2FreqLabel);
-    osc2FreqToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2FreqToggle", osc2FreqToggle);
+    osc2FreqToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "modOscBFreqMode", osc2FreqToggle);
     
     
     osc2PWToggle.setLookAndFeel(&sliderToggleLookAndFeel);
@@ -143,8 +142,8 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     osc2PWLabel.setText("OSC B PW", dontSendNotification);
     osc2PWLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&osc2PWLabel);
-    osc2PWToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2PW", osc2PWToggle);
-    
+    osc2PWToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "modOscBPWMode", osc2PWToggle);
+
     
     filterToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     filterToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -155,7 +154,7 @@ Modulation::Modulation(JuceSynthFrameworkAudioProcessor& p)
     filterLabel.setText("FILTER", dontSendNotification);
     filterLabel.setFont (Font (8.0f, Font::bold));
     addAndMakeVisible(&filterLabel);
-    filterToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "filterToggle", filterToggle);
+    filterToggleVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "modFilterMode", filterToggle);
     
 }
 

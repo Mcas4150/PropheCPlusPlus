@@ -424,8 +424,36 @@ public:
 //
    
     
+    void setModModeOscAFreq(std::atomic<float>* setting)
+    {
+        modOscAFreqSetting = *setting;
+    }
+    
+    void setModModeOscAPW(std::atomic<float>* setting)
+    {
+        modOscAPWSetting = *setting;
+    }
+    
+    void setModModeOscBFreq(std::atomic<float>* setting)
+    {
+        modOscBFreqSetting = *setting;
+    }
+    
+    void setModModeOscBPW(std::atomic<float>* setting)
+    {
+        modOscBPWSetting = *setting;
+    }
+    
+    void setModModeFilter(std::atomic<float>* setting)
+    {
+        modFilterSetting = *setting;
+    }
     
 
+    double getModModeOscAFreq(){
+        double modMode = modOscAFreqSetting;
+        return modMode;
+    }
     
     
 
@@ -538,8 +566,8 @@ public:
             
 /// TODO:: process with modulation matrix
             
-            osc1processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting);
-            osc2processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting);
+            osc1processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * getModModeOscAFreq());
+            osc2processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * modOscBFreqSetting);
             
             
 
@@ -616,6 +644,11 @@ private:
     float modAmtFilterEnvSetting;
 //    float modAmtOscBSetting;
     float modAmtLfoSetting;
+    int modOscAFreqSetting;
+    int modOscAPWSetting;
+    int modOscBFreqSetting;
+    int modOscBPWSetting;
+    int modFilterSetting;
     
 //    Boolean toggleFilterSetting;
     

@@ -99,6 +99,11 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     ////        MODULATION
     params.add ( std::make_unique<AudioParameterFloat>("modAmtFilterEnv", "ModAmtFilterEnv", NormalisableRange<float>(0.0f, 1.00), 0.0f));
     params.add ( std::make_unique<AudioParameterFloat>("modAmtLfo", "ModAmtLfo", NormalisableRange<float>(0.0f, 1.00f), 0.0f));
+    params.add ( std::make_unique<AudioParameterInt>("modOscAFreqMode", "modOscAFreqMode", 0, 1, 0));
+    params.add ( std::make_unique<AudioParameterInt>("modOscAPWMode", "modOscAPWMode", 0, 1, 0));
+    params.add ( std::make_unique<AudioParameterInt>("modOscBFreqMode", "modOscBFreqMode", 0, 1, 0));
+    params.add ( std::make_unique<AudioParameterInt>("modOscBPWMode", "modOscBPWMode", 0, 1, 0));
+    params.add ( std::make_unique<AudioParameterInt>("modFilterMode", "modFilterMode", 0, 1, 0));
 
     ////          AMPLIFIER
 
@@ -304,11 +309,15 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 //            MODULATION
             
             
-        myVoice->setModAmtFilterEnv(valTreeState.getRawParameterValue("modAmtFilterEnv"));
-        myVoice->setModAmtLfo(valTreeState.getRawParameterValue("modAmtLfo"));
+            myVoice->setModAmtFilterEnv(valTreeState.getRawParameterValue("modAmtFilterEnv"));
+            myVoice->setModAmtLfo(valTreeState.getRawParameterValue("modAmtLfo"));
 //        myVoice->setModAmtOscB(valTreeState.getRawParameterValue("modAmtOscB"));
        
-//            myVoice->setToggleFilter(valTreeState.getRawParameterValue("filterToggle"));
+            myVoice->setModModeOscAFreq(valTreeState.getRawParameterValue("modOscAFreqMode"));
+            myVoice->setModModeOscAPW(valTreeState.getRawParameterValue("modOscAPWMode"));
+            myVoice->setModModeOscBFreq(valTreeState.getRawParameterValue("modOscBFreqMode"));
+            myVoice->setModModeOscBPW(valTreeState.getRawParameterValue("modOscBPWMode"));
+            myVoice->setModModeFilter(valTreeState.getRawParameterValue("modFilterMode"));
             
             
             

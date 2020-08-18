@@ -50,13 +50,17 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     
     using Range = NormalisableRange<float>;
     
+    
+    
+/// TODO:: Normalize Ranges
+    
     ////           OSCILLATOR A
 
     params.add ( std::make_unique<AudioParameterFloat>("osc1Freq", "Osc1Freq", Range { -2.0f, 2.0f, 0.1f }, 0.0f ));
     params.add ( std::make_unique<AudioParameterFloat>("osc1Oct", "Osc1Oct", Range {0.0f, 3.0f, 0.01f}, 0.0f)) ;
     params.add ( std::make_unique<AudioParameterInt>("osc1SawMode", "Osc1SawMode", 0, 1, 1));
     params.add ( std::make_unique<AudioParameterInt>("osc1SquareMode", "Osc1SquareMode", 0, 1, 0));
-    params.add ( std::make_unique<AudioParameterFloat>("osc1PW", "Osc1PW", Range {0.0f, 0.99f, 0.01f}, 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("osc1PW", "Osc1PW", Range {0.0f, 0.99f, 0.01f}, 0.5f));
 
     ////           OSCILLATOR B
     params.add ( std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", Range { -2.0f, 2.0f, 0.1f } , 0.0f));
@@ -87,12 +91,14 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("glideMode", "GlideMode", NormalisableRange<float>(0.0f, 1.0f), 0.0f));
 
     ////           LFO
-    params.add ( std::make_unique<AudioParameterFloat>("lfoRate", "LfoRate", NormalisableRange<float>(0.0f, 30.0f), 0.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("lfoDelay", "LfoDelay", NormalisableRange<float>(30.0f, 50000.0f), 30.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("lfoRate", "LfoRate", Range {0.0f, 30.0f, 0.01f}, 0.0f));
+    params.add ( std::make_unique<AudioParameterInt>("lfoSawMode", "lfoSawMode", 0, 1, 1));
+    params.add ( std::make_unique<AudioParameterInt>("lfoTriangleMode", "lfoTriangleMode", 0, 1, 0));
+    params.add ( std::make_unique<AudioParameterInt>("lfoSquareMode", "lfoSquareMode", 0, 1, 0));
 
     ////        MODULATION
-    params.add ( std::make_unique<AudioParameterFloat>("modAmtFilterEnv", "ModAmtFilterEnv", NormalisableRange<float>(0.0f, 1.00), 0));
-    params.add ( std::make_unique<AudioParameterFloat>("modAmtLfo", "ModAmtLfo", NormalisableRange<float>(0.0f, 1.00f), 0));
+    params.add ( std::make_unique<AudioParameterFloat>("modAmtFilterEnv", "ModAmtFilterEnv", NormalisableRange<float>(0.0f, 1.00), 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("modAmtLfo", "ModAmtLfo", NormalisableRange<float>(0.0f, 1.00f), 0.0f));
 
     ////          AMPLIFIER
 
@@ -106,43 +112,6 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("masterTune", "MasterTune", NormalisableRange<float>(-1.0f, 1.0f), 0.0f));
     
 
-//    params.push_back(std::move(osc1Freq));
-//    params.push_back(std::move(osc1Oct));
-//    params.push_back(std::move(osc1SquareMode));
-//    params.push_back(std::move(osc1SawMode));
-//    params.push_back(std::move(osc2Freq));
-//    params.push_back(std::move(osc2Oct));
-//    params.push_back(std::move(osc2SawMode));
-//    params.push_back(std::move(osc2SquareMode));
-//    params.push_back(std::move(osc1Level));
-//    params.push_back(std::move(osc2Level));
-//    params.push_back(std::move(noiseLevel));
-//    params.push_back(std::move(filterCutoff));
-//    params.push_back(std::move(filterRes));
-//    params.push_back(std::move(envAmt));
-//    params.push_back(std::move(keyAmt));
-//    params.push_back(std::move(filterAttack));
-//    params.push_back(std::move(filterDecay));
-//    params.push_back(std::move(filterSustain));
-//    params.push_back(std::move(filterRelease));
-//
-//    params.push_back(std::move(pitchBend));
-//    params.push_back(std::move(glideRate));
-//    params.push_back(std::move(glideMode));
-//    params.push_back(std::move(lfoRate));
-//    params.push_back(std::move(lfoDelay));
-//    params.push_back(std::move(modAmtFilterEnv));
-//    params.push_back(std::move(modAmtLfo));
-//
-//    params.push_back(std::move(attack));
-//    params.push_back(std::move(decay));
-//    params.push_back(std::move(sustain));
-//    params.push_back(std::move(release));
-//
-//    params.push_back(std::move(masterGain));
-//    params.push_back(std::move(masterTune));
-
-//    return {params.begin(), params.end()};
     return params;
 }
 
@@ -321,9 +290,14 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 //          LFO
             
             
-            myVoice->setLfoType(valTreeState.getRawParameterValue("lfoMenu"));
+          
             myVoice->setLfoRateSetting(valTreeState.getRawParameterValue("lfoRate"));
-            myVoice->setLfoDelaySetting(valTreeState.getRawParameterValue("lfoDelay"));
+            myVoice->setLfoSawMode(valTreeState.getRawParameterValue("lfoSawMode"));
+            myVoice->setLfoTriangleMode(valTreeState.getRawParameterValue("lfoTriangleMode"));
+            myVoice->setLfoSquareMode(valTreeState.getRawParameterValue("lfoSquareMode"));
+            
+            
+            
             
           
             

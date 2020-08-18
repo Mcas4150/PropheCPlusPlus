@@ -50,6 +50,7 @@ private:
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lfoTriangleShapeVal;
     std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> lfoSelect;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rateVal;
+//    delete
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayVal;
     
     // This reference is provided as a quick way for your editor to

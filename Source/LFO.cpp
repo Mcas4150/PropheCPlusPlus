@@ -72,43 +72,13 @@ LFO::LFO(JuceSynthFrameworkAudioProcessor& p)
     rateVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoRate", lfoRate);
     
     
-    //    lfoDelay.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    //    lfoDelay.setRange(0, 30);
-    //    lfoDelay.setSkewFactorFromMidPoint(15);
-    //    lfoDelay.setValue (0);
-    //    lfoDelay.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
-    //    addAndMakeVisible(&lfoDelay);
-    //    delayVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoDelay", lfoDelay);
-    
-    
-    
-    //    lfoSelect = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (processor.valTreeState, "lfoMenu", lfoMenu);
-    //
-    //
-    //    lfoMenu.addItem("Sine", 1);
-    //    lfoMenu.addItem("Triangle", 2);
-    //    lfoMenu.addItem("Square", 3);
-    //    lfoMenu.addItem("SquareSlopedEdges", 4);
-    //    lfoMenu.setJustificationType(Justification::centred);
-    //    addAndMakeVisible(&lfoMenu);
-    
-    
     lfoSawShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     lfoSawShapeToggle.setRange(0, 1);
     lfoSawShapeToggle.setValue(1);
     lfoSawShapeToggle.addListener(this);
     addAndMakeVisible(&lfoSawShapeToggle);
     
-    lfoSawShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoSawShape", lfoSawShapeToggle);
-    
-    lfoSquareShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    lfoSquareShapeToggle.setRange(0, 1);
-    lfoSquareShapeToggle.setValue(0);
-    lfoSquareShapeToggle.addListener(this);
-    addAndMakeVisible(&lfoSquareShapeToggle);
-    
-    lfoSquareShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoSquareShape", lfoSquareShapeToggle);
-    
+    lfoSawShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoSawMdoe", lfoSawShapeToggle);
     
     lfoTriangleShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     lfoTriangleShapeToggle.setRange(0, 1);
@@ -116,12 +86,21 @@ LFO::LFO(JuceSynthFrameworkAudioProcessor& p)
     lfoTriangleShapeToggle.addListener(this);
     addAndMakeVisible(&lfoTriangleShapeToggle);
     
-    lfoTriangleShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoTriangleShape", lfoTriangleShapeToggle);
+    lfoTriangleShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoTriangleMode", lfoTriangleShapeToggle);
+    
+    lfoSquareShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    lfoSquareShapeToggle.setRange(0, 1);
+    lfoSquareShapeToggle.setValue(0);
+    lfoSquareShapeToggle.addListener(this);
+    addAndMakeVisible(&lfoSquareShapeToggle);
+    
+    lfoSquareShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoSquareMode", lfoSquareShapeToggle);
     
     
     lfoSawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
-    lfoSquareShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     lfoTriangleShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    lfoSquareShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    
     
     
 }

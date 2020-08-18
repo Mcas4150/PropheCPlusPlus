@@ -72,7 +72,7 @@ public:
 //           TODO:: ADD PITCH RANGE
 //            return sawOsc.saw(processedFrequency/getPitchRangeSetting());
             
-            return osc1saw.saw(processedFrequency * osc1FreqSetting * osc1OctSetting);
+            return osc1saw.saw(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
         }
         return 0;
     }
@@ -82,7 +82,7 @@ public:
         {
 //           TODO:: ADD PITCH RANGE
 //            double squareFrequency = osc1square.square(processedFrequency/getPitchRangeSetting());
-            double squareFrequency = osc1square.square(processedFrequency * osc1FreqSetting * osc1OctSetting);
+            double squareFrequency = osc1square.square(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
             
             if(osc1PWSetting > 0){
             return osc1square.pulse(squareFrequency, getOsc1PWSetting());
@@ -189,7 +189,7 @@ public:
         +
         getOsc1Square() * osc1LevelSetting
         +
-        osc2.saw(processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SawSetting * osc2LevelSetting
+        osc2.saw(osc2processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SawSetting * osc2LevelSetting
         +
         osc3.noise() * noiseLevelSetting;
         
@@ -342,59 +342,58 @@ public:
     //=========LFO==========================
     
     
+//    TODO:: is lfo Enveloped, triggered by Start note?
+    
     void setLfoRateSetting(std::atomic<float>* setting)
     {
         
         lfoRateSetting = *setting;
     }
     
-    void setLfoDelaySetting(std::atomic<float>* setting)
+    
+//    Refactor into one?
+    
+    void setLfoSawMode(std::atomic<float>* setting)
     {
-        lfoEnv.setAttack(*setting);
-        lfoEnv.setDecay(1.0f);
-        lfoEnv.setSustain(1.0f);
-        lfoEnv.setRelease(1.0f);
-        lfoDelaySetting = *setting;
+        lfoSawSetting = *setting;
     }
     
-    double setLfoType(std::atomic<float>* setting)
-    
-//    Not a switch but an aggregate
-    
+    void setLfoTriangleMode(std::atomic<float>* setting)
     {
-        
-        double lfoChoice;
-        
-        switch (lfoType)
-        {
-            case 0:
-                lfoChoice = lfo.square(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger));
-                break;
-            case 1:
-                lfoChoice = lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger));
-                break;
-            case 2:
-                lfoChoice = lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger));
-                break;
-            default:
-                lfoChoice = lfo.sinewave(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger));
-                break;
-        }
-        //
-        return lfoChoice;
-        //        lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger))
-        //
-        
+        lfoTriangleSetting = *setting;
+    }
+    
+    void setLfoSquareMode(std::atomic<float>* setting)
+    {
+        lfoSquareSetting = *setting;
     }
     
     
     double getLfoValue()
     {
-        double lfoValue = lfoRateSetting != 0 ? lfo.triangle(lfoEnv.adsr(lfoRateSetting , lfoEnv.trigger))  : 0;
+        double lfoValue = lfoRateSetting != 0 ?
+        (
+            (
+//             lfoSaw.saw(lfoEnv1.adsr(lfoRateSetting * lfoSawSetting , lfoEnv1.trigger))
+//             +
+//             lfoTriangle.triangle(lfoEnv2.adsr(lfoRateSetting * lfoTriangleSetting , lfoEnv2.trigger))
+//             +
+//             lfoSquare.square(lfoEnv3.adsr(lfoRateSetting * lfoSquareSetting , lfoEnv3.trigger))
+               lfoSaw.saw(lfoRateSetting * lfoSawSetting)
+               +
+               lfoTriangle.triangle(lfoRateSetting * lfoTriangleSetting)
+               +
+               lfoSquare.square(lfoRateSetting * lfoSquareSetting)
+            )
+                /
+            (
+             lfoSawSetting + lfoTriangleSetting + lfoSquareSetting
+            )
+         )
+        : 0;
         return lfoValue;
     }
     
-//    void
     
 
     
@@ -464,9 +463,15 @@ public:
         filterEnvelope.trigger = 1;
         filterEnvelope.attackphase=1;
         filterEnvelope.decayphase=0;
-        lfoEnv.trigger = 1;
-        lfoEnv.attackphase=1;
-        lfoEnv.decayphase=0;
+        lfoEnv1.trigger = 1;
+        lfoEnv1.attackphase=1;
+        lfoEnv1.decayphase=0;
+        lfoEnv2.trigger = 1;
+        lfoEnv2.attackphase=1;
+        lfoEnv2.decayphase=0;
+        lfoEnv3.trigger = 1;
+        lfoEnv3.attackphase=1;
+        lfoEnv3.decayphase=0;
         //        setPitchBend(currentPitchWheelPosition);
         frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
         //        level = velocity;
@@ -484,9 +489,12 @@ public:
         filterEnvelope.trigger = 0;
         filterEnvelope.attackphase=0;
         filterEnvelope.decayphase=1;
-        lfoEnv.trigger = 0;
-        lfoEnv.attackphase=0;
-        lfoEnv.decayphase=1;
+        
+        //TODO::delete?
+        lfoEnv1.trigger = 0;
+        lfoEnv1.attackphase=0;
+        lfoEnv1.decayphase=1;
+        
         allowTailOff = true;
         
         if (velocity == 0)
@@ -528,8 +536,11 @@ public:
 //            processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * toggleFilterSetting);
                      
             
+/// TODO:: process with modulation matrix
             
-            processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting);
+            osc1processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting);
+            osc2processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting);
+            
             
 
             double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff(), resonance);
@@ -591,12 +602,15 @@ private:
     float envAmt;
     double frequency;
     double currentFrequency;
-    double processedFrequency;
+    double osc1processedFrequency;
+    double osc2processedFrequency;
     
     
     double lfoRateSetting;
-    double lfoDelaySetting;
-    int lfoType;
+//    double lfoDelaySetting;
+    int lfoSawSetting;
+    int lfoTriangleSetting;
+    int lfoSquareSetting;
     
     
     float modAmtFilterEnvSetting;
@@ -620,9 +634,9 @@ private:
     float masterGain;
     
 
-    maxiOsc osc1saw, osc1square, osc2, osc3, lfo;
+    maxiOsc osc1saw, osc1square, osc2, osc3, lfoSaw, lfoTriangle, lfoSquare;
     maxiEnv ampEnvelope;
-    maxiEnv lfoEnv;
+    maxiEnv lfoEnv1, lfoEnv2, lfoEnv3;
 
     
     enum

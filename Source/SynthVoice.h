@@ -56,7 +56,7 @@ public:
     
     double getOsc1PWSetting(){
         double pwm = osc1PWSetting;
-//        pwm = pwmSetting - pwmSetting * lfoPwmSetting * pwmModeSetting * getLfoValue();
+
         if(pwm > 0.99f){
             return 0.99;
         } else if (pwm < 0){
@@ -261,8 +261,8 @@ public:
         
         double cutoffValue = 0;
         cutoffValue = getFilterEnvelope() *  cutoffSetting;
-        
-        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
+//        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
+//        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
         if(cutoffValue < 30.0f)
         {
             cutoffValue = 30.0f;
@@ -565,7 +565,7 @@ public:
             
             
 
-            double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff(), resonance);
+            double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff() , resonance);
     
             
             double processedOutput = filteredSound;

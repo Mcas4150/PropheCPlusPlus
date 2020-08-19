@@ -53,6 +53,10 @@
       <FILE id="XfmWRM" name="Mode.h" compile="0" resource="0" file="Source/Mode.h"/>
       <FILE id="ioKWLL" name="Modulation.cpp" compile="1" resource="0" file="Source/Modulation.cpp"/>
       <FILE id="qTZ2Rx" name="Modulation.h" compile="0" resource="0" file="Source/Modulation.h"/>
+      <FILE id="mE9IUm" name="ModulationFunctions.h" compile="0" resource="0"
+            file="Source/ModulationFunctions.h"/>
+      <FILE id="t8rBuE" name="ModulationMatrix.h" compile="0" resource="0"
+            file="Source/ModulationMatrix.h"/>
       <FILE id="E7MU0L" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
       <FILE id="qBdvkt" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
       <FILE id="H7pgeD" name="Oscillator2.cpp" compile="1" resource="0" file="Source/Oscillator2.cpp"/>

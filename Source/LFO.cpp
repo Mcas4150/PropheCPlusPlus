@@ -54,7 +54,7 @@ float LFO::getSample(float phase, Waveform waveform)
 
 LFO::LFO(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, lfoRate(0, 30, "Hz")
+, lfoRate(0.1, 30, "Hz")
 , labeledLfoRate("FREQUENCY", lfoRate)
 {
     setSize(165, 95);
@@ -65,9 +65,9 @@ LFO::LFO(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(&mainGroup);
     
     
-    lfoRate.setRange(0, 30);
+    lfoRate.setRange(0.1f, 30.0f);
     //    lfoRate.setSkewFactorFromMidPoint(15);
-    lfoRate.setValue (0);
+    lfoRate.setValue (0.1f);
     addAndMakeVisible(labeledLfoRate);
     rateVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "lfoRate", lfoRate);
     

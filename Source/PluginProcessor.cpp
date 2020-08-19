@@ -91,7 +91,7 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("glideMode", "GlideMode", NormalisableRange<float>(0.0f, 1.0f), 0.0f));
 
     ////           LFO
-    params.add ( std::make_unique<AudioParameterFloat>("lfoRate", "LfoRate", Range {0.0f, 30.0f, 0.01f}, 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("lfoRate", "LfoRate", Range {0.1f, 30.0f, 0.01f}, 0.1f));
     params.add ( std::make_unique<AudioParameterInt>("lfoSawMode", "lfoSawMode", 0, 1, 1));
     params.add ( std::make_unique<AudioParameterInt>("lfoTriangleMode", "lfoTriangleMode", 0, 1, 0));
     params.add ( std::make_unique<AudioParameterInt>("lfoSquareMode", "lfoSquareMode", 0, 1, 0));

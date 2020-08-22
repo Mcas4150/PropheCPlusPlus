@@ -275,67 +275,8 @@ public:
         
     }
     
-    //    void getFilterParams (float* filterType, float* filterCutoff, float* filterRes, float* )
-    //    {
-    //        filterChoice = *filterType;
-    //        cutoff = *filterCutoff;
-    //        resonance = *filterRes;
-    //        lfoFilter = *;
-    //    }
-    
-        //            stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
-    
-    
-    
-//=============    PITCH  =============
-    
-    
-    void setPitchBend (std::atomic<float>* setting){
-//        pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
-//        pitchBendSetting =  pitchBendPosition;
-    }
-    
-    
-    void pitchWheelMoved (int newPitchWheelValue) override
-    {
-        midiPitchWheel = (newPitchWheelValue-8191.5f)/8191.5f;
-    }
-    
-    
-    
-    
-    
-    //=========GLIDE========================
-    
-    
-    void setGlideRate(std::atomic<float>* setting)
-    {
-        glideRateSetting = *setting;
-    }
-    
-    
-    void setGlideMode(std::atomic<float>* setting)
-    {
-        glideModeSetting = *setting == -1.0f ? false : true;
-    }
-    
-    
-    void processGlide()
-    {
-        if(glideModeSetting && currentFrequency < frequency){
-            currentFrequency += .1 * (1-glideRateSetting);
-            currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
-        }
-        else if(glideModeSetting && currentFrequency > frequency){
-            currentFrequency -= .1 * (1-glideRateSetting);
-            currentFrequency = currentFrequency < frequency ? frequency : currentFrequency;
-        }
-        else {
-            currentFrequency = frequency;
-        }
-        
-    }
 
+    
     
 
     
@@ -451,6 +392,57 @@ public:
     
     
 
+    //=============    PITCH  WHEEL =============
+        
+        
+        void setPitchBend (std::atomic<float>* setting){
+//            pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
+//            pitchBendSetting =  pitchBendPosition;
+        }
+        
+        
+        void pitchWheelMoved (int newPitchWheelValue) override
+        {
+            midiPitchWheel = (newPitchWheelValue-8191.5f)/8191.5f;
+        }
+        
+        
+        
+        
+        
+        //=========GLIDE========================
+        
+        
+        void setGlideRate(std::atomic<float>* setting)
+        {
+            glideRateSetting = *setting;
+        }
+        
+        
+        void setGlideMode(std::atomic<float>* setting)
+        {
+            glideModeSetting = *setting == -1.0f ? false : true;
+        }
+        
+        
+        void processGlide()
+        {
+            if(glideModeSetting && currentFrequency < frequency){
+                currentFrequency += .1 * (1-glideRateSetting);
+                currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
+            }
+            else if(glideModeSetting && currentFrequency > frequency){
+                currentFrequency -= .1 * (1-glideRateSetting);
+                currentFrequency = currentFrequency < frequency ? frequency : currentFrequency;
+            }
+            else {
+                currentFrequency = frequency;
+            }
+            
+        }
+
+        
+
     
     // ////////////   MASTER
     
@@ -531,8 +523,21 @@ public:
     }
     
     
+   void processFrequency (float currentFrequency)
+    {
+         auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
+         osc1processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * getModModeOscAFreq());
+         osc2processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * modOscBFreqSetting);
+    }
     
-    
+    double getProcessedFilter()
+    {
+        double mixerOutput = getMixerSound();
+        double ampEnvOutput = getAmpEnvelope();
+        auto amplifierOutput = ampEnvOutput * mixerOutput ;
+        double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff() , resonance);
+        return filteredSound;
+    }
     
     
     //=================PROCESSING======================
@@ -543,30 +548,23 @@ public:
         for (int sample = 0; sample < numSamples; ++sample)
         {
             
+//            processFrquency(currentFrequency);
+              
+//            double mixerOutput = getMixerSound();
+//            double ampEnvOutput = getAmpEnvelope();
+//
+//
+//            auto amplifierOutput = ampEnvOutput * mixerOutput ;
             
-            double mixerOutput = getMixerSound();
-            double ampEnvOutput = getAmpEnvelope();
-            
-
-            auto amplifierOutput = ampEnvOutput * mixerOutput ;
+//            mixerOutput = getMixerSound
+//            filterOutput = MixerOutput * getFilter();
+//            vcaOutput = FilterOutput * getAmpEnvelope()
             
             processGlide();
-            
-            auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
-            //            processedFrequency = freq + (freq * getLfoValue());
-//            processedFrequency = freq;
-//            processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * toggleFilterSetting);
-                     
-            
-/// TODO:: process with modulation matrix
-            
-            osc1processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * getModModeOscAFreq());
-            osc2processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * modOscBFreqSetting);
-            
-            
-
-            double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff() , resonance);
+            processFrequency(currentFrequency);
     
+            
+            double filteredSound = getProcessedFilter();
             
             double processedOutput = filteredSound;
             

@@ -12,8 +12,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "Oscillator.h"
-#include "Oscillator2.h"
+#include "OscillatorA.h"
+#include "OscillatorB.h"
 #include "Amplifier.h"
 #include "Filter.h"
 #include "Glide.h"
@@ -58,8 +58,8 @@ private:
     MidiKeyboardComponent keyboardComponent;
     ScopeComponent<float> scopeComponent;
     
-    Oscillator oscGui;
-    Oscillator2 osc2Gui;
+    OscillatorA oscGui;
+    OscillatorB osc2Gui;
     Amplifier ampGui;
     Filter filterGui;
     LFO lfoGui;

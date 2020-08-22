@@ -1,10 +1,10 @@
 
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Oscillator2.h"
+#include "OscillatorB.h"
 
 //==============================================================================
-Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
+OscillatorB::OscillatorB(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
 , osc2FreqKnob(-2.0, 2.0, "st")
 , labeledOsc2FreqKnob("FREQUENCY", osc2FreqKnob)
@@ -89,11 +89,11 @@ Oscillator2::Oscillator2(JuceSynthFrameworkAudioProcessor& p)
     osc2TriangleShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
 }
 
-Oscillator2::~Oscillator2()
+OscillatorB::~OscillatorB()
 {
 }
 
-void Oscillator2::paint (Graphics& g)
+void OscillatorB::paint (Graphics& g)
 {
 
     
@@ -110,7 +110,7 @@ void Oscillator2::paint (Graphics& g)
     g.drawImage(squareImage, squareLabel);
 }
 
-void Oscillator2::resized()
+void OscillatorB::resized()
 {
     juce::Rectangle<int> area = getLocalBounds().reduced(5);
     
@@ -139,7 +139,7 @@ void Oscillator2::resized()
     
 }
 
-void Oscillator2::sliderValueChanged(Slider* slider)
+void OscillatorB::sliderValueChanged(Slider* slider)
 {
     if(slider->getValue() == 1.0 || slider->getValue() == 0){
         return;

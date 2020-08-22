@@ -184,17 +184,7 @@ void JuceSynthFrameworkAudioProcessor::prepareToPlay (double sampleRate, int sam
     ignoreUnused(samplesPerBlock);
     lastSampleRate = sampleRate;
     mySynth.setCurrentPlaybackSampleRate(lastSampleRate);
-    //
-    //    dsp::ProcessSpec spec;
-    //    spec.sampleRate = lastSampleRate;
-    //    spec.maximumBlockSize = samplesPerBlock;
-    //    spec.numChannels = getTotalNumOutputChannels();
-    
-    
-    
-    
-    
-    
+
 
 }
 
@@ -233,8 +223,7 @@ bool JuceSynthFrameworkAudioProcessor::isBusesLayoutSupported (const BusesLayout
 void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
-    //const int totalNumInputChannels  = getTotalNumInputChannels();
-    //const int totalNumOutputChannels = getTotalNumOutputChannels();
+
 
     //get the voice and get the params needed to make the voice
     for (int i = 0; i < mySynth.getNumVoices(); i++)
@@ -265,11 +254,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setOsc1Level(valTreeState.getRawParameterValue("osc1Level"));
             myVoice->setOsc2Level(valTreeState.getRawParameterValue("osc2Level"));
             
-            
-            
 //            Filter
-            
-            
+         
             myVoice->setFilterCutoff(valTreeState.getRawParameterValue("filterCutoff"));
             myVoice->setFilterRes(valTreeState.getRawParameterValue("filterRes"));
             myVoice->setEnvAmt(valTreeState.getRawParameterValue("envAmt"));
@@ -279,48 +265,32 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                         valTreeState.getRawParameterValue("filterSustain"),
                                         valTreeState.getRawParameterValue("filterRelease"));
             //PITCH
-            
-            
+       
             myVoice->setPitchBend(valTreeState.getRawParameterValue("pitchBend"));
-            
             
 //            GLIDE
             
             myVoice->setGlideRate(valTreeState.getRawParameterValue("glideRate"));
             myVoice->setGlideMode(valTreeState.getRawParameterValue("glideMode"));
             
-            
-        
-            
 //          LFO
-            
-            
-          
+      
             myVoice->setLfoRateSetting(valTreeState.getRawParameterValue("lfoRate"));
             myVoice->setLfoSawMode(valTreeState.getRawParameterValue("lfoSawMode"));
             myVoice->setLfoTriangleMode(valTreeState.getRawParameterValue("lfoTriangleMode"));
             myVoice->setLfoSquareMode(valTreeState.getRawParameterValue("lfoSquareMode"));
             
-            
-            
-            
-          
-            
 //            MODULATION
-            
-            
+        
             myVoice->setModAmtFilterEnv(valTreeState.getRawParameterValue("modAmtFilterEnv"));
             myVoice->setModAmtLfo(valTreeState.getRawParameterValue("modAmtLfo"));
-//        myVoice->setModAmtOscB(valTreeState.getRawParameterValue("modAmtOscB"));
+//          myVoice->setModAmtOscB(valTreeState.getRawParameterValue("modAmtOscB"));
        
             myVoice->setModModeOscAFreq(valTreeState.getRawParameterValue("modOscAFreqMode"));
             myVoice->setModModeOscAPW(valTreeState.getRawParameterValue("modOscAPWMode"));
             myVoice->setModModeOscBFreq(valTreeState.getRawParameterValue("modOscBFreqMode"));
             myVoice->setModModeOscBPW(valTreeState.getRawParameterValue("modOscBPWMode"));
             myVoice->setModModeFilter(valTreeState.getRawParameterValue("modFilterMode"));
-            
-            
-            
             
 //           AMPLIFIER
             
@@ -333,9 +303,6 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setMasterTune(valTreeState.getRawParameterValue("masterTune"));
             myVoice->setMasterGain(valTreeState.getRawParameterValue("mastergain"));
             
-            
-            
-
         }
     }
     buffer.clear();
@@ -343,12 +310,7 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
     keyboardState.processNextMidiBuffer (midiMessages, 0, buffer.getNumSamples(), true);
 
     mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
-    //
-    //    dsp::AudioBlock<float> block (buffer);
-    //    stateVariableFilter.process(dsp::ProcessContextReplacing<float> (block));
-    
-    
-    // ??
+
     scopeDataCollector.process (buffer.getReadPointer (0), (size_t) buffer.getNumSamples());
 }
 

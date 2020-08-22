@@ -57,10 +57,12 @@
             file="Source/ModulationFunctions.h"/>
       <FILE id="t8rBuE" name="ModulationMatrix.h" compile="0" resource="0"
             file="Source/ModulationMatrix.h"/>
-      <FILE id="E7MU0L" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
-      <FILE id="qBdvkt" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
-      <FILE id="H7pgeD" name="Oscillator2.cpp" compile="1" resource="0" file="Source/Oscillator2.cpp"/>
-      <FILE id="a7Yduv" name="Oscillator2.h" compile="0" resource="0" file="Source/Oscillator2.h"/>
+      <FILE id="Yq5iZ2" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
+      <FILE id="tYzwiH" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
+      <FILE id="E7MU0L" name="OscillatorA.cpp" compile="1" resource="0" file="Source/OscillatorA.cpp"/>
+      <FILE id="qBdvkt" name="OscillatorA.h" compile="0" resource="0" file="Source/OscillatorA.h"/>
+      <FILE id="H7pgeD" name="OscillatorB.cpp" compile="1" resource="0" file="Source/OscillatorB.cpp"/>
+      <FILE id="a7Yduv" name="OscillatorB.h" compile="0" resource="0" file="Source/OscillatorB.h"/>
       <FILE id="i3053m" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="THMgz6" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
@@ -76,6 +78,8 @@
       <FILE id="IOeQFH" name="Sequencer.h" compile="0" resource="0" file="Source/Sequencer.h"/>
       <FILE id="QZjING" name="SliderLookAndFeel.h" compile="0" resource="0"
             file="Source/SliderLookAndFeel.h"/>
+      <FILE id="jVrBkI" name="synthFunctions.h" compile="0" resource="0"
+            file="Source/synthFunctions.h"/>
       <FILE id="M6dEY3" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
       <FILE id="DpzCh6" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
       <FILE id="GbDx2O" name="Wheels.cpp" compile="1" resource="0" file="Source/Wheels.cpp"/>

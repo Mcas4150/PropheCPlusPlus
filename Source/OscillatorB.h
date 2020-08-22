@@ -10,11 +10,11 @@
 //==============================================================================
 /*
  */
-class Oscillator2    : public Component, public Slider::Listener
+class OscillatorB    : public Component, public Slider::Listener
 {
 public:
-    Oscillator2(JuceSynthFrameworkAudioProcessor&);
-    ~Oscillator2();
+    OscillatorB(JuceSynthFrameworkAudioProcessor&);
+    ~OscillatorB();
     
     void paint (Graphics&) override;
     void resized() override;
@@ -49,5 +49,5 @@ private:
     
     
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Oscillator2)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OscillatorB)
 };

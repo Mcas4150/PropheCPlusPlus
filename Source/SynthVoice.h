@@ -262,7 +262,6 @@ public:
         double cutoffValue = 0;
         cutoffValue = getFilterEnvelope() *  cutoffSetting;
 //        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
-//        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
         if(cutoffValue < 30.0f)
         {
             cutoffValue = 30.0f;
@@ -492,6 +491,17 @@ public:
         if(currentFrequency == 0){
             currentFrequency = frequency;
         }
+        
+        
+
+//        osc1.update();
+//        osc2.update();
+//
+//
+//        m_osc1.startOscillator();
+//        m_osc2.startOscillator();
+//        m_LFO1.startOscillator();
+//        m_EG1.startEG();
     }
 
     
@@ -513,6 +523,12 @@ public:
         
         if (velocity == 0)
             clearCurrentNote();
+        
+        
+//    m_osc1.stopOscillator();
+//    m_osc2.stopOscillator();
+//    m_LFO2.stopOscillator();
+
     }
     
 
@@ -535,7 +551,7 @@ public:
         double mixerOutput = getMixerSound();
         double ampEnvOutput = getAmpEnvelope();
         auto amplifierOutput = ampEnvOutput * mixerOutput ;
-        double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff() , resonance);
+        double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff() + (getFilterCutoff() * getLfoValue() * modAmtLfoSetting * modFilterSetting) , resonance);
         return filteredSound;
     }
     

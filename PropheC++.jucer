@@ -55,7 +55,9 @@
       <FILE id="qTZ2Rx" name="Modulation.h" compile="0" resource="0" file="Source/Modulation.h"/>
       <FILE id="mE9IUm" name="ModulationFunctions.h" compile="0" resource="0"
             file="Source/ModulationFunctions.h"/>
-      <FILE id="t8rBuE" name="ModulationMatrix.h" compile="0" resource="0"
+      <FILE id="kqUckU" name="ModulationMatrix.cpp" compile="1" resource="0"
+            file="Source/ModulationMatrix.cpp"/>
+      <FILE id="C6LJf2" name="ModulationMatrix.h" compile="0" resource="0"
             file="Source/ModulationMatrix.h"/>
       <FILE id="Yq5iZ2" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
       <FILE id="tYzwiH" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>

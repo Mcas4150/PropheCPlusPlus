@@ -63,8 +63,8 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("osc1PW", "Osc1PW", Range {0.0f, 0.99f, 0.01f}, 0.5f));
 
     ////           OSCILLATOR B
-    params.add ( std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", Range { -2.0f, 2.0f, 0.1f } , 0.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", NormalisableRange<float>(0.0f, 3.0f), 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", Range {-2.0f, 2.0f, 0.1f }, 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", Range {0.0f, 3.0f, 0.1f}, 0.0f));
     params.add (  std::make_unique<AudioParameterFloat>("osc2SawMode", "Osc2SawMode", NormalisableRange<float>(0, 1), 1));
     params.add (  std::make_unique<AudioParameterFloat>("osc2SquareMode", "Osc2SquareMode", NormalisableRange<float>(0, 1), 0));
 
@@ -74,8 +74,8 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", NormalisableRange<float>(0.0f, 1.0f), 0.0f));
 
     ////          FILTER
-    params.add ( std::make_unique<AudioParameterFloat>("filterCutoff", "FilterCutoff", NormalisableRange<float>(8.3f, 8500.0f), 5000.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("filterRes", "FilterRes", NormalisableRange<float>(1.0f, 10.0f), 1.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("filterCutoff", "FilterCutoff", Range {8.0f, 8500.0f, 1.0f}, 5000.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("filterRes", "FilterRes", Range {1.0f, 10.0f, 0.1f}, 1.0f));
     params.add ( std::make_unique<AudioParameterFloat>("envAmt", "EnvAmt", NormalisableRange<float>(0.0f, 1.0f), 1.0f));
     params.add ( std::make_unique<AudioParameterFloat>("keyAmt", "keyAmt", NormalisableRange<float>(0.0f, 1.0f), 0.0f));
     params.add ( std::make_unique<AudioParameterFloat>("filterAttack", "FilterAttack", NormalisableRange<float>(1.5f, 7400.0f), 0.1f));
@@ -97,8 +97,8 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterInt>("lfoSquareMode", "lfoSquareMode", 0, 1, 0));
 
     ////        MODULATION
-    params.add ( std::make_unique<AudioParameterFloat>("modAmtFilterEnv", "ModAmtFilterEnv", NormalisableRange<float>(0.0f, 1.00), 0.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("modAmtLfo", "ModAmtLfo", NormalisableRange<float>(0.0f, 1.00f), 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("modAmtFilterEnv", "ModAmtFilterEnv", Range {0.0f, 1.00f, 0.01f}, 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("modAmtLfo", "ModAmtLfo", Range{0.0f, 1.00f, 0.01f}, 0.0f));
     params.add ( std::make_unique<AudioParameterInt>("modOscAFreqMode", "modOscAFreqMode", 0, 1, 0));
     params.add ( std::make_unique<AudioParameterInt>("modOscAPWMode", "modOscAPWMode", 0, 1, 0));
     params.add ( std::make_unique<AudioParameterInt>("modOscBFreqMode", "modOscBFreqMode", 0, 1, 0));

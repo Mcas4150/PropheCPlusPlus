@@ -85,7 +85,7 @@ public:
             double squareFrequency = osc1square.square(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
             
             if(osc1PWSetting > 0){
-            return osc1square.pulse(squareFrequency, getOsc1PWSetting() * getLfoValue() * modAmtLfoSetting * modOscAPWSetting);
+            return osc1square.pulse(squareFrequency,  getModulationMatrixOutput(getOsc1PWSetting(), modOscAPWSetting));
             } else {
                 return squareFrequency;
             }
@@ -195,6 +195,40 @@ public:
         
         
 
+    }
+    
+        //=========ENVELOPE========================
+    void startEnvelopes()
+    {
+        ampEnvelope.trigger = 1;
+        ampEnvelope.attackphase=1;
+        ampEnvelope.decayphase=0;
+        filterEnvelope.trigger = 1;
+        filterEnvelope.attackphase=1;
+        filterEnvelope.decayphase=0;
+        lfoEnv1.trigger = 1;
+        lfoEnv1.attackphase=1;
+        lfoEnv1.decayphase=0;
+        lfoEnv2.trigger = 1;
+        lfoEnv2.attackphase=1;
+        lfoEnv2.decayphase=0;
+        lfoEnv3.trigger = 1;
+        lfoEnv3.attackphase=1;
+        lfoEnv3.decayphase=0;
+    }
+    
+    void stopEnvelopes()
+    {
+        ampEnvelope.trigger = 0;
+        ampEnvelope.attackphase=0;
+        ampEnvelope.decayphase=1;
+        filterEnvelope.trigger = 0;
+        filterEnvelope.attackphase=0;
+        filterEnvelope.decayphase=1;
+        lfoEnv1.trigger = 0;
+        lfoEnv1.attackphase=0;
+        lfoEnv1.decayphase=1;
+        
     }
     
     
@@ -382,11 +416,11 @@ public:
         modFilterSetting = *setting;
     }
     
-//    TODO::Likely unneccesary
 
-    double getModModeOscAFreq(){
-        double modMode = modOscAFreqSetting;
-        return modMode;
+    
+    double getModulationMatrixOutput(double modulationParameter, int modulationSetting){
+        double modulationOutput = modulationParameter + (modulationParameter * getLfoValue() * modAmtLfoSetting * modulationSetting);
+        return modulationOutput;
     }
     
     
@@ -469,22 +503,8 @@ public:
     
     void startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition) override
     {
+        
         noteNumber = midiNoteNumber;
-        ampEnvelope.trigger = 1;
-        ampEnvelope.attackphase=1;
-        ampEnvelope.decayphase=0;
-        filterEnvelope.trigger = 1;
-        filterEnvelope.attackphase=1;
-        filterEnvelope.decayphase=0;
-        lfoEnv1.trigger = 1;
-        lfoEnv1.attackphase=1;
-        lfoEnv1.decayphase=0;
-        lfoEnv2.trigger = 1;
-        lfoEnv2.attackphase=1;
-        lfoEnv2.decayphase=0;
-        lfoEnv3.trigger = 1;
-        lfoEnv3.attackphase=1;
-        lfoEnv3.decayphase=0;
         //        setPitchBend(currentPitchWheelPosition);
         frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
         //        level = velocity;
@@ -492,11 +512,10 @@ public:
             currentFrequency = frequency;
         }
         
-        
+        startEnvelopes();
 
 //        osc1.update();
 //        osc2.update();
-//
 //
 //        m_osc1.startOscillator();
 //        m_osc2.startOscillator();
@@ -507,17 +526,9 @@ public:
     
     void stopNote (float velocity, bool allowTailOff) override
     {
-        ampEnvelope.trigger = 0;
-        ampEnvelope.attackphase=0;
-        ampEnvelope.decayphase=1;
-        filterEnvelope.trigger = 0;
-        filterEnvelope.attackphase=0;
-        filterEnvelope.decayphase=1;
         
-        //TODO::delete?
-        lfoEnv1.trigger = 0;
-        lfoEnv1.attackphase=0;
-        lfoEnv1.decayphase=1;
+        stopEnvelopes();
+    
         
         allowTailOff = true;
         
@@ -542,8 +553,8 @@ public:
    void processFrequency (float currentFrequency)
     {
          auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
-         osc1processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * getModModeOscAFreq());
-         osc2processedFrequency = freq + (freq * getLfoValue() * modAmtLfoSetting * modOscBFreqSetting);
+         osc1processedFrequency = getModulationMatrixOutput(freq, modOscAFreqSetting);
+         osc2processedFrequency = getModulationMatrixOutput(freq, modOscBFreqSetting);
     }
     
     double getProcessedFilter()
@@ -551,7 +562,8 @@ public:
         double mixerOutput = getMixerSound();
         double ampEnvOutput = getAmpEnvelope();
         auto amplifierOutput = ampEnvOutput * mixerOutput ;
-        double filteredSound = filter1.lores(amplifierOutput, getFilterCutoff() + (getFilterCutoff() * getLfoValue() * modAmtLfoSetting * modFilterSetting) , resonance);
+        auto filteredMod =  getModulationMatrixOutput(getFilterCutoff(), modFilterSetting) ;
+        double filteredSound = filter1.lores(amplifierOutput, filteredMod , resonance);
         return filteredSound;
     }
     

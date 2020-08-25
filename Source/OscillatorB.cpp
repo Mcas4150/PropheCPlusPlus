@@ -56,7 +56,7 @@ OscillatorB::OscillatorB(JuceSynthFrameworkAudioProcessor& p)
     osc2PulseWidthKnob.setRange(0, 3);
     osc2PulseWidthKnob.setValue(0);
     addAndMakeVisible(labeledOsc2PulseWidthKnob);
-    osc2PulseWidthVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2PulseWidth", osc2PulseWidthKnob);
+    osc2PulseWidthVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2PW", osc2PulseWidthKnob);
     
     osc2SawShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
     osc2SawShapeToggle.setRange(0, 1);

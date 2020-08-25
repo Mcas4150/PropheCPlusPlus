@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthVoice.h"
 #include "SynthSound.h"
+#include "EnvelopeGenerator.h"
 #include "AudioBufferQueue.h"
 #include "ScopeDataCollector.h"
 #include "ScopeComponent.h"
@@ -71,6 +72,8 @@ public:
     AudioBufferQueue<float>& getAudioBufferQueue() noexcept  { return audioBufferQueue; }
     Synthesiser mySynth;
     SynthVoice* myVoice;
+    
+    EnvelopeGenerator m_EG1;
     
 private:
   

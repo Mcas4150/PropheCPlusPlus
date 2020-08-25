@@ -14,7 +14,7 @@
 //==============================================================================
 Master::Master(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)
-, mastergainSlider(0.0f, 1.0f, "")
+, mastergainSlider(0.01f, 1.0f, "")
 , labeledMasterGainKnob("VOLUME", mastergainSlider)
 , masterTuneSlider(-1.0f, 1.0f, "")
 , labeledMasterTuneKnob("TUNE", masterTuneSlider)

@@ -4,6 +4,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
+#include "EnvelopeGenerator.h"
 #include "maximilian.h"
 
 
@@ -26,7 +27,12 @@ public:
 
     
 //  ======================  OSCILLATOR A======================
-    
+    void processFrequency (float currentFrequency)
+    {
+        auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
+        osc1processedFrequency = getModulationMatrixOutput(freq, modOscAFreqSetting);
+        osc2processedFrequency = getModulationMatrixOutput(freq, modOscBFreqSetting);
+    }
     
     void setOsc1Freq(std::atomic<float>* setting)
     {
@@ -131,23 +137,81 @@ public:
         osc2SawSetting = *setting;
     }
     
+    void setOsc2TriangleMode(std::atomic<float>* setting)
+       {
+           osc2TriangleSetting = *setting;
+       }
+    
     void setOsc2SquareMode(std::atomic<float>* setting)
     {
         osc2SquareSetting = *setting;
     }
     
+    double getOsc2PWSetting(){
+        double pwm = osc1PWSetting;
 
-//    double getOsc2()
-//    {
-//
-//        return
-//        ( osc2.saw(processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SawSetting
-//         +
-//         osc2.square(processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SquareSetting
-//         );
-//        //  needs to be averaged properly
-//
-//    }
+        if(pwm > 0.99f){
+            return 0.99;
+        } else if (pwm < 0){
+            return 0;
+        } else {
+            return pwm;
+        }
+    }
+    
+    double getOsc2Saw() {
+            if(osc2SawSetting)
+            {
+    //           TODO:: ADD PITCH RANGE
+    //            return sawOsc.saw(processedFrequency/getPitchRangeSetting());
+                
+                return osc2saw.saw(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
+            }
+            return 0;
+        }
+    
+    double getOsc2Triangle() {
+            if(osc2TriangleSetting)
+            {
+
+                return osc2triangle.triangle(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
+            }
+            return 0;
+        }
+        
+        
+    double getOsc2Square() {
+            if(osc2SquareSetting)
+            {
+    //           TODO:: ADD PITCH RANGE
+    //            double squareFrequency = osc1square.square(processedFrequency/getPitchRangeSetting());
+                double squareFrequency = osc2square.square(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
+                
+                if(osc2PWSetting > 0){
+                return osc2square.pulse(squareFrequency,  getModulationMatrixOutput(getOsc2PWSetting(), modOscBPWSetting));
+                } else {
+                    return squareFrequency;
+                }
+
+            }
+            return 0;
+        }
+
+    double getOsc2Output()
+    {
+        double limiterDenominator = osc2TriangleSetting + osc2SquareSetting + osc2SawSetting;
+        if (limiterDenominator < 1){
+            return 1;
+        } else {
+            return limiterDenominator;
+        }
+       
+        double osc2Value = (getOsc2Saw() + getOsc2Triangle() + getOsc2Square())/ limiterDenominator;
+        return osc2Value;
+        
+     
+
+    }
 
     
     
@@ -189,7 +253,7 @@ public:
         +
         getOsc1Square() * osc1LevelSetting
         +
-        osc2.saw(osc2processedFrequency * osc2FreqSetting * osc2OctSetting) * osc2SawSetting * osc2LevelSetting
+        getOsc2Output() * osc2LevelSetting
         +
         osc3.noise() * noiseLevelSetting;
         
@@ -209,12 +273,7 @@ public:
         lfoEnv1.trigger = 1;
         lfoEnv1.attackphase=1;
         lfoEnv1.decayphase=0;
-        lfoEnv2.trigger = 1;
-        lfoEnv2.attackphase=1;
-        lfoEnv2.decayphase=0;
-        lfoEnv3.trigger = 1;
-        lfoEnv3.attackphase=1;
-        lfoEnv3.decayphase=0;
+       
     }
     
     void stopEnvelopes()
@@ -236,11 +295,19 @@ public:
     
     void setAmpEnvelope(std::atomic<float>* attack, std::atomic<float>* decay, std::atomic<float>* sustain, std::atomic<float>* release)
     {
-        ampEnvelope.setAttack(*attack);
-        ampEnvelope.setDecay(*decay);
-        ampEnvelope.setSustain(*sustain);
-        ampEnvelope.setRelease(*release);
+//        ampEnvelope.setAttack(*attack);
+//        ampEnvelope.setDecay(*decay);
+//        ampEnvelope.setSustain(*sustain);
+//        ampEnvelope.setRelease(*release);
+        m_EG1.setAttackTime_mSec(attack);
+        m_EG1.setDecayTime_mSec(decay);
+        m_EG1.setSustainLevel(sustain);
+        m_EG1.setReleaseTime_mSec(release);
+        
+        
     }
+    
+    
     
     double getAmpEnvelope()
     {
@@ -365,10 +432,17 @@ public:
             )
          )
         : 0;
-        return lfoValue;
+        double modulatedValue = lfoValue * modAmtLfoSetting;
+        return modulatedValue;
     }
     
     
+    double getOscBModValue()
+    {
+        
+        double modulatedValue = lfoRateSetting != 0 ? (  getOsc2Output()      * modAmtOscBSetting ) : 1;
+        return modulatedValue;
+    }
 
     
         //=========MODULATION========================
@@ -380,10 +454,10 @@ public:
         modAmtFilterEnvSetting = *setting;
     }
     
-//    void setModAmtOscB(float* setting)
-//    {
-//        modAmtOscBSetting = *setting ;
-//    }
+    void setModAmtOscB(std::atomic<float>* setting)
+    {
+        modAmtOscBSetting = *setting ;
+    }
     
     void setModAmtLfo(std::atomic<float>* setting)
     {
@@ -419,7 +493,7 @@ public:
 
     
     double getModulationMatrixOutput(double modulationParameter, int modulationSetting){
-        double modulationOutput = modulationParameter + (modulationParameter * getLfoValue() * modAmtLfoSetting * modulationSetting);
+        double modulationOutput = modulationParameter + (modulationParameter * getLfoValue()   * modulationSetting);
         return modulationOutput;
     }
     
@@ -511,16 +585,20 @@ public:
         if(currentFrequency == 0){
             currentFrequency = frequency;
         }
-        
+        m_bNoteOn = true;
         startEnvelopes();
-
+        
 //        osc1.update();
 //        osc2.update();
 //
 //        m_osc1.startOscillator();
 //        m_osc2.startOscillator();
 //        m_LFO1.startOscillator();
-//        m_EG1.startEG();
+        m_EG1.startEG();
+        
+//        m_EG1.doEnvelope();
+        
+//        double dEGOut = m_EG1.doEnvelope();
     }
 
     
@@ -534,7 +612,9 @@ public:
         
         if (velocity == 0)
             clearCurrentNote();
+        m_bNoteOn = false;
         
+        m_EG1.stopEG();
         
 //    m_osc1.stopOscillator();
 //    m_osc2.stopOscillator();
@@ -550,20 +630,15 @@ public:
     }
     
     
-   void processFrequency (float currentFrequency)
-    {
-         auto freq = currentFrequency * (std::pow(2, pitchBendSetting + masterTuneSetting));
-         osc1processedFrequency = getModulationMatrixOutput(freq, modOscAFreqSetting);
-         osc2processedFrequency = getModulationMatrixOutput(freq, modOscBFreqSetting);
-    }
+
     
     double getProcessedFilter()
     {
         double mixerOutput = getMixerSound();
-        double ampEnvOutput = getAmpEnvelope();
-        auto amplifierOutput = ampEnvOutput * mixerOutput ;
+//        double ampEnvOutput = getAmpEnvelope();
+//        auto amplifierOutput = ampEnvOutput * mixerOutput ;
         auto filteredMod =  getModulationMatrixOutput(getFilterCutoff(), modFilterSetting) ;
-        double filteredSound = filter1.lores(amplifierOutput, filteredMod , resonance);
+        double filteredSound = filter1.lores(mixerOutput, filteredMod , resonance);
         return filteredSound;
     }
     
@@ -575,7 +650,12 @@ public:
     {
         for (int sample = 0; sample < numSamples; ++sample)
         {
+            if(m_bNoteOn)
+            {
+                dEGOut =    m_EG1.doEnvelope();
             
+            
+            }
 //            processFrquency(currentFrequency);
               
 //            double mixerOutput = getMixerSound();
@@ -596,7 +676,7 @@ public:
             
             double processedOutput = filteredSound;
             
-            double  masterOutput = processedOutput * masterGain;
+            double  masterOutput = processedOutput * masterGain * dEGOut;
 //
 //    * masterGain
 
@@ -619,22 +699,23 @@ private:
     
 
     float osc1FreqSetting;
-     float osc1OctSetting;
-    float  osc1SawSetting;
+    float osc1OctSetting;
+    float osc1SawSetting;
     float osc1SquareSetting;
     float osc1PWSetting;
     
     float osc2FreqSetting;
     float osc2OctSetting;
-    float   osc2SawSetting;
+    float osc2SawSetting;
+    float osc2TriangleSetting;
     float osc2SquareSetting;
-    
+    float osc2PWSetting;
    
     
     float osc2blend;
     
     int noteNumber;
-    
+    bool m_bNoteOn;
     
     //    float pitchBend = 0.0f;
     float pitchBendUpSemitones = 2.0f;
@@ -642,8 +723,7 @@ private:
     
     
     
-    maxiFilter filter1;
-    maxiEnv filterEnvelope;
+   
     float cutoffSetting;
     float resonance;
     float keyAmt;
@@ -652,17 +732,17 @@ private:
     double currentFrequency;
     double osc1processedFrequency;
     double osc2processedFrequency;
-    
+    double dEGOut;
     
     double lfoRateSetting;
-//    double lfoDelaySetting;
+    // --- the setting for saw LFO
     int lfoSawSetting;
     int lfoTriangleSetting;
     int lfoSquareSetting;
     
     
     float modAmtFilterEnvSetting;
-//    float modAmtOscBSetting;
+    float modAmtOscBSetting;
     float modAmtLfoSetting;
     int modOscAFreqSetting;
     int modOscAPWSetting;
@@ -687,10 +767,13 @@ private:
     float masterGain;
     
 
-    maxiOsc osc1saw, osc1square, osc2, osc3, lfoSaw, lfoTriangle, lfoSquare;
+    maxiOsc osc1saw, osc1square, osc2saw, osc2triangle, osc2square, osc3, lfoSaw, lfoTriangle, lfoSquare;
     maxiEnv ampEnvelope;
-    maxiEnv lfoEnv1, lfoEnv2, lfoEnv3;
-
+    maxiEnv lfoEnv1;
+    maxiEnv filterEnvelope;
+    maxiFilter filter1;
+    
+    EnvelopeGenerator m_EG1;
     
     enum
     {

@@ -42,9 +42,9 @@ public:
         auto scopeRect = Rectangle<SampleType> { SampleType (0), SampleType (0), w, h / 2 };
         plot (sampleData.data(), sampleData.size(), g, scopeRect, SampleType (1), h / 4);
         
-        // Spectrum
-        auto spectrumRect = Rectangle<SampleType> { SampleType (0), h / 2, w, h / 2 };
-        plot (spectrumData.data(), spectrumData.size() / 4, g, spectrumRect);
+//        // Spectrum
+//        auto spectrumRect = Rectangle<SampleType> { SampleType (0), h / 2, w, h / 2 };
+//        plot (spectrumData.data(), spectrumData.size() / 4, g, spectrumRect);
     }
     
     //==============================================================================

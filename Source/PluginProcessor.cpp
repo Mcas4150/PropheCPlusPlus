@@ -30,6 +30,8 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
     
     mySynth.clearVoices();
     
+    
+//    5 voices?
     for (int i = 0; i < 5; i++)
     {
         mySynth.addVoice(new SynthVoice());
@@ -57,17 +59,19 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     ////           OSCILLATOR A
 
     params.add ( std::make_unique<AudioParameterFloat>("osc1Freq", "Osc1Freq", Range { -2.0f, 2.0f, 0.1f }, 0.0f ));
-    params.add ( std::make_unique<AudioParameterFloat>("osc1Oct", "Osc1Oct", Range {0.0f, 3.0f, 0.01f}, 0.0f)) ;
+    params.add ( std::make_unique<AudioParameterFloat>("osc1Oct", "Osc1Oct", Range {0.0f, 3.0f, 1.0f}, 0.0f)) ;
     params.add ( std::make_unique<AudioParameterInt>("osc1SawMode", "Osc1SawMode", 0, 1, 1));
     params.add ( std::make_unique<AudioParameterInt>("osc1SquareMode", "Osc1SquareMode", 0, 1, 0));
     params.add ( std::make_unique<AudioParameterFloat>("osc1PW", "Osc1PW", Range {0.0f, 0.99f, 0.01f}, 0.5f));
 
     ////           OSCILLATOR B
     params.add ( std::make_unique<AudioParameterFloat>("osc2Freq", "Osc2Freq", Range {-2.0f, 2.0f, 0.1f }, 0.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", Range {0.0f, 3.0f, 0.1f}, 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("osc2Oct", "Osc2Oct", Range {0.0f, 3.0f, 1.0f}, 0.0f));
     params.add (  std::make_unique<AudioParameterFloat>("osc2SawMode", "Osc2SawMode", NormalisableRange<float>(0, 1), 1));
+    params.add (  std::make_unique<AudioParameterFloat>("osc2TriangleMode", "Osc2TriangleMode", NormalisableRange<float>(0, 1), 0));
     params.add (  std::make_unique<AudioParameterFloat>("osc2SquareMode", "Osc2SquareMode", NormalisableRange<float>(0, 1), 0));
-
+    params.add ( std::make_unique<AudioParameterFloat>("osc2PW", "Osc2PW", Range {0.0f, 0.99f, 0.01f}, 0.5f));
+    
     ////           MIXER
     params.add (std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", NormalisableRange<float>(0.0f, 1.0f), 0.5f));
     params.add ( std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", NormalisableRange<float>(0.0f, 1.0f), 0.5f));
@@ -78,16 +82,16 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("filterRes", "FilterRes", Range {1.0f, 10.0f, 0.1f}, 1.0f));
     params.add ( std::make_unique<AudioParameterFloat>("envAmt", "EnvAmt", NormalisableRange<float>(0.0f, 1.0f), 1.0f));
     params.add ( std::make_unique<AudioParameterFloat>("keyAmt", "keyAmt", NormalisableRange<float>(0.0f, 1.0f), 0.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("filterAttack", "FilterAttack", NormalisableRange<float>(1.5f, 7400.0f), 0.1f));
-    params.add ( std::make_unique<AudioParameterFloat>("filterDecay", "FilterDecay", NormalisableRange<float>(0.5f, 11000.0f), 1.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("filterSustain", "FilterSustain", NormalisableRange<float>(0.0f, 1.0f), 0.8f));
-    params.add ( std::make_unique<AudioParameterFloat>("filterRelease", "FilterRelease", NormalisableRange<float>(0.5f, 11000.0f), 0.1f));
+    params.add ( std::make_unique<AudioParameterFloat>("filterAttack", "FilterAttack", Range { 1.0f, 7400.0f, 1.0f} , 0.1f));
+    params.add ( std::make_unique<AudioParameterFloat>("filterDecay", "FilterDecay", Range { 1.0f, 11000.0f, 1.0f } , 1.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("filterSustain", "FilterSustain", Range { 0.0f, 1.0f, 0.01f} , 0.8f));
+    params.add ( std::make_unique<AudioParameterFloat>("filterRelease", "FilterRelease", Range { 1.0f, 11000.0f, 1.0f }, 0.1f));
 
     ////           PITCH
     params.add ( std::make_unique<AudioParameterFloat>("pitchBend", "PitchBend", NormalisableRange<float>(-1.0f, 1.0f), 0.0f));
 
     ////           GLIDE
-    params.add ( std::make_unique<AudioParameterFloat>("glideRate", "GlideRate", NormalisableRange<float>(0.0f, 0.99f), 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("glideRate", "GlideRate", Range { 0.0f, 0.99f, 0.01 } , 0.0f));
     params.add ( std::make_unique<AudioParameterFloat>("glideMode", "GlideMode", NormalisableRange<float>(0.0f, 1.0f), 0.0f));
 
     ////           LFO
@@ -98,6 +102,7 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
 
     ////        MODULATION
     params.add ( std::make_unique<AudioParameterFloat>("modAmtFilterEnv", "ModAmtFilterEnv", Range {0.0f, 1.00f, 0.01f}, 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("modAmtOscB", "ModAmtOscB", Range{0.0f, 1.00f, 0.01f}, 0.0f));
     params.add ( std::make_unique<AudioParameterFloat>("modAmtLfo", "ModAmtLfo", Range{0.0f, 1.00f, 0.01f}, 0.0f));
     params.add ( std::make_unique<AudioParameterInt>("modOscAFreqMode", "modOscAFreqMode", 0, 1, 0));
     params.add ( std::make_unique<AudioParameterInt>("modOscAPWMode", "modOscAPWMode", 0, 1, 0));
@@ -107,14 +112,14 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
 
     ////          AMPLIFIER
 
-    params.add ( std::make_unique<AudioParameterFloat>("attack", "Attack", NormalisableRange<float>(1.5f, 7400.0f), 0.1f));
-    params.add ( std::make_unique<AudioParameterFloat>("decay", "Decay", NormalisableRange<float>(0.5f, 11000.0f), 1.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("sustain", "Sustain", NormalisableRange<float>(0.0f, 1.0f), 0.8f));
-    params.add ( std::make_unique<AudioParameterFloat>("release", "Release", NormalisableRange<float>(0.5f, 11000.0f), 0.1f));
+    params.add ( std::make_unique<AudioParameterFloat>("attack", "Attack", Range { 1.0f, 7400.0f, 1.0f} , 0.1f));
+    params.add ( std::make_unique<AudioParameterFloat>("decay", "Decay", Range { 1.0f, 11000.0f, 1.0f } , 1.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("sustain", "Sustain", Range { 0.0f, 1.0f, 0.01f} , 0.8f));
+    params.add ( std::make_unique<AudioParameterFloat>("release", "Release", Range { 1.0f, 11000.0f, 1.0f }, 0.1f));
 
     ////           MASTER
-    params.add ( std::make_unique<AudioParameterFloat>("mastergain", "MasterGain", NormalisableRange<float>(0.0f, 1.0f), 0.3f));
-    params.add ( std::make_unique<AudioParameterFloat>("masterTune", "MasterTune", NormalisableRange<float>(-1.0f, 1.0f), 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("mastergain", "MasterGain", Range {0.0f, 1.0f, 0.01 }, 0.3f));
+    params.add ( std::make_unique<AudioParameterFloat>("masterTune", "MasterTune", Range {-1.0f, 1.0f, 0.01 }, 0.0f));
     
 
     return params;
@@ -184,6 +189,8 @@ void JuceSynthFrameworkAudioProcessor::prepareToPlay (double sampleRate, int sam
     ignoreUnused(samplesPerBlock);
     lastSampleRate = sampleRate;
     mySynth.setCurrentPlaybackSampleRate(lastSampleRate);
+    m_EG1.setSampleRate(lastSampleRate);
+    m_EG1.m_bOutputEG = true;
 
 
 }
@@ -247,6 +254,9 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             myVoice->setOsc2Oct(valTreeState.getRawParameterValue("osc2Oct"));
             myVoice->setOsc2SawMode(valTreeState.getRawParameterValue("osc2SawMode"));
             myVoice->setOsc2SquareMode(valTreeState.getRawParameterValue("osc2SquareMode"));
+            myVoice->setOsc1SquareMode(valTreeState.getRawParameterValue("osc2TriangleMode"));
+            myVoice->setOsc1PWSetting(valTreeState.getRawParameterValue("osc2PW"));
+            
             
 //            MIXER
             
@@ -284,7 +294,7 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
         
             myVoice->setModAmtFilterEnv(valTreeState.getRawParameterValue("modAmtFilterEnv"));
             myVoice->setModAmtLfo(valTreeState.getRawParameterValue("modAmtLfo"));
-//          myVoice->setModAmtOscB(valTreeState.getRawParameterValue("modAmtOscB"));
+            myVoice->setModAmtOscB(valTreeState.getRawParameterValue("modAmtOscB"));
        
             myVoice->setModModeOscAFreq(valTreeState.getRawParameterValue("modOscAFreqMode"));
             myVoice->setModModeOscAPW(valTreeState.getRawParameterValue("modOscAPWMode"));
@@ -298,7 +308,10 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                        valTreeState.getRawParameterValue("decay"),
                                        valTreeState.getRawParameterValue("sustain"),
                                        valTreeState.getRawParameterValue("release"));
-            
+//            m_EG1.setAttackTime_mSec(valTreeState.getRawParameterValue("attack"));
+//            m_EG1.setDecayTime_mSec(valTreeState.getRawParameterValue("decay"));
+//            m_EG1.setSustainLevel(valTreeState.getRawParameterValue("sustain"));
+//            m_EG1.setReleaseTime_mSec(valTreeState.getRawParameterValue("release"));
 //            MASTER
             myVoice->setMasterTune(valTreeState.getRawParameterValue("masterTune"));
             myVoice->setMasterGain(valTreeState.getRawParameterValue("mastergain"));

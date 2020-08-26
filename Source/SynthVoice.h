@@ -412,7 +412,8 @@ public:
     
     double getLfoValue()
     {
-        double lfoValue = lfoRateSetting != 0 ?
+        double SumSettings = lfoSawSetting + lfoTriangleSetting + lfoSquareSetting;
+        double lfoValue = lfoRateSetting && SumSettings != 0 ?
         (
             (
 //             lfoSaw.saw(lfoEnv1.adsr(lfoRateSetting * lfoSawSetting , lfoEnv1.trigger))
@@ -428,7 +429,7 @@ public:
             )
                 /
             (
-             lfoSawSetting + lfoTriangleSetting + lfoSquareSetting
+             SumSettings
             )
          )
         : 0;
@@ -615,6 +616,7 @@ public:
         m_bNoteOn = false;
         
         m_EG1.stopEG();
+        m_EG1.reset();
         
 //    m_osc1.stopOscillator();
 //    m_osc2.stopOscillator();

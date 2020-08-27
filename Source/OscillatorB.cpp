@@ -12,6 +12,7 @@ OscillatorB::OscillatorB(JuceSynthFrameworkAudioProcessor& p)
 , labeledOsc2OctKnob("OCTAVE", osc2OctKnob)
 , osc2PulseWidthKnob(0, 3, "st")
 , labeledOsc2PulseWidthKnob("PW", osc2PulseWidthKnob)
+
 {
     setSize(330, 95);
     setLookAndFeel(lookAndFeel);
@@ -21,28 +22,7 @@ OscillatorB::OscillatorB(JuceSynthFrameworkAudioProcessor& p)
     addAndMakeVisible(&mainGroup);
     
     using Attachment = SliderParameterAttachment;
-    
-//    auto& apvts = processor.audioProcessorVa
-    
-    
-    //    osc2Menu.addItem("Saw", 1);
-    //    osc2Menu.addItem("Square", 2);
-    //    osc2Menu.addItem("Triangle", 3);
-    //    osc2Menu.addItem("Sine", 4);
-    //    osc2Menu.setJustificationType(Justification::centred);
-    ////    addAndMakeVisible(&osc2Menu);
-    ////
-    //    waveSelection2 = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment> (processor.valTreeState, "wavetype2", osc2Menu);
-    //
-    //    //slider initialization values
-    //    Blendslider.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    //    Blendslider.setRange(0.0f, 1.0f);
-    //    Blendslider.setValue(1.0f);
-    //    Blendslider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
-    ////    addAndMakeVisible(&Blendslider);
-    ////
-    //    //sends value of the sliders to the tree state in the processor
-    //    blendVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "blend", Blendslider);
+ 
     osc2FreqKnob.setRange(-2.0, 2.0f);
     osc2FreqKnob.setValue(0.0f);
     addAndMakeVisible(labeledOsc2FreqKnob);
@@ -87,6 +67,36 @@ OscillatorB::OscillatorB(JuceSynthFrameworkAudioProcessor& p)
     osc2SawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     osc2SquareShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
     osc2TriangleShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    
+    
+    osc2TriangleShapeToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc2TriangleShapeToggle.setRange(0, 1);
+    osc2TriangleShapeToggle.setValue(0);
+    osc2TriangleShapeToggle.addListener(this);
+    addAndMakeVisible(&osc2TriangleShapeToggle);
+    
+    osc2TriangleShapeVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2TriangleMode", osc2TriangleShapeToggle);
+    
+    osc2LoFreqToggle.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    osc2LoFreqToggle.setRange(0, 1);
+    osc2LoFreqToggle.setValue(0);
+    osc2LoFreqToggle.addListener(this);
+    addAndMakeVisible(&osc2LoFreqToggle);
+    
+    osc2LoFreqVal = std::make_unique<AudioProcessorValueTreeState::SliderAttachment> (processor.valTreeState, "osc2LoFreqMode", osc2LoFreqToggle);
+    
+    
+    osc2SawShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc2SquareShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc2TriangleShapeToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    osc2LoFreqToggle.setLookAndFeel(&sliderToggleLookAndFeel);
+    
+    lowLabel.setText("Low", dontSendNotification);
+    lowLabel.setFont (Font (9.0f, Font::bold));
+    addAndMakeVisible(&lowLabel);
+    offLabel.setText("off", dontSendNotification);
+    offLabel.setFont (Font (9.0f, Font::bold));
+    addAndMakeVisible(&offLabel);
 }
 
 OscillatorB::~OscillatorB()
@@ -135,6 +145,8 @@ void OscillatorB::resized()
     widgetsArea.removeFromLeft(55);
     labeledOsc2PulseWidthKnob.setBounds(widgetsArea.removeFromLeft(width));
     widgetsArea.removeFromLeft(5);
+    osc2LoFreqToggle.setBounds(265, 35, 20, 30);
+    widgetsArea.removeFromLeft(55);
     //    oscSyncToggle.setBounds(235, 35, 20, 30);
     
 }

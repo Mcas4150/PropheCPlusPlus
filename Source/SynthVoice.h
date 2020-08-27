@@ -84,7 +84,7 @@ public:
 
 //============OSCILLATOR B======================
     
-    void setOscBParams(Setting* frequency, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* triangleMode, Setting* PW)
+    void setOscBParams(Setting* frequency, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* triangleMode, Setting* PW, Setting* LoFreqMode)
     {
         osc2FreqSetting = std::pow(2, *frequency);
         osc2OctSetting = std::pow(2, *oct);
@@ -92,6 +92,7 @@ public:
         osc2TriangleSetting = *squareMode;
         osc2SquareSetting = *triangleMode;
         osc2PWSetting = *PW;
+        osc2LoFreqSetting = *LoFreqMode;
     }
 
     
@@ -170,27 +171,7 @@ public:
         osc3.noise() * noiseLevelSetting;
     }
     
-        //=========ENVELOPE========================
-    void startEnvelopes()
-    {
 
-        filterEnvelope.trigger = 1;
-        filterEnvelope.attackphase=1;
-        filterEnvelope.decayphase=0;
-      
-       
-    }
-    
-    void stopEnvelopes()
-    {
-
-        filterEnvelope.trigger = 0;
-        filterEnvelope.attackphase=0;
-        filterEnvelope.decayphase=1;
-   
-    }
-    
-    
     //  ========AMPLIFIER====================================
     
     void setAmpEnvelope(Setting* attack, Setting* decay, Setting* sustain, Setting* release)
@@ -203,12 +184,7 @@ public:
         
     }
     
-    double getAmpEnvelope()
-    {
-        return  ampEnvelope.adsr(1., ampEnvelope.trigger);
-    }
 
-    
     //=========FILTER==========================
     
 
@@ -218,29 +194,17 @@ public:
         filterResonanceSetting = *resonance;
         filterEnvAmtSetting = *envAmt;
         filterKeyAmtSetting = *keyAmt;
-        filterEnvelope.setAttack(*attack);
-        filterEnvelope.setDecay(*decay);
-        filterEnvelope.setSustain(*sustain);
-        filterEnvelope.setRelease(*release);
         m_FilterEG.setAttackTime_mSec(attack);
         m_FilterEG.setDecayTime_mSec(decay);
         m_FilterEG.setSustainLevel(sustain);
         m_FilterEG.setReleaseTime_mSec(release);
     }
     
-    double getFilterEnvelope()
-    {
-        
-        return filterEnvelope.adsr(1., filterEnvelope.trigger);
-        
-    }
 
-    
      double getProcessedFilter()
      {
          double mixerOutput = getMixerSound();
-
-         auto filteredEnvelope = filterCutoffSetting * getFilterEnvelope();
+         auto filteredEnvelope = filterCutoffSetting * dFilterEGOut;
          auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting) ;
          double filteredSound = filter1.lores(mixerOutput, filteredMod , filterResonanceSetting);
          return filteredSound;
@@ -283,7 +247,6 @@ public:
     
     double getOscBModValue()
     {
-        
         return lfoRateSetting != 0 ? (  getOsc2Output()  * modAmtOscBSetting ) : 1;
 
     }
@@ -312,48 +275,43 @@ public:
     //=============    PITCH  WHEEL =============
         
         
-        void setPitchBend (Setting* setting){
+    void setPitchBend (Setting* setting)
+    {
 //            pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
 //            pitchBendSetting =  pitchBendPosition;
-        }
+    }
         
         
-        void pitchWheelMoved (int newPitchWheelValue) override
-        {
-            midiPitchWheel = (newPitchWheelValue-8191.5f)/8191.5f;
-        }
+    void pitchWheelMoved (int newPitchWheelValue) override
+    {
+        midiPitchWheel = (newPitchWheelValue-8191.5f)/8191.5f;
+    }
         
         
         //=========GLIDE========================
         
         
-        void setGlideRate(Setting* setting)
-        {
-            glideRateSetting = *setting;
+    void setGlideParams(Setting* rate, Setting* mode)
+    {
+        glideRateSetting = *rate;
+        glideModeSetting = *mode == -1.0f ? false : true;
+    }
+        
+        
+    void processGlide()
+    {
+        if(glideModeSetting && currentFrequency < frequency){
+            currentFrequency += .1 * (1-glideRateSetting);
+            currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
         }
-        
-        
-        void setGlideMode(Setting* setting)
-        {
-            glideModeSetting = *setting == -1.0f ? false : true;
+        else if(glideModeSetting && currentFrequency > frequency){
+            currentFrequency -= .1 * (1-glideRateSetting);
+            currentFrequency = currentFrequency < frequency ? frequency : currentFrequency;
         }
-        
-        
-        void processGlide()
-        {
-            if(glideModeSetting && currentFrequency < frequency){
-                currentFrequency += .1 * (1-glideRateSetting);
-                currentFrequency = currentFrequency > frequency ? frequency : currentFrequency;
-            }
-            else if(glideModeSetting && currentFrequency > frequency){
-                currentFrequency -= .1 * (1-glideRateSetting);
-                currentFrequency = currentFrequency < frequency ? frequency : currentFrequency;
-            }
-            else {
-                currentFrequency = frequency;
-            }
-            
+        else {
+            currentFrequency = frequency;
         }
+    }
 
         
     // ////////////   MASTER
@@ -384,8 +342,8 @@ public:
         if(currentFrequency == 0){
             currentFrequency = frequency;
         }
-
-        startEnvelopes();
+        m_EG1.reset();
+        m_FilterEG.reset();
 
         m_EG1.startEG();
         m_FilterEG.startEG();
@@ -396,7 +354,7 @@ public:
     void stopNote (float velocity, bool allowTailOff) override
     {
         
-        stopEnvelopes();
+
         allowTailOff = true;
         
         if (velocity == 0)
@@ -413,7 +371,6 @@ public:
     {
         
     }
-    
 
     
     //=================PROCESSING======================
@@ -428,7 +385,8 @@ public:
             processGlide();
             processFrequency(currentFrequency);
     
-            dEGOut =    m_EG1.doEnvelope();
+            dEGOut = m_EG1.doEnvelope();
+            dFilterEGOut = m_FilterEG.doEnvelope();
             
             double filteredSound = getProcessedFilter() ;
             
@@ -461,6 +419,7 @@ private:
     float osc2TriangleSetting;
     float osc2SquareSetting;
     float osc2PWSetting;
+    float osc2LoFreqSetting;
    
 
     int noteNumber;
@@ -496,9 +455,7 @@ private:
     int modOscBFreqSetting;
     int modOscBPWSetting;
     int modFilterSetting;
-    
-//    Boolean toggleFilterSetting;
-    
+
     double noiseLevelSetting;
     double osc1LevelSetting;
     double osc2LevelSetting;
@@ -513,11 +470,8 @@ private:
     float masterTuneSetting;
     float masterGain;
     
-
     maxiOsc osc1saw, osc1square, osc2saw, osc2triangle, osc2square, osc3, lfoSaw, lfoTriangle, lfoSquare;
-    maxiEnv ampEnvelope;
     maxiEnv lfoEnv1;
-    maxiEnv filterEnvelope;
     maxiFilter filter1;
     
     EnvelopeGenerator m_EG1;

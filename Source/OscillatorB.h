@@ -23,7 +23,7 @@ public:
 private:
     JuceSynthFrameworkAudioProcessor& processor;
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
-    ComboBox osc2Menu;
+
     GroupComponent mainGroup;
     //    Slider Blendslider;
     
@@ -33,11 +33,14 @@ private:
     Slider osc2SawShapeToggle;
     Slider osc2SquareShapeToggle;
     Slider osc2TriangleShapeToggle;
+    Slider osc2LoFreqToggle;
+    Label lowLabel;
+    Label offLabel;
     
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2SawShapeVal;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2SquareShapeVal;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2TriangleShapeVal;
-    std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> waveSelection2;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2LoFreqVal;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2FreqVal;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2OctVal;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> osc2PulseWidthVal;

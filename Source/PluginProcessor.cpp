@@ -71,6 +71,7 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add (  std::make_unique<AudioParameterFloat>("osc2TriangleMode", "Osc2TriangleMode", NormalisableRange<float>(0, 1), 0));
     params.add (  std::make_unique<AudioParameterFloat>("osc2SquareMode", "Osc2SquareMode", NormalisableRange<float>(0, 1), 0));
     params.add ( std::make_unique<AudioParameterFloat>("osc2PW", "Osc2PW", Range {0.0f, 0.99f, 0.01f}, 0.5f));
+    params.add ( std::make_unique<AudioParameterInt>("osc2LoFreqMode", "Osc2LoFreqMode", 0, 1, 0));
     
     ////           MIXER
     params.add (std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", Range { 0.0f, 1.0f, 0.01} , 0.5f));
@@ -253,7 +254,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                    getParamValue("osc2SawMode"),
                                    getParamValue("osc2SquareMode"),
                                    getParamValue("osc2TriangleMode"),
-                                   getParamValue("osc2PW"));
+                                   getParamValue("osc2PW"),
+                                   getParamValue("osc2LoFreqMode"));
                                    
 //            MIXER
             
@@ -277,8 +279,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             
 //            GLIDE
             
-            myVoice->setGlideRate(getParamValue("glideRate"));
-            myVoice->setGlideMode(getParamValue("glideMode"));
+            myVoice->setGlideParams(getParamValue("glideRate"),
+                                    getParamValue("glideMode"));
             
 //          LFO
             myVoice->setLfoParams(getParamValue("lfoRate"),

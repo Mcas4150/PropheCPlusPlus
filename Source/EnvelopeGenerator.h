@@ -175,64 +175,6 @@ public:
     }
     
     
-//    inline void update()
-//    {
-//        // --- Global Parameters
-//        if(m_pGlobalEGParams)
-//        {
-//            if(m_dAttackTime_mSec != m_pGlobalEGParams->dAttackTime_mSec)
-//                setAttackTime_mSec(m_pGlobalEGParams->dAttackTime_mSec);
-//
-//            if(m_dDecayTime_mSec != m_pGlobalEGParams->dDecayTime_mSec)
-//                setDecayTime_mSec(m_pGlobalEGParams->dDecayTime_mSec);
-//
-//            if(m_dReleaseTime_mSec != m_pGlobalEGParams->dReleaseTime_mSec)
-//                setReleaseTime_mSec(m_pGlobalEGParams->dReleaseTime_mSec);
-//
-//            if(m_dSustainLevel != m_pGlobalEGParams->dSustainLevel)
-//                setSustainLevel(m_pGlobalEGParams->dSustainLevel);
-//
-//            m_dShutdownTime_mSec = m_pGlobalEGParams->dShutdownTime_mSec;
-//            m_bResetToZero = m_pGlobalEGParams->bResetToZero;
-//            m_bLegatoMode =  m_pGlobalEGParams->bLegatoMode;
-//        }
-//
-//        // --- Modulation Matrix
-//        //
-//        // --- get from matrix Sources
-//        if(!m_pModulationMatrix || !m_bOutputEG) return;
-//
-//        // --- with mod matrix, when value is 0 there is NO modulation, so here
-//        if(m_uModSourceEGAttackScaling != DEST_NONE && m_dAttackTimeScalar == 1.0)
-//        {
-//            double dScale = m_pModulationMatrix->m_dDestinations[m_uModSourceEGAttackScaling];
-//            if(m_dAttackTimeScalar != 1.0 - dScale)
-//            {
-//                m_dAttackTimeScalar = 1.0 - dScale;
-//                calculateAttackTime();
-//            }
-//        }
-//
-//        // --- for vel->attack and note#->decay scaling modulation
-//        //     NOTE: make sure this is only called ONCE during a new note event!
-//        if(m_uModSourceEGDecayScaling != DEST_NONE && m_dDecayTimeScalar == 1.0)
-//        {
-//            double dScale = m_pModulationMatrix->m_dDestinations[m_uModSourceEGDecayScaling];
-//            if(m_dDecayTimeScalar != 1.0 - dScale)
-//            {
-//                m_dDecayTimeScalar = 1.0 - dScale;
-//                calculateDecayTime();
-//            }
-//        }
-//        if(m_uModSourceSustainOverride != DEST_NONE)
-//        {
-//            double dSustain = m_pModulationMatrix->m_dDestinations[m_uModSourceSustainOverride];
-//            if(dSustain == 0)
-//                setSustainOverride(false);
-//            else
-//                setSustainOverride(true);
-//        }
-//    }
     inline double doEnvelope(double* pBiasedOutput = NULL)
     {
         // --- decode the state

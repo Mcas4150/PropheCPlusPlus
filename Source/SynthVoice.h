@@ -142,7 +142,7 @@ public:
 
     double getOsc2Output()
     {
-//
+
         return getOsc2Saw() + getOsc2Triangle() + getOsc2Square();
 
     }
@@ -173,9 +173,7 @@ public:
         //=========ENVELOPE========================
     void startEnvelopes()
     {
-        ampEnvelope.trigger = 1;
-        ampEnvelope.attackphase=1;
-        ampEnvelope.decayphase=0;
+
         filterEnvelope.trigger = 1;
         filterEnvelope.attackphase=1;
         filterEnvelope.decayphase=0;
@@ -185,9 +183,7 @@ public:
     
     void stopEnvelopes()
     {
-        ampEnvelope.trigger = 0;
-        ampEnvelope.attackphase=0;
-        ampEnvelope.decayphase=1;
+
         filterEnvelope.trigger = 0;
         filterEnvelope.attackphase=0;
         filterEnvelope.decayphase=1;
@@ -199,15 +195,11 @@ public:
     
     void setAmpEnvelope(Setting* attack, Setting* decay, Setting* sustain, Setting* release)
     {
-//        ampEnvelope.setAttack(*attack);
-//        ampEnvelope.setDecay(*decay);
-//        ampEnvelope.setSustain(*sustain);
-//        ampEnvelope.setRelease(*release);
+
         m_EG1.setAttackTime_mSec(attack);
         m_EG1.setDecayTime_mSec(decay);
         m_EG1.setSustainLevel(sustain);
         m_EG1.setReleaseTime_mSec(release);
-        
         
     }
     
@@ -392,21 +384,12 @@ public:
         if(currentFrequency == 0){
             currentFrequency = frequency;
         }
-        m_bNoteOn = true;
+
         startEnvelopes();
-        
-//        osc1.update();
-//        osc2.update();
-//
-//        m_osc1.startOscillator();
-//        m_osc2.startOscillator();
-//        m_LFO1.startOscillator();
+
         m_EG1.startEG();
         m_FilterEG.startEG();
-        
-//        m_EG1.doEnvelope();
-        
-//        double dEGOut = m_EG1.doEnvelope();
+
     }
 
     
@@ -414,21 +397,14 @@ public:
     {
         
         stopEnvelopes();
-    
         allowTailOff = true;
         
         if (velocity == 0)
             clearCurrentNote();
-        m_bNoteOn = false;
-        
-        
+
         m_EG1.noteOff();
-        m_FilterEG.stopEG();
-        
-//        m_EG1.reset();
-        m_FilterEG.reset();
-
-
+        m_FilterEG.noteOff();
+    
     }
     
 
@@ -439,8 +415,6 @@ public:
     }
     
 
- 
-    
     
     //=================PROCESSING======================
     
@@ -449,17 +423,12 @@ public:
     {
         for (int sample = 0; sample < numSamples; ++sample)
         {
-            if(m_bNoteOn)
-            {
-//                dEGOut =    m_EG1.doEnvelope();
-                dFilterEGOut = m_FilterEG.doEnvelope();
+     
             
-            
-            }
-            dEGOut =    m_EG1.doEnvelope();
             processGlide();
             processFrequency(currentFrequency);
     
+            dEGOut =    m_EG1.doEnvelope();
             
             double filteredSound = getProcessedFilter() ;
             
@@ -493,17 +462,12 @@ private:
     float osc2SquareSetting;
     float osc2PWSetting;
    
-    
-    float osc2blend;
-    
+
     int noteNumber;
-    bool m_bNoteOn;
     
     //    float pitchBend = 0.0f;
     float pitchBendUpSemitones = 2.0f;
     float pitchBendDownSemitones = 2.0f;
-    
-    
     
    
     float filterCutoffSetting;

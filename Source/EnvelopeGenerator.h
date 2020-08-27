@@ -73,6 +73,7 @@ protected:
 
 public:
     
+    
     inline UINT getState() {return m_uState;}
     inline double getEnvOutput(){return m_dEnvelopeOutput;}
 

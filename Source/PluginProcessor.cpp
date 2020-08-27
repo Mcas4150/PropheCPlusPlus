@@ -31,8 +31,8 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
     mySynth.clearVoices();
     
     
-//    5 voices?
-    for (int i = 0; i < 5; i++)
+//  monophonic
+    for (int i = 0; i < 1 ; i++)
     {
         mySynth.addVoice(new SynthVoice());
     }

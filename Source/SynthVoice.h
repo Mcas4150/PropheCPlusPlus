@@ -31,7 +31,6 @@ public:
     void setOscAParams(Setting* oscAFreq, Setting* oscAOct, Setting* oscASawMode, Setting* oscASquareMode, Setting* oscAPW )
     {
         osc1FreqSetting = std::pow(2, *oscAFreq);
-//        osc1FreqSetting = *oscAFreq;
         osc1OctSetting = std::pow(2, *oscAOct);
         osc1SawSetting = *oscASawMode;
         osc1SquareSetting = *oscASquareMode;
@@ -243,26 +242,19 @@ public:
         return filterEnvelope.adsr(1., filterEnvelope.trigger);
         
     }
-    double getFilterCutoff()
-    {
-        
-        double cutoffValue = 0;
-        cutoffValue = getFilterEnvelope() *  filterCutoffSetting;
-//        cutoffValue = cutoffSetting;
-//        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
-        if(cutoffValue < 30.0f)
-        {
-            cutoffValue = 30.0f;
-        }
-        else if (cutoffValue > 4000.0f)
-        {
-            cutoffValue = 4000.0f;
-        }
-        return cutoffValue;
-        
-    }
-    
 
+    
+     double getProcessedFilter()
+     {
+         double mixerOutput = getMixerSound();
+
+         auto filteredEnvelope = filterCutoffSetting * getFilterEnvelope();
+         auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting) ;
+         double filteredSound = filter1.lores(mixerOutput, filteredMod , filterResonanceSetting);
+         return filteredSound;
+     }
+    
+    
     //=========LFO==========================
 
     void setLfoParams(Setting* rate, Setting* sawMode, Setting* triangleMode, Setting* squareMode)
@@ -300,8 +292,8 @@ public:
     double getOscBModValue()
     {
         
-        double modulatedValue = lfoRateSetting != 0 ? (  getOsc2Output()  * modAmtOscBSetting ) : 1;
-        return modulatedValue;
+        return lfoRateSetting != 0 ? (  getOsc2Output()  * modAmtOscBSetting ) : 1;
+
     }
 
     
@@ -321,8 +313,7 @@ public:
 
     
     double getModulationMatrixOutput(double modulationParameter, int modulationSetting){
-        double modulationOutput = modulationParameter + (modulationParameter * getLfoValue()   * modulationSetting);
-        return modulationOutput;
+        return modulationParameter + (modulationParameter * getLfoValue()   * modulationSetting);
     }
     
     
@@ -430,7 +421,8 @@ public:
             clearCurrentNote();
         m_bNoteOn = false;
         
-        m_EG1.stopEG();
+        
+        m_EG1.noteOff();
         m_FilterEG.stopEG();
         
 //        m_EG1.reset();
@@ -447,16 +439,7 @@ public:
     }
     
 
-    
-    double getProcessedFilter()
-    {
-        double mixerOutput = getMixerSound();
-
-        auto filteredEnvelope = filterCutoffSetting * getFilterEnvelope();
-        auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting) ;
-        double filteredSound = filter1.lores(mixerOutput, filteredMod , filterResonanceSetting);
-        return filteredSound;
-    }
+ 
     
     
     //=================PROCESSING======================

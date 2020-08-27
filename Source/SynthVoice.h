@@ -89,8 +89,8 @@ public:
         osc2FreqSetting = std::pow(2, *frequency);
         osc2OctSetting = std::pow(2, *oct);
         osc2SawSetting = *sawMode;
-        osc2TriangleSetting = *squareMode;
-        osc2SquareSetting = *triangleMode;
+        osc2TriangleSetting = *triangleMode;
+        osc2SquareSetting = *squareMode;
         osc2PWSetting = *PW;
         osc2LoFreqSetting = *LoFreqMode;
     }

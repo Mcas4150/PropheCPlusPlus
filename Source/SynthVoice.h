@@ -8,6 +8,7 @@
 #include "maximilian.h"
 
 
+
 class SynthVoice : public SynthesiserVoice
 {
 public:
@@ -16,15 +17,8 @@ public:
         return dynamic_cast <SynthSound*>(sound) != nullptr;
     }
 
-    
-//    static double noteHz(int midiNoteNumber, double centsOffset)
-//    {
-//        double hertz = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-//        hertz *= std::pow(2.0, centsOffset / 1200);
-//        return hertz;
-//    }
 
-
+    using Setting = std::atomic<float>;
     
 //  ======================  OSCILLATOR A======================
     void processFrequency (float currentFrequency)
@@ -34,31 +28,16 @@ public:
         osc2processedFrequency = getModulationMatrixOutput(freq, modOscBFreqSetting);
     }
     
-    void setOsc1Freq(std::atomic<float>* setting)
+    void setOscAParams(Setting* oscAFreq, Setting* oscAOct, Setting* oscASawMode, Setting* oscASquareMode, Setting* oscAPW )
     {
-        osc1FreqSetting = std::pow(2,*setting);
+        osc1FreqSetting = std::pow(2, *oscAFreq);
+//        osc1FreqSetting = *oscAFreq;
+        osc1OctSetting = *oscAOct;
+        osc1SawSetting = *oscASawMode;
+        osc1SquareSetting = *oscASquareMode;
+        osc1PWSetting = *oscAPW;
     }
-    
-    void setOsc1Oct(std::atomic<float>* setting)
-    {
-        osc1OctSetting =  std::pow(2, *setting);
-    }
-    
-    void setOsc1SawMode(std::atomic<float>* setting)
-    {
-        osc1SawSetting = *setting;
-    }
-    
-    void setOsc1SquareMode(std::atomic<float>* setting)
-    {
-        osc1SquareSetting = *setting;
-    }
-    
-    void setOsc1PWSetting(std::atomic<float>* setting)
-    {
-        osc1PWSetting = *setting;
-    }
-    
+
     
     double getOsc1PWSetting(){
         double pwm = osc1PWSetting;
@@ -100,55 +79,24 @@ public:
         return 0;
     }
     
-//    double getOsc1()
-//    {
-//
-//        return
-//     ( osc1.saw(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1SawSetting
-//        +
-//     osc1.square(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1SquareSetting
-//      );
-////  needs to be averaged properly
-//
-//    }
-    
-   
-    
-    
+
+
 
 //============OSCILLATOR B======================
     
-    
-    
-    void setOsc2Freq(std::atomic<float>* setting)
+    void setOscBParams(Setting* frequency, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* triangleMode, Setting* PW)
     {
-        
-        osc2FreqSetting = std::pow(2, *setting);
+        osc2FreqSetting = *frequency;
+        osc2OctSetting = *oct;
+        osc2SawSetting = *sawMode;
+        osc2TriangleSetting = *squareMode;
+        osc2SquareSetting = *triangleMode;
+        osc2PWSetting = *PW;
     }
-    
-    void setOsc2Oct(std::atomic<float>* setting)
-    {
-        
-        osc2OctSetting =  std::pow(2, *setting);
-    }
-    
-    void setOsc2SawMode(std::atomic<float>* setting)
-    {
-        osc2SawSetting = *setting;
-    }
-    
-    void setOsc2TriangleMode(std::atomic<float>* setting)
-       {
-           osc2TriangleSetting = *setting;
-       }
-    
-    void setOsc2SquareMode(std::atomic<float>* setting)
-    {
-        osc2SquareSetting = *setting;
-    }
+
     
     double getOsc2PWSetting(){
-        double pwm = osc1PWSetting;
+        double pwm = osc2PWSetting;
 
         if(pwm > 0.99f){
             return 0.99;
@@ -219,17 +167,17 @@ public:
     
     
     
-    void setNoiseLevel(std::atomic<float>* setting)
+    void setNoiseLevel(Setting* setting)
     {
         noiseLevelSetting = *setting;
     }
     
-    void setOsc1Level(std::atomic<float>* setting)
+    void setOsc1Level(Setting* setting)
     {
         osc1LevelSetting = *setting;
     }
     
-    void setOsc2Level(std::atomic<float>* setting)
+    void setOsc2Level(Setting* setting)
     {
         osc2LevelSetting = *setting;
    
@@ -238,8 +186,7 @@ public:
     
     double getMixerSound()
     {
-       
-
+    
         return
 
 //       getOsc1() * osc1LevelSetting
@@ -293,7 +240,7 @@ public:
     
     //  ========AMPLIFIER====================================
     
-    void setAmpEnvelope(std::atomic<float>* attack, std::atomic<float>* decay, std::atomic<float>* sustain, std::atomic<float>* release)
+    void setAmpEnvelope(Setting* attack, Setting* decay, Setting* sustain, Setting* release)
     {
 //        ampEnvelope.setAttack(*attack);
 //        ampEnvelope.setDecay(*decay);
@@ -307,46 +254,46 @@ public:
         
     }
     
-    
-    
     double getAmpEnvelope()
     {
-        
         return  ampEnvelope.adsr(1., ampEnvelope.trigger);
-        
     }
 
     
     //=========FILTER==========================
     
 
-    void setFilterCutoff (std::atomic<float>* setting)
+    void setFilterCutoff (Setting* setting)
     {
         cutoffSetting = *setting;
     }
     
-    void setFilterRes (std::atomic<float>*setting)
+    void setFilterRes (Setting*setting)
     {
         resonance = *setting;
     }
     
     
-    void setEnvAmt (std::atomic<float>* setting)
+    void setEnvAmt (Setting* setting)
     {
         envAmt = *setting;
     }
     
-    void setKeyAmt (std::atomic<float>* setting)
+    void setKeyAmt (Setting* setting)
     {
         //        keyAmt = *setting;
     }
     
-    void setFilterEnvelopeParams(std::atomic<float>* attack, std::atomic<float>* decay, std::atomic<float>* sustain, std::atomic<float>* release)
+    void setFilterEnvelopeParams(Setting* attack, Setting* decay, Setting* sustain, Setting* release)
     {
         filterEnvelope.setAttack(*attack);
         filterEnvelope.setDecay(*decay);
         filterEnvelope.setSustain(*sustain);
         filterEnvelope.setRelease(*release);
+        m_FilterEG.setAttackTime_mSec(attack);
+        m_FilterEG.setDecayTime_mSec(decay);
+        m_FilterEG.setSustainLevel(sustain);
+        m_FilterEG.setReleaseTime_mSec(release);
     }
     
     double getFilterEnvelope()
@@ -362,6 +309,7 @@ public:
         
         double cutoffValue = 0;
         cutoffValue = getFilterEnvelope() *  cutoffSetting;
+//        cutoffValue = cutoffSetting;
 //        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
         if(cutoffValue < 30.0f)
         {
@@ -385,30 +333,14 @@ public:
     
 //    TODO:: is lfo Enveloped, triggered by Start note?
     
-    void setLfoRateSetting(std::atomic<float>* setting)
+    void setLfoParams(Setting* rate, Setting* sawMode, Setting* triangleMode, Setting* squareMode)
     {
-        
-        lfoRateSetting = *setting;
+        lfoRateSetting = *rate;
+        lfoSawSetting = *sawMode;
+        lfoTriangleSetting = *triangleMode;
+        lfoSquareSetting = *squareMode;
     }
-    
-    
-//    Refactor into one?
-    
-    void setLfoSawMode(std::atomic<float>* setting)
-    {
-        lfoSawSetting = *setting;
-    }
-    
-    void setLfoTriangleMode(std::atomic<float>* setting)
-    {
-        lfoTriangleSetting = *setting;
-    }
-    
-    void setLfoSquareMode(std::atomic<float>* setting)
-    {
-        lfoSquareSetting = *setting;
-    }
-    
+
     
     double getLfoValue()
     {
@@ -448,49 +380,17 @@ public:
     
         //=========MODULATION========================
     
-    
-    
-    void setModAmtFilterEnv (std::atomic<float>* setting)
+    void setModMatrix (Setting* modAmtFilterEnv, Setting* modAmtLfo , Setting* modAmtOscB , Setting* modOscAFreqMode , Setting* modOscAPWMode , Setting* modOscBFreqMode , Setting* modOscBPWMode , Setting* modFilterMode)
     {
-        modAmtFilterEnvSetting = *setting;
-    }
-    
-    void setModAmtOscB(std::atomic<float>* setting)
-    {
-        modAmtOscBSetting = *setting ;
-    }
-    
-    void setModAmtLfo(std::atomic<float>* setting)
-    {
-        modAmtLfoSetting = *setting ;
-    }
-    
-    
-    void setModModeOscAFreq(std::atomic<float>* setting)
-    {
-        modOscAFreqSetting = *setting;
-    }
-    
-    void setModModeOscAPW(std::atomic<float>* setting)
-    {
-        modOscAPWSetting = *setting;
-    }
-    
-    void setModModeOscBFreq(std::atomic<float>* setting)
-    {
-        modOscBFreqSetting = *setting;
-    }
-    
-    void setModModeOscBPW(std::atomic<float>* setting)
-    {
-        modOscBPWSetting = *setting;
-    }
-    
-    void setModModeFilter(std::atomic<float>* setting)
-    {
-        modFilterSetting = *setting;
-    }
-    
+        modAmtFilterEnvSetting = *modAmtFilterEnv;
+        modAmtOscBSetting = *modAmtOscB;
+        modAmtLfoSetting = *modAmtLfo;
+        modOscAFreqSetting = *modOscAFreqMode;
+        modOscAPWSetting = *modOscAPWMode;
+        modOscBFreqSetting = *modOscBFreqMode;
+        modOscBPWSetting = *modOscBPWMode;
+        modFilterSetting = *modFilterMode;
+    };
 
     
     double getModulationMatrixOutput(double modulationParameter, int modulationSetting){
@@ -503,7 +403,7 @@ public:
     //=============    PITCH  WHEEL =============
         
         
-        void setPitchBend (std::atomic<float>* setting){
+        void setPitchBend (Setting* setting){
 //            pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
 //            pitchBendSetting =  pitchBendPosition;
         }
@@ -521,13 +421,13 @@ public:
         //=========GLIDE========================
         
         
-        void setGlideRate(std::atomic<float>* setting)
+        void setGlideRate(Setting* setting)
         {
             glideRateSetting = *setting;
         }
         
         
-        void setGlideMode(std::atomic<float>* setting)
+        void setGlideMode(Setting* setting)
         {
             glideModeSetting = *setting == -1.0f ? false : true;
         }
@@ -555,23 +455,19 @@ public:
     // ////////////   MASTER
     
     
-    void setMasterTune (std::atomic<float>* setting)
+    void setMasterTune (Setting* setting)
     {
         masterTuneSetting = *setting;
     }
     
     
-    void setMasterGain(std::atomic<float>* mGain)
+    void setMasterGain(Setting* mGain)
     {
           masterGain = *mGain;
 
 
     }
     
-    
-
-    
-
     
     //==========PLAYING============================
     
@@ -596,6 +492,7 @@ public:
 //        m_osc2.startOscillator();
 //        m_LFO1.startOscillator();
         m_EG1.startEG();
+        m_FilterEG.startEG();
         
 //        m_EG1.doEnvelope();
         
@@ -616,7 +513,10 @@ public:
         m_bNoteOn = false;
         
         m_EG1.stopEG();
+        m_FilterEG.stopEG();
+        
         m_EG1.reset();
+        m_FilterEG.reset();
         
 //    m_osc1.stopOscillator();
 //    m_osc2.stopOscillator();
@@ -639,7 +539,9 @@ public:
         double mixerOutput = getMixerSound();
 //        double ampEnvOutput = getAmpEnvelope();
 //        auto amplifierOutput = ampEnvOutput * mixerOutput ;
-        auto filteredMod =  getModulationMatrixOutput(getFilterCutoff(), modFilterSetting) ;
+        auto filteredEnvelope = cutoffSetting * getFilterEnvelope();
+//        auto filteredMod =  getModulationMatrixOutput(getFilterCutoff(), modFilterSetting) ;
+           auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting) ;
         double filteredSound = filter1.lores(mixerOutput, filteredMod , resonance);
         return filteredSound;
     }
@@ -655,6 +557,7 @@ public:
             if(m_bNoteOn)
             {
                 dEGOut =    m_EG1.doEnvelope();
+                dFilterEGOut = m_FilterEG.doEnvelope();
             
             
             }
@@ -674,7 +577,7 @@ public:
             processFrequency(currentFrequency);
     
             
-            double filteredSound = getProcessedFilter();
+            double filteredSound = getProcessedFilter() ;
             
             double processedOutput = filteredSound;
             
@@ -735,6 +638,7 @@ private:
     double osc1processedFrequency;
     double osc2processedFrequency;
     double dEGOut;
+    double dFilterEGOut;
     
     double lfoRateSetting;
     // --- the setting for saw LFO
@@ -776,6 +680,7 @@ private:
     maxiFilter filter1;
     
     EnvelopeGenerator m_EG1;
+    EnvelopeGenerator m_FilterEG;
     
     enum
     {

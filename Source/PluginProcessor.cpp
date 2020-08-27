@@ -51,7 +51,7 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     AudioProcessorValueTreeState::ParameterLayout params;
     
     using Range = NormalisableRange<float>;
-    
+
     
     
 /// TODO:: Normalize Ranges
@@ -73,9 +73,9 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("osc2PW", "Osc2PW", Range {0.0f, 0.99f, 0.01f}, 0.5f));
     
     ////           MIXER
-    params.add (std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", NormalisableRange<float>(0.0f, 1.0f), 0.5f));
-    params.add ( std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", NormalisableRange<float>(0.0f, 1.0f), 0.5f));
-    params.add ( std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", NormalisableRange<float>(0.0f, 1.0f), 0.0f));
+    params.add (std::make_unique<AudioParameterFloat>("osc1Level", "Osc1Level", Range { 0.0f, 1.0f, 0.01} , 0.5f));
+    params.add ( std::make_unique<AudioParameterFloat>("osc2Level", "Osc2Level", Range { 0.0f, 1.0f, 0.01} , 0.5f));
+    params.add ( std::make_unique<AudioParameterFloat>("noiseLevel", "NoiseLevel", Range { 0.0f, 1.0f, 0.01 } , 0.0f));
 
     ////          FILTER
     params.add ( std::make_unique<AudioParameterFloat>("filterCutoff", "FilterCutoff", Range {8.0f, 8500.0f, 1.0f}, 5000.0f));
@@ -118,7 +118,7 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     params.add ( std::make_unique<AudioParameterFloat>("release", "Release", Range { 1.0f, 11000.0f, 1.0f }, 0.1f));
 
     ////           MASTER
-    params.add ( std::make_unique<AudioParameterFloat>("mastergain", "MasterGain", Range {0.0f, 1.0f, 0.01 }, 0.3f));
+    params.add ( std::make_unique<AudioParameterFloat>("mastergain", "MasterGain", Range {0.0f, 1.0f, 0.01 }, 1.0f));
     params.add ( std::make_unique<AudioParameterFloat>("masterTune", "MasterTune", Range {-1.0f, 1.0f, 0.01 }, 0.0f));
     
 
@@ -239,82 +239,78 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
         if ((myVoice = dynamic_cast<SynthVoice*>(mySynth.getVoice(i))))
         {
   
-            
 //            OSCILLATOR A
             
-            myVoice->setOsc1Freq(valTreeState.getRawParameterValue("osc1Freq"));
-            myVoice->setOsc1Oct(valTreeState.getRawParameterValue("osc1Oct"));
-            myVoice->setOsc1SawMode(valTreeState.getRawParameterValue("osc1SawMode"));
-            myVoice->setOsc1SquareMode(valTreeState.getRawParameterValue("osc1SquareMode"));
-            myVoice->setOsc1PWSetting(valTreeState.getRawParameterValue("osc1PW"));
+            myVoice->setOscAParams(getParamValue("osc1Freq"),
+                                   getParamValue("osc1Oct"),
+                                   getParamValue("osc1SawMode"),
+                                   getParamValue("osc1SquareMode"),
+                                   getParamValue("osc1PW"));
             
 //            OSCILLATOR B
-            
-            myVoice->setOsc2Freq(valTreeState.getRawParameterValue("osc2Freq"));
-            myVoice->setOsc2Oct(valTreeState.getRawParameterValue("osc2Oct"));
-            myVoice->setOsc2SawMode(valTreeState.getRawParameterValue("osc2SawMode"));
-            myVoice->setOsc2SquareMode(valTreeState.getRawParameterValue("osc2SquareMode"));
-            myVoice->setOsc1SquareMode(valTreeState.getRawParameterValue("osc2TriangleMode"));
-            myVoice->setOsc1PWSetting(valTreeState.getRawParameterValue("osc2PW"));
-            
-            
+            myVoice->setOscBParams(getParamValue("osc2Freq"),
+                                   getParamValue("osc2Oct"),
+                                   getParamValue("osc2SawMode"),
+                                   getParamValue("osc2SquareMode"),
+                                   getParamValue("osc2TriangleMode"),
+                                   getParamValue("osc2PW"));
+                                   
 //            MIXER
             
-            myVoice->setNoiseLevel(valTreeState.getRawParameterValue("noiseLevel"));
-            myVoice->setOsc1Level(valTreeState.getRawParameterValue("osc1Level"));
-            myVoice->setOsc2Level(valTreeState.getRawParameterValue("osc2Level"));
+            myVoice->setNoiseLevel(getParamValue("noiseLevel"));
+            myVoice->setOsc1Level(getParamValue("osc1Level"));
+            myVoice->setOsc2Level(getParamValue("osc2Level"));
             
 //            Filter
          
-            myVoice->setFilterCutoff(valTreeState.getRawParameterValue("filterCutoff"));
-            myVoice->setFilterRes(valTreeState.getRawParameterValue("filterRes"));
-            myVoice->setEnvAmt(valTreeState.getRawParameterValue("envAmt"));
-            myVoice->setKeyAmt(valTreeState.getRawParameterValue("keyAMt"));
-            myVoice->setFilterEnvelopeParams(valTreeState.getRawParameterValue("filterAttack"),
-                                        valTreeState.getRawParameterValue("filterDecay"),
-                                        valTreeState.getRawParameterValue("filterSustain"),
-                                        valTreeState.getRawParameterValue("filterRelease"));
+            myVoice->setFilterCutoff(getParamValue("filterCutoff"));
+            myVoice->setFilterRes(getParamValue("filterRes"));
+            myVoice->setEnvAmt(getParamValue("envAmt"));
+            myVoice->setKeyAmt(getParamValue("keyAMt"));
+            myVoice->setFilterEnvelopeParams(getParamValue("filterAttack"),
+                                        getParamValue("filterDecay"),
+                                        getParamValue("filterSustain"),
+                                        getParamValue("filterRelease"));
             //PITCH
        
-            myVoice->setPitchBend(valTreeState.getRawParameterValue("pitchBend"));
+            myVoice->setPitchBend(getParamValue("pitchBend"));
             
 //            GLIDE
             
-            myVoice->setGlideRate(valTreeState.getRawParameterValue("glideRate"));
-            myVoice->setGlideMode(valTreeState.getRawParameterValue("glideMode"));
+            myVoice->setGlideRate(getParamValue("glideRate"));
+            myVoice->setGlideMode(getParamValue("glideMode"));
             
 //          LFO
-      
-            myVoice->setLfoRateSetting(valTreeState.getRawParameterValue("lfoRate"));
-            myVoice->setLfoSawMode(valTreeState.getRawParameterValue("lfoSawMode"));
-            myVoice->setLfoTriangleMode(valTreeState.getRawParameterValue("lfoTriangleMode"));
-            myVoice->setLfoSquareMode(valTreeState.getRawParameterValue("lfoSquareMode"));
-            
+            myVoice->setLfoParams(getParamValue("lfoRate"),
+                                  getParamValue("lfoSawMode"),
+                                  getParamValue("lfoTriangleMode"),
+                                  getParamValue("lfoSquareMode"));
+                                  
+
+//
 //            MODULATION
-        
-            myVoice->setModAmtFilterEnv(valTreeState.getRawParameterValue("modAmtFilterEnv"));
-            myVoice->setModAmtLfo(valTreeState.getRawParameterValue("modAmtLfo"));
-            myVoice->setModAmtOscB(valTreeState.getRawParameterValue("modAmtOscB"));
-       
-            myVoice->setModModeOscAFreq(valTreeState.getRawParameterValue("modOscAFreqMode"));
-            myVoice->setModModeOscAPW(valTreeState.getRawParameterValue("modOscAPWMode"));
-            myVoice->setModModeOscBFreq(valTreeState.getRawParameterValue("modOscBFreqMode"));
-            myVoice->setModModeOscBPW(valTreeState.getRawParameterValue("modOscBPWMode"));
-            myVoice->setModModeFilter(valTreeState.getRawParameterValue("modFilterMode"));
-            
+            myVoice->setModMatrix(getParamValue("modAmtFilterEnv"),
+                                  getParamValue("modAmtLfo"),
+                                  getParamValue("modAmtOscB"),
+                                  getParamValue("modOscAFreqMode"),
+                                  getParamValue("modOscAPWMode"),
+                                  getParamValue("modOscBFreqMode"),
+                                  getParamValue("modOscBPWMode"),
+                                  getParamValue("modFilterMode"));
+
 //           AMPLIFIER
             
-            myVoice->setAmpEnvelope(valTreeState.getRawParameterValue("attack"),
-                                       valTreeState.getRawParameterValue("decay"),
-                                       valTreeState.getRawParameterValue("sustain"),
-                                       valTreeState.getRawParameterValue("release"));
-//            m_EG1.setAttackTime_mSec(valTreeState.getRawParameterValue("attack"));
-//            m_EG1.setDecayTime_mSec(valTreeState.getRawParameterValue("decay"));
-//            m_EG1.setSustainLevel(valTreeState.getRawParameterValue("sustain"));
-//            m_EG1.setReleaseTime_mSec(valTreeState.getRawParameterValue("release"));
+            myVoice->setAmpEnvelope(getParamValue("attack"),
+                                       getParamValue("decay"),
+                                       getParamValue("sustain"),
+                                       getParamValue("release"));
+//            m_EG1.setAttackTime_mSec(getParamValue("attack"));
+//            m_EG1.setDecayTime_mSec(getParamValue("decay"));
+//            m_EG1.setSustainLevel(getParamValue("sustain"));
+//            m_EG1.setReleaseTime_mSec(getParamValue("release"));
 //            MASTER
-            myVoice->setMasterTune(valTreeState.getRawParameterValue("masterTune"));
-            myVoice->setMasterGain(valTreeState.getRawParameterValue("mastergain"));
+            myVoice->setMasterTune(getParamValue("masterTune"));
+            myVoice->setMasterGain(getParamValue("mastergain"));
             
         }
     }

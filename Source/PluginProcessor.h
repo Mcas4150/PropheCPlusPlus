@@ -63,6 +63,13 @@ public:
     
     void updateFilter();
     
+//    std::atomic<float>*
+    auto getParamValue(StringRef parameter)
+    {
+        std::atomic<float>* RawParam = valTreeState.getRawParameterValue(parameter);
+        return RawParam;
+    }
+    
     UndoManager              mUndoManager;
 //    std::unique_ptr<AudioProcessorValueTreeState> valTreeState;
     AudioProcessorValueTreeState valTreeState;
@@ -75,13 +82,10 @@ public:
     
     EnvelopeGenerator m_EG1;
     
+    
+    
 private:
   
-    
-    float lfoPhase;
-    
-    //    dsp::ProcessorDuplicator<dsp::StateVariableFilter::Filter<float> , dsp::StateVariableFilter::Parameters<float>> stateVariableFilter;
-    
     double lastSampleRate;
     
     AudioBufferQueue<float> audioBufferQueue;

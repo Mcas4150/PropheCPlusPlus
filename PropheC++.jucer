@@ -5,12 +5,10 @@
               displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="ZH3u4d" name="PropheC++">
     <GROUP id="{B238ACAB-885D-0A40-AC34-21BE749E1045}" name="Source">
-      <GROUP id="{93FA4E26-7292-92E1-5BE5-3004B16DD9F1}" name="Gui">
-        <FILE id="i7abmW" name="Arpeggiator.cpp" compile="1" resource="0" file="Source/Arpeggiator.cpp"/>
-        <FILE id="TuRMY5" name="Arpeggiator.h" compile="0" resource="0" file="Source/Arpeggiator.h"/>
-        <FILE id="Z8126b" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
-        <FILE id="NdtFak" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
-      </GROUP>
+      <FILE id="i7abmW" name="Arpeggiator.cpp" compile="1" resource="0" file="Source/Arpeggiator.cpp"/>
+      <FILE id="TuRMY5" name="Arpeggiator.h" compile="0" resource="0" file="Source/Arpeggiator.h"/>
+      <FILE id="Z8126b" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
+      <FILE id="NdtFak" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
       <GROUP id="{01CA4099-C8CD-7D0E-6C56-8030D2FF67DD}" name="Maximilian">
         <GROUP id="{4752A061-8B73-6BF6-0D95-9818D33E4214}" name="libs">
           <FILE id="PyrikA" name="fft.cpp" compile="1" resource="0" file="../Maximilian/libs/fft.cpp"/>

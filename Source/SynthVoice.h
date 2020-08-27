@@ -54,9 +54,6 @@ public:
     double getOsc1Saw() {
         if(osc1SawSetting)
         {
-//           TODO:: ADD PITCH RANGE
-//            return sawOsc.saw(processedFrequency/getPitchRangeSetting());
-            
             return osc1saw.saw(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
         }
         return 0;
@@ -65,8 +62,6 @@ public:
     double getOsc1Square() {
         if(osc1SquareSetting)
         {
-//           TODO:: ADD PITCH RANGE
-//            double squareFrequency = osc1square.square(processedFrequency/getPitchRangeSetting());
             double squareFrequency = osc1square.square(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
             
             if(osc1PWSetting > 0){
@@ -80,6 +75,12 @@ public:
     }
     
 
+    double getOscAOutput(){
+        return
+            
+        getOsc1Saw() + getOsc1Square();
+   
+    }
 
 
 //============OSCILLATOR B======================
@@ -110,9 +111,6 @@ public:
     double getOsc2Saw() {
             if(osc2SawSetting)
             {
-    //           TODO:: ADD PITCH RANGE
-    //            return sawOsc.saw(processedFrequency/getPitchRangeSetting());
-                
                 return osc2saw.saw(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
             }
             return 0;
@@ -121,7 +119,6 @@ public:
     double getOsc2Triangle() {
             if(osc2TriangleSetting)
             {
-
                 return osc2triangle.triangle(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
             }
             return 0;
@@ -131,8 +128,7 @@ public:
     double getOsc2Square() {
             if(osc2SquareSetting)
             {
-    //           TODO:: ADD PITCH RANGE
-    //            double squareFrequency = osc1square.square(processedFrequency/getPitchRangeSetting());
+
                 double squareFrequency = osc2square.square(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
                 
                 if(osc2PWSetting > 0){
@@ -162,11 +158,9 @@ public:
     }
 
     
-    
     //=========MIXER========================
     
-    
-    
+
     void setNoiseLevel(Setting* setting)
     {
         noiseLevelSetting = *setting;
@@ -186,26 +180,13 @@ public:
     
     double getMixerSound()
     {
-    
         return
 
-//       getOsc1() * osc1LevelSetting
-//        +
-//       getOsc2() * osc2LevelSetting
-//        +
-//        osc3.noise() * noiseLevelSetting;
-        
-//        osc1.saw(processedFrequency * osc1FreqSetting * osc1OctSetting) * osc1SawSetting * osc1LevelSetting
-        getOsc1Saw() * osc1LevelSetting
-        +
-        getOsc1Square() * osc1LevelSetting
+        getOscAOutput() * osc1LevelSetting
         +
         getOsc2Output() * osc2LevelSetting
         +
         osc3.noise() * noiseLevelSetting;
-        
-        
-
     }
     
         //=========ENVELOPE========================
@@ -302,8 +283,6 @@ public:
         return filterEnvelope.adsr(1., filterEnvelope.trigger);
         
     }
-    
-    
     double getFilterCutoff()
     {
         
@@ -324,15 +303,8 @@ public:
     }
     
 
-    
-    
-
-    
     //=========LFO==========================
-    
-    
-//    TODO:: is lfo Enveloped, triggered by Start note?
-    
+
     void setLfoParams(Setting* rate, Setting* sawMode, Setting* triangleMode, Setting* squareMode)
     {
         lfoRateSetting = *rate;
@@ -348,11 +320,6 @@ public:
         double lfoValue = lfoRateSetting && SumSettings != 0 ?
         (
             (
-//             lfoSaw.saw(lfoEnv1.adsr(lfoRateSetting * lfoSawSetting , lfoEnv1.trigger))
-//             +
-//             lfoTriangle.triangle(lfoEnv2.adsr(lfoRateSetting * lfoTriangleSetting , lfoEnv2.trigger))
-//             +
-//             lfoSquare.square(lfoEnv3.adsr(lfoRateSetting * lfoSquareSetting , lfoEnv3.trigger))
                lfoSaw.saw(lfoRateSetting * lfoSawSetting)
                +
                lfoTriangle.triangle(lfoRateSetting * lfoTriangleSetting)
@@ -373,7 +340,7 @@ public:
     double getOscBModValue()
     {
         
-        double modulatedValue = lfoRateSetting != 0 ? (  getOsc2Output()      * modAmtOscBSetting ) : 1;
+        double modulatedValue = lfoRateSetting != 0 ? (  getOsc2Output()  * modAmtOscBSetting ) : 1;
         return modulatedValue;
     }
 
@@ -399,7 +366,6 @@ public:
     }
     
     
-
     //=============    PITCH  WHEEL =============
         
         
@@ -413,9 +379,6 @@ public:
         {
             midiPitchWheel = (newPitchWheelValue-8191.5f)/8191.5f;
         }
-        
-        
-        
         
         
         //=========GLIDE========================
@@ -450,8 +413,6 @@ public:
         }
 
         
-
-    
     // ////////////   MASTER
     
     
@@ -464,8 +425,6 @@ public:
     void setMasterGain(Setting* mGain)
     {
           masterGain = *mGain;
-
-
     }
     
     
@@ -531,7 +490,6 @@ public:
         
     }
     
-    
 
     
     double getProcessedFilter()
@@ -561,17 +519,6 @@ public:
             
             
             }
-//            processFrquency(currentFrequency);
-              
-//            double mixerOutput = getMixerSound();
-//            double ampEnvOutput = getAmpEnvelope();
-//
-//
-//            auto amplifierOutput = ampEnvOutput * mixerOutput ;
-            
-//            mixerOutput = getMixerSound
-//            filterOutput = MixerOutput * getFilter();
-//            vcaOutput = FilterOutput * getAmpEnvelope()
             
             processGlide();
             processFrequency(currentFrequency);
@@ -582,10 +529,7 @@ public:
             double processedOutput = filteredSound;
             
             double  masterOutput = processedOutput * masterGain * dEGOut;
-//
-//    * masterGain
 
-            
             
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
@@ -598,11 +542,7 @@ public:
     //=======================================================
 private:
     double level;
-
-
-    //    double Setting;
     
-
     float osc1FreqSetting;
     float osc1OctSetting;
     float osc1SawSetting;
@@ -690,6 +630,4 @@ private:
         masterGainIndex
     };
     
-    //    juce::dsp::ProcessorChain<Oscillator<float>, Oscillator<float>, <dsp::StateVariableFilter::Filter<float>, juce::dsp::Gain<float>> processorChain;
-    //    dsp::ProcessorDuplicator<dsp::StateVariableFilter::Filter<float> , dsp::StateVariableFilter::Parameters<float>> stateVariableFilter;
 };

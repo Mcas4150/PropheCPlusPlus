@@ -32,7 +32,7 @@ public:
     {
         osc1FreqSetting = std::pow(2, *oscAFreq);
 //        osc1FreqSetting = *oscAFreq;
-        osc1OctSetting = *oscAOct;
+        osc1OctSetting = std::pow(2, *oscAOct);
         osc1SawSetting = *oscASawMode;
         osc1SquareSetting = *oscASquareMode;
         osc1PWSetting = *oscAPW;
@@ -87,8 +87,8 @@ public:
     
     void setOscBParams(Setting* frequency, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* triangleMode, Setting* PW)
     {
-        osc2FreqSetting = *frequency;
-        osc2OctSetting = *oct;
+        osc2FreqSetting = std::pow(2, *frequency);
+        osc2OctSetting = std::pow(2, *oct);
         osc2SawSetting = *sawMode;
         osc2TriangleSetting = *squareMode;
         osc2SquareSetting = *triangleMode;
@@ -143,17 +143,8 @@ public:
 
     double getOsc2Output()
     {
-        double limiterDenominator = osc2TriangleSetting + osc2SquareSetting + osc2SawSetting;
-        if (limiterDenominator < 1){
-            return 1;
-        } else {
-            return limiterDenominator;
-        }
-       
-        double osc2Value = (getOsc2Saw() + getOsc2Triangle() + getOsc2Square())/ limiterDenominator;
-        return osc2Value;
-        
-     
+//
+        return getOsc2Saw() + getOsc2Triangle() + getOsc2Square();
 
     }
 
@@ -161,20 +152,11 @@ public:
     //=========MIXER========================
     
 
-    void setNoiseLevel(Setting* setting)
+    void setMixerParams(Setting* osc1Level, Setting* osc2Level, Setting* noiseLevel)
     {
-        noiseLevelSetting = *setting;
-    }
-    
-    void setOsc1Level(Setting* setting)
-    {
-        osc1LevelSetting = *setting;
-    }
-    
-    void setOsc2Level(Setting* setting)
-    {
-        osc2LevelSetting = *setting;
-   
+        osc1LevelSetting = *osc1Level;
+        osc2LevelSetting = *osc2Level;
+        noiseLevelSetting = *noiseLevel;
     }
     
     
@@ -198,9 +180,7 @@ public:
         filterEnvelope.trigger = 1;
         filterEnvelope.attackphase=1;
         filterEnvelope.decayphase=0;
-        lfoEnv1.trigger = 1;
-        lfoEnv1.attackphase=1;
-        lfoEnv1.decayphase=0;
+      
        
     }
     
@@ -212,10 +192,7 @@ public:
         filterEnvelope.trigger = 0;
         filterEnvelope.attackphase=0;
         filterEnvelope.decayphase=1;
-        lfoEnv1.trigger = 0;
-        lfoEnv1.attackphase=0;
-        lfoEnv1.decayphase=1;
-        
+   
     }
     
     
@@ -244,29 +221,12 @@ public:
     //=========FILTER==========================
     
 
-    void setFilterCutoff (Setting* setting)
+    void setFilterParams(Setting* cutoff, Setting* resonance, Setting* envAmt, Setting* keyAmt, Setting* attack, Setting* decay, Setting* sustain, Setting* release)
     {
-        cutoffSetting = *setting;
-    }
-    
-    void setFilterRes (Setting*setting)
-    {
-        resonance = *setting;
-    }
-    
-    
-    void setEnvAmt (Setting* setting)
-    {
-        envAmt = *setting;
-    }
-    
-    void setKeyAmt (Setting* setting)
-    {
-        //        keyAmt = *setting;
-    }
-    
-    void setFilterEnvelopeParams(Setting* attack, Setting* decay, Setting* sustain, Setting* release)
-    {
+        filterCutoffSetting = *cutoff;
+        filterResonanceSetting = *resonance;
+        filterEnvAmtSetting = *envAmt;
+        filterKeyAmtSetting = *keyAmt;
         filterEnvelope.setAttack(*attack);
         filterEnvelope.setDecay(*decay);
         filterEnvelope.setSustain(*sustain);
@@ -287,7 +247,7 @@ public:
     {
         
         double cutoffValue = 0;
-        cutoffValue = getFilterEnvelope() *  cutoffSetting;
+        cutoffValue = getFilterEnvelope() *  filterCutoffSetting;
 //        cutoffValue = cutoffSetting;
 //        cutoffValue += getLfoValue() * modAmtLfoSetting * modFilterSetting;
         if(cutoffValue < 30.0f)
@@ -464,7 +424,6 @@ public:
         
         stopEnvelopes();
     
-        
         allowTailOff = true;
         
         if (velocity == 0)
@@ -474,12 +433,9 @@ public:
         m_EG1.stopEG();
         m_FilterEG.stopEG();
         
-        m_EG1.reset();
+//        m_EG1.reset();
         m_FilterEG.reset();
-        
-//    m_osc1.stopOscillator();
-//    m_osc2.stopOscillator();
-//    m_LFO2.stopOscillator();
+
 
     }
     
@@ -495,12 +451,10 @@ public:
     double getProcessedFilter()
     {
         double mixerOutput = getMixerSound();
-//        double ampEnvOutput = getAmpEnvelope();
-//        auto amplifierOutput = ampEnvOutput * mixerOutput ;
-        auto filteredEnvelope = cutoffSetting * getFilterEnvelope();
-//        auto filteredMod =  getModulationMatrixOutput(getFilterCutoff(), modFilterSetting) ;
-           auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting) ;
-        double filteredSound = filter1.lores(mixerOutput, filteredMod , resonance);
+
+        auto filteredEnvelope = filterCutoffSetting * getFilterEnvelope();
+        auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting) ;
+        double filteredSound = filter1.lores(mixerOutput, filteredMod , filterResonanceSetting);
         return filteredSound;
     }
     
@@ -514,12 +468,12 @@ public:
         {
             if(m_bNoteOn)
             {
-                dEGOut =    m_EG1.doEnvelope();
+//                dEGOut =    m_EG1.doEnvelope();
                 dFilterEGOut = m_FilterEG.doEnvelope();
             
             
             }
-            
+            dEGOut =    m_EG1.doEnvelope();
             processGlide();
             processFrequency(currentFrequency);
     
@@ -569,10 +523,10 @@ private:
     
     
    
-    float cutoffSetting;
-    float resonance;
-    float keyAmt;
-    float envAmt;
+    float filterCutoffSetting;
+    float filterResonanceSetting;
+    float filterKeyAmtSetting;
+    float filterEnvAmtSetting;
     double frequency;
     double currentFrequency;
     double osc1processedFrequency;

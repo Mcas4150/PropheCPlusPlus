@@ -257,17 +257,17 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                    
 //            MIXER
             
-            myVoice->setNoiseLevel(getParamValue("noiseLevel"));
-            myVoice->setOsc1Level(getParamValue("osc1Level"));
-            myVoice->setOsc2Level(getParamValue("osc2Level"));
+            myVoice->setMixerParams(getParamValue("osc1Level"),
+                                    getParamValue("osc2Level"),
+                                    getParamValue("noiseLevel"));
             
 //            Filter
          
-            myVoice->setFilterCutoff(getParamValue("filterCutoff"));
-            myVoice->setFilterRes(getParamValue("filterRes"));
-            myVoice->setEnvAmt(getParamValue("envAmt"));
-            myVoice->setKeyAmt(getParamValue("keyAMt"));
-            myVoice->setFilterEnvelopeParams(getParamValue("filterAttack"),
+            myVoice->setFilterParams(getParamValue("filterCutoff"),
+                                        getParamValue("filterRes"),
+                                        getParamValue("envAmt"),
+                                        getParamValue("keyAmt"),
+                                        getParamValue("filterAttack"),
                                         getParamValue("filterDecay"),
                                         getParamValue("filterSustain"),
                                         getParamValue("filterRelease"));

@@ -81,8 +81,8 @@ AudioProcessorValueTreeState::ParameterLayout JuceSynthFrameworkAudioProcessor::
     ////          FILTER
     params.add ( std::make_unique<AudioParameterFloat>("filterCutoff", "FilterCutoff", Range {8.0f, 8500.0f, 1.0f}, 5000.0f));
     params.add ( std::make_unique<AudioParameterFloat>("filterRes", "FilterRes", Range {1.0f, 10.0f, 0.1f}, 1.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("envAmt", "EnvAmt", NormalisableRange<float>(0.0f, 1.0f), 1.0f));
-    params.add ( std::make_unique<AudioParameterFloat>("keyAmt", "keyAmt", NormalisableRange<float>(0.0f, 1.0f), 0.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("envAmt", "EnvAmt", Range {0.0f, 1.0f, 0.01f}, 1.0f));
+    params.add ( std::make_unique<AudioParameterFloat>("keyAmt", "keyAmt", Range {0.0f, 1.0f, 0.01f}, 0.0f));
     params.add ( std::make_unique<AudioParameterFloat>("filterAttack", "FilterAttack", Range { 1.0f, 7400.0f, 1.0f} , 0.1f));
     params.add ( std::make_unique<AudioParameterFloat>("filterDecay", "FilterDecay", Range { 1.0f, 11000.0f, 1.0f } , 1.0f));
     params.add ( std::make_unique<AudioParameterFloat>("filterSustain", "FilterSustain", Range { 0.0f, 1.0f, 0.01f} , 0.8f));

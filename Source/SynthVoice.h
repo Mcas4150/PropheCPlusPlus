@@ -205,7 +205,7 @@ public:
      {
          double mixerOutput = getMixerSound();
          auto filteredEnvelope = filterCutoffSetting * dFilterEGOut;
-         auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting) ;
+         auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting ) ;
          double filteredSound = filter1.lores(mixerOutput, filteredMod , filterResonanceSetting);
          return filteredSound;
      }
@@ -316,12 +316,10 @@ public:
         
     // ////////////   MASTER
     
-    
     void setMasterTune (Setting* setting)
     {
         masterTuneSetting = *setting;
     }
-    
     
     void setMasterGain(Setting* mGain)
     {
@@ -366,7 +364,6 @@ public:
     }
     
 
-    
     void controllerMoved (int controllerNumber, int newControllerValue) override
     {
         

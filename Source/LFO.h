@@ -14,25 +14,14 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    
-    enum Waveform
-    {
-        kWaveformSine = 0,
-        kWaveformTriangle,
-        kWaveformSquare,
-        kWaveformSquareSlopedEdges,
-        kNumWaveforms
-    };
-    
-    static void populateWaveformComboBox(ComboBox& cb);
+
     void sliderValueChanged (Slider*) override;
     
-    static float getSample(float phase, Waveform waveform);
+
     
 private:
-    //    Slider lfoRate, lfoDelay;
-    ComboBox lfoMenu;
-    
+    JuceSynthFrameworkAudioProcessor& processor;
+
     SharedResourcePointer<BasicLookAndFeel> lookAndFeel;
     SliderToggleLookAndFeel sliderToggleLookAndFeel;
     GroupLookAndFeel groupLookAndFeel;
@@ -55,8 +44,7 @@ private:
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    JuceSynthFrameworkAudioProcessor& processor;
-    
+        
     
     
     

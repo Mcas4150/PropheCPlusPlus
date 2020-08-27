@@ -24,7 +24,8 @@
 #include "Master.h"
 #include "Wheels.h"
 #include "Mode.h"
-#include "Arpeggiator.h"
+#include "../Source/Arpeggiator.h"
+
 #include "Sequencer.h"
 #include "SliderLookAndFeel.h"
 #include "../Common/LabeledKnob.h"

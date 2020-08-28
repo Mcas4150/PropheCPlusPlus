@@ -1,24 +1,26 @@
 /*
   ==============================================================================
 
-    ModulationMatrix.cpp
-    Created: 24 Aug 2020 12:30:54pm
+    FilterEngine.cpp
+    Created: 28 Aug 2020 6:52:21pm
     Author:  Mike Cassidy
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "ModulationMatrix.h"
+#include "FilterEngine.h"
 
 //==============================================================================
-ModulationMatrix::ModulationMatrix()
+FilterEngine::FilterEngine()
 {
+    // In your constructor, you should add any child components, and
+    // initialise any special settings that your component needs.
 
-    
 }
 
-ModulationMatrix::~ModulationMatrix()
+FilterEngine::~FilterEngine()
 {
 }
+
 

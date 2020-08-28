@@ -117,16 +117,6 @@ void JuceSynthFrameworkAudioProcessorEditor::resized()
     keyboardComponent.setBounds(170, 375, 810, 225);
     keyboardComponent.setKeyWidth(35);
     
-  
-    //    frontGui.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
-    //    frontGui.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));
-    
-    //    scopeComponent.setTopLeftPosition(900, 200);
-    //    scopeComponent.setSize( 200, 200);
-    
-//        filterGui.setLookAndFeel(&groupLookAndFeel);
-//        ampGui.setLookAndFeel(&groupLookAndFeel);
-//        lfoGui.setLookAndFeel(&groupLookAndFeel);
     
 }
 

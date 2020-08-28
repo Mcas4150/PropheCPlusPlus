@@ -41,14 +41,17 @@
             file="Source/ArpeggiatorEngine.h"/>
       <FILE id="UtDedp" name="AudioBufferQueue.h" compile="0" resource="0"
             file="Source/AudioBufferQueue.h"/>
-      <FILE id="Vgzu0r" name="CustomLookAndFeel.h" compile="0" resource="0"
-            file="Source/CustomLookAndFeel.h"/>
+      <FILE id="WCgsCt" name="CustomLookAndFeel.h" compile="0" resource="0"
+            file="../../../../.Trash/CustomLookAndFeel.h"/>
       <FILE id="DIbYbG" name="EnvelopeGenerator.cpp" compile="1" resource="0"
             file="Source/EnvelopeGenerator.cpp"/>
       <FILE id="XGJzaG" name="EnvelopeGenerator.h" compile="0" resource="0"
             file="Source/EnvelopeGenerator.h"/>
       <FILE id="gC2GVt" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
       <FILE id="RLimGz" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
+      <FILE id="pFE4TG" name="FilterEngine.cpp" compile="1" resource="0"
+            file="Source/FilterEngine.cpp"/>
+      <FILE id="DEYjuS" name="FilterEngine.h" compile="0" resource="0" file="Source/FilterEngine.h"/>
       <FILE id="l9fCGB" name="Glide.cpp" compile="1" resource="0" file="Source/Glide.cpp"/>
       <FILE id="U2leIn" name="Glide.h" compile="0" resource="0" file="Source/Glide.h"/>
       <FILE id="Z8126b" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>

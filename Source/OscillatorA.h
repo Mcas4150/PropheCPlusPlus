@@ -6,7 +6,7 @@
 #include "PluginProcessor.h"
 #include "../Common/LabeledKnob.h"
 #include "SliderLookAndFeel.h"
-#include "CustomLookAndFeel.h"
+
 
 
 //==============================================================================

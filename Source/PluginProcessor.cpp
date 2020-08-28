@@ -192,8 +192,8 @@ void JuceSynthFrameworkAudioProcessor::prepareToPlay (double sampleRate, int sam
     ignoreUnused(samplesPerBlock);
     lastSampleRate = sampleRate;
     mySynth.setCurrentPlaybackSampleRate(lastSampleRate);
-    m_EG1.setSampleRate(lastSampleRate);
-    m_EG1.m_bOutputEG = true;
+//    m_EG1->setSampleRate(lastSampleRate);
+//    m_EG1->m_bOutputEG = true;
     
 //    arp
     m_Arp.prepareArpeggiator(sampleRate);
@@ -253,6 +253,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                    getParamValue("osc1SawMode"),
                                    getParamValue("osc1SquareMode"),
                                    getParamValue("osc1PW"));
+
+
             
 //            OSCILLATOR B
             myVoice->setOscBParams(getParamValue("osc2Freq"),

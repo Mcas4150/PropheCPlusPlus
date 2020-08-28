@@ -15,6 +15,7 @@
 #include "SynthSound.h"
 #include "EnvelopeGenerator.h"
 #include "ArpeggiatorEngine.h"
+#include "Oscillator.h"
 #include "AudioBufferQueue.h"
 #include "ScopeDataCollector.h"
 #include "ScopeComponent.h"
@@ -78,7 +79,8 @@ public:
     Synthesiser mySynth;
     SynthVoice* myVoice;
     
-    EnvelopeGenerator m_EG1;
+
+    EnvelopeGenerator* m_EG1;
     ArpeggiatorEngine m_Arp;
     
     
@@ -89,15 +91,7 @@ private:
     
     AudioBufferQueue<float> audioBufferQueue;
     ScopeDataCollector<float> scopeDataCollector { audioBufferQueue };
-    
-    
-//    AudioParameterFloat* speed;
-//    int speed;
-//    int currentNote, lastNoteValue;
-//    int time;
-//    float rate;
-//    SortedSet<int> notes;
-    
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceSynthFrameworkAudioProcessor)
 };

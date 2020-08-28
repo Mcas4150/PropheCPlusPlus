@@ -22,7 +22,10 @@ public:
     Oscillator();
     ~Oscillator() override;
 
+    
   
+    
+    
   inline void setFreq(float setting)
   {
       freqSetting = std::pow(2, setting);

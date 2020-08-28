@@ -79,7 +79,7 @@ public:
     }
     
     
-    double getMixerSound()
+    double getMixerOutput()
     {
         return
 
@@ -119,17 +119,16 @@ public:
         m_FilterEG.setReleaseTime_mSec(release);
     }
     
+    double getFilterOutput()
+    {
+        auto filteredEnvelope = filterCutoffSetting * dFilterEGOut;
+        double filterModulation = getModulationMatrixOutput(filteredEnvelope, modFilterSetting );
+        return  filter1.lores(getMixerOutput(),  filterModulation , filterResonanceSetting);
+                   
+        
+    }
+    
 
-     double getProcessedFilter()
-     {
-         double mixerOutput = getMixerSound();
-         auto filteredEnvelope = filterCutoffSetting * dFilterEGOut;
-         auto filteredMod =  getModulationMatrixOutput(filteredEnvelope, modFilterSetting ) ;
-         double filteredSound = filter1.lores(mixerOutput, filteredMod , filterResonanceSetting);
-         return filteredSound;
-     }
-    
-    
     //=========LFO==========================
 
     void setLfoParams(Setting* rate, Setting* sawMode, Setting* triangleMode, Setting* squareMode)
@@ -193,29 +192,24 @@ public:
     
     //=============    PITCH  WHEEL =============
         
-        
     void setPitchBend (Setting* setting)
     {
 //            pitchBendPosition = midiPitchWheel != 0 ? midiPitchWheel : *setting;
 //            pitchBendSetting =  pitchBendPosition;
     }
         
-        
     void pitchWheelMoved (int newPitchWheelValue) override
     {
         midiPitchWheel = (newPitchWheelValue-8191.5f)/8191.5f;
     }
         
-        
         //=========GLIDE========================
-        
         
     void setGlideParams(Setting* rate, Setting* mode)
     {
         glideRateSetting = *rate;
         glideModeSetting = *mode == -1.0f ? false : true;
     }
-        
         
     void processGlide()
     {
@@ -232,7 +226,6 @@ public:
         }
     }
     
-
     // ////////////   MASTER
     
     void setMasterParams (Setting* tune, Setting* gain)
@@ -240,7 +233,6 @@ public:
         masterTuneSetting = *tune;
         masterGain = *gain;
     }
-    
     
     //==========PLAYING============================
     
@@ -298,11 +290,7 @@ public:
             dEGOut = m_EG1.doEnvelope();
             dFilterEGOut = m_FilterEG.doEnvelope();
             
-            double filteredSound = getProcessedFilter() ;
-            
-            double processedOutput = filteredSound;
-            
-            double  masterOutput = processedOutput * masterGain * dEGOut;
+            double  masterOutput = getFilterOutput() * masterGain * dEGOut;
 
             
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)

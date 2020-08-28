@@ -306,13 +306,11 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                        getParamValue("decay"),
                                        getParamValue("sustain"),
                                        getParamValue("release"));
-//            m_EG1.setAttackTime_mSec(getParamValue("attack"));
-//            m_EG1.setDecayTime_mSec(getParamValue("decay"));
-//            m_EG1.setSustainLevel(getParamValue("sustain"));
-//            m_EG1.setReleaseTime_mSec(getParamValue("release"));
+
 //            MASTER
-            myVoice->setMasterTune(getParamValue("masterTune"));
-            myVoice->setMasterGain(getParamValue("mastergain"));
+            myVoice->setMasterParams(getParamValue("masterTune"),
+                                     getParamValue("mastergain"));
+            
             
         }
     }

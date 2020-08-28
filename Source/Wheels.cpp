@@ -17,9 +17,6 @@ Wheels::Wheels(JuceSynthFrameworkAudioProcessor& p)
 {
     
     setSize(100, 150);
-    //    setLookAndFeel(pitchBendLookAndFeel);
-    
-    
     pitchBendSlider.setSliderStyle(Slider::SliderStyle::LinearHorizontal);
     pitchBendSlider.setRange(-1.0f, 1.0f);
     pitchBendSlider.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);

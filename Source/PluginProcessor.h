@@ -63,7 +63,6 @@ public:
     
     void updateFilter();
     
-//    std::atomic<float>*
     auto getParamValue(StringRef parameter)
     {
         std::atomic<float>* RawParam = valTreeState.getRawParameterValue(parameter);
@@ -71,10 +70,8 @@ public:
     }
     
     UndoManager              mUndoManager;
-//    std::unique_ptr<AudioProcessorValueTreeState> valTreeState;
     AudioProcessorValueTreeState valTreeState;
     MidiKeyboardState keyboardState;
-    //
     AudioProcessorValueTreeState::ParameterLayout createParameters();
     AudioBufferQueue<float>& getAudioBufferQueue() noexcept  { return audioBufferQueue; }
     Synthesiser mySynth;

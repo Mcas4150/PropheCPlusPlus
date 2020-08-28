@@ -5,10 +5,6 @@
               displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="ZH3u4d" name="PropheC++">
     <GROUP id="{B238ACAB-885D-0A40-AC34-21BE749E1045}" name="Source">
-      <FILE id="i7abmW" name="Arpeggiator.cpp" compile="1" resource="0" file="Source/Arpeggiator.cpp"/>
-      <FILE id="TuRMY5" name="Arpeggiator.h" compile="0" resource="0" file="Source/Arpeggiator.h"/>
-      <FILE id="Z8126b" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
-      <FILE id="NdtFak" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
       <GROUP id="{01CA4099-C8CD-7D0E-6C56-8030D2FF67DD}" name="Maximilian">
         <GROUP id="{4752A061-8B73-6BF6-0D95-9818D33E4214}" name="libs">
           <FILE id="PyrikA" name="fft.cpp" compile="1" resource="0" file="../Maximilian/libs/fft.cpp"/>
@@ -37,6 +33,8 @@
       </GROUP>
       <FILE id="o1Obsi" name="Amplifier.cpp" compile="1" resource="0" file="Source/Amplifier.cpp"/>
       <FILE id="o11Up1" name="Amplifier.h" compile="0" resource="0" file="Source/Amplifier.h"/>
+      <FILE id="i7abmW" name="Arpeggiator.cpp" compile="1" resource="0" file="Source/Arpeggiator.cpp"/>
+      <FILE id="TuRMY5" name="Arpeggiator.h" compile="0" resource="0" file="Source/Arpeggiator.h"/>
       <FILE id="UtDedp" name="AudioBufferQueue.h" compile="0" resource="0"
             file="Source/AudioBufferQueue.h"/>
       <FILE id="Vgzu0r" name="CustomLookAndFeel.h" compile="0" resource="0"
@@ -49,6 +47,8 @@
       <FILE id="RLimGz" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
       <FILE id="l9fCGB" name="Glide.cpp" compile="1" resource="0" file="Source/Glide.cpp"/>
       <FILE id="U2leIn" name="Glide.h" compile="0" resource="0" file="Source/Glide.h"/>
+      <FILE id="Z8126b" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
+      <FILE id="NdtFak" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
       <FILE id="yUl9cZ" name="Master.cpp" compile="1" resource="0" file="Source/Master.cpp"/>
       <FILE id="YqpSBj" name="Master.h" compile="0" resource="0" file="Source/Master.h"/>
       <FILE id="gDQR6T" name="Mixer.cpp" compile="1" resource="0" file="Source/Mixer.cpp"/>
@@ -57,8 +57,6 @@
       <FILE id="XfmWRM" name="Mode.h" compile="0" resource="0" file="Source/Mode.h"/>
       <FILE id="ioKWLL" name="Modulation.cpp" compile="1" resource="0" file="Source/Modulation.cpp"/>
       <FILE id="qTZ2Rx" name="Modulation.h" compile="0" resource="0" file="Source/Modulation.h"/>
-      <FILE id="mE9IUm" name="ModulationFunctions.h" compile="0" resource="0"
-            file="Source/ModulationFunctions.h"/>
       <FILE id="kqUckU" name="ModulationMatrix.cpp" compile="1" resource="0"
             file="Source/ModulationMatrix.cpp"/>
       <FILE id="C6LJf2" name="ModulationMatrix.h" compile="0" resource="0"

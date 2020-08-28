@@ -316,14 +316,10 @@ public:
         
     // ////////////   MASTER
     
-    void setMasterTune (Setting* setting)
+    void setMasterParams (Setting* tune, Setting* gain)
     {
-        masterTuneSetting = *setting;
-    }
-    
-    void setMasterGain(Setting* mGain)
-    {
-          masterGain = *mGain;
+        masterTuneSetting = *tune;
+        masterGain = *gain;
     }
     
     

@@ -37,16 +37,9 @@ private:
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lfoSawShapeVal;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lfoSquareShapeVal;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lfoTriangleShapeVal;
-    std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> lfoSelect;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rateVal;
-//    delete
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayVal;
-    
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
-        
-    
-    
+
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LFO)
 };

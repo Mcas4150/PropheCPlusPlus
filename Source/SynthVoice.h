@@ -31,12 +31,7 @@ public:
     
     void setOscAParams(Setting* freq, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* pW )
     {
-        osc1FreqSetting = std::pow(2, *freq);
-        osc1OctSetting = std::pow(2, *oct);
-        osc1SawSetting = *sawMode;
-        osc1SquareSetting = *squareMode;
-        osc1PWSetting = *pW;
-        
+
         m_OscA.setFreq(*freq);
         m_OscA.setOct(*oct);
         m_OscA.setSawMode(*sawMode);
@@ -44,107 +39,32 @@ public:
         m_OscA.setPW(*pW);
     }
 
-    
-    double getOsc1PWSetting(){
-        double pwm = osc1PWSetting;
-
-        if(pwm > 0.99f){
-            return 0.99;
-        } else if (pwm < 0){
-            return 0;
-        } else {
-            return pwm;
-        }
-    }
-
-
-    double getOsc1Square() {
-        if(osc1SquareSetting)
-        {
-            double squareFrequency = osc1square.square(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
-
-            if(osc1PWSetting > 0){
-            return osc1square.pulse(squareFrequency,  getModulationMatrixOutput(getOsc1PWSetting(), modOscAPWSetting));
-            } else {
-                return squareFrequency;
-            }
-
-        }
-        return 0;
-    }
-
 
     double getOscAOutput(){
         return
-        m_OscA.getSaw(osc1processedFrequency) + getOsc1Square();
-//        getOsc1Saw() + getOsc1Square();
+        m_OscA.getSaw(osc1processedFrequency) + m_OscA.getSquare(osc1processedFrequency,getModulationMatrixOutput(m_OscA.getPWSetting(), modOscAPWSetting));
    
     }
 
 
 //============OSCILLATOR B======================
     
-    void setOscBParams(Setting* frequency, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* triangleMode, Setting* PW, Setting* LoFreqMode)
+    void setOscBParams(Setting* freq, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* triangleMode, Setting* pW, Setting* loFreqMode)
     {
-        osc2FreqSetting = std::pow(2, *frequency);
-        osc2OctSetting = std::pow(2, *oct);
-        osc2SawSetting = *sawMode;
-        osc2TriangleSetting = *triangleMode;
-        osc2SquareSetting = *squareMode;
-        osc2PWSetting = *PW;
-        osc2LoFreqSetting = *LoFreqMode;
+         m_OscB.setFreq(*freq);
+         m_OscB.setOct(*oct);
+         m_OscB.setSawMode(*sawMode);
+         m_OscB.setSquareMode(*squareMode);
+         m_OscB.setTriangleMode(*triangleMode);
+         m_OscB.setPW(*pW);
+         m_OscB.setLoFreq(*loFreqMode);
     }
 
-    
-    double getOsc2PWSetting(){
-        double pwm = osc2PWSetting;
-
-        if(pwm > 0.99f){
-            return 0.99;
-        } else if (pwm < 0){
-            return 0;
-        } else {
-            return pwm;
-        }
-    }
-    
-    double getOsc2Saw() {
-            if(osc2SawSetting)
-            {
-                return osc2saw.saw(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
-            }
-            return 0;
-        }
-    
-    double getOsc2Triangle() {
-            if(osc2TriangleSetting)
-            {
-                return osc2triangle.triangle(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
-            }
-            return 0;
-        }
-        
-        
-    double getOsc2Square() {
-            if(osc2SquareSetting)
-            {
-
-                double squareFrequency = osc2square.square(osc2processedFrequency * osc2FreqSetting * osc2OctSetting);
-                
-                if(osc2PWSetting > 0){
-                return osc2square.pulse(squareFrequency,  getModulationMatrixOutput(getOsc2PWSetting(), modOscBPWSetting));
-                } else {
-                    return squareFrequency;
-                }
-
-            }
-            return 0;
-        }
 
     double getOsc2Output()
     {
-
-        return getOsc2Saw() + getOsc2Triangle() + getOsc2Square();
+        return
+        m_OscB.getSaw(osc2processedFrequency) + m_OscB.getTriangle(osc2processedFrequency) + m_OscB.getSquare(osc2processedFrequency,getModulationMatrixOutput(m_OscB.getPWSetting(), modOscBPWSetting));
 
     }
 
@@ -400,21 +320,6 @@ public:
 private:
     double level;
     
-    float osc1FreqSetting;
-    float osc1OctSetting;
-    float osc1SawSetting;
-    float osc1SquareSetting;
-    float osc1PWSetting;
-    
-    float osc2FreqSetting;
-    float osc2OctSetting;
-    float osc2SawSetting;
-    float osc2TriangleSetting;
-    float osc2SquareSetting;
-    float osc2PWSetting;
-    float osc2LoFreqSetting;
-   
-
     int noteNumber;
     
     //    float pitchBend = 0.0f;
@@ -466,11 +371,11 @@ private:
     float masterTuneSetting;
     float masterGain;
     
-    maxiOsc osc1saw, osc1square, osc2saw, osc2triangle, osc2square, osc3, lfoSaw, lfoTriangle, lfoSquare;
+    maxiOsc osc2saw, osc2triangle, osc2square, osc3, lfoSaw, lfoTriangle, lfoSquare;
     maxiEnv lfoEnv1;
     maxiFilter filter1;
     
-    Oscillator m_OscA;
+    Oscillator m_OscA, m_OscB;
     
     EnvelopeGenerator m_EG1;
     EnvelopeGenerator m_FilterEG;

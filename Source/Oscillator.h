@@ -53,9 +53,9 @@ public:
       pWSetting = setting;
   }
     
-  inline void setLoFreq(std::atomic<float>* setting)
+  inline void setLoFreq(float setting)
   {
-      loFreqSetting = *setting;
+      loFreqSetting = setting;
   }
     
   inline double getPWSetting(){
@@ -81,7 +81,7 @@ public:
   inline double getTriangle(double frequency) {
             if(triangleSetting)
             {
-                return oscTriangle.triangle(frequency);
+                return oscTriangle.triangle(frequency * freqSetting * octSetting );
             }
             return 0;
         }
@@ -91,7 +91,7 @@ public:
             if(squareSetting)
             {
 
-                double squareFrequency = oscSquare.square(frequency);
+                double squareFrequency = oscSquare.square(frequency * freqSetting * octSetting );
                 
                 if(pWSetting > 0){
                 return oscSquare.pulse(squareFrequency,  modOutput);

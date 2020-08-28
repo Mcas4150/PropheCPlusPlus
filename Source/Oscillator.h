@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "maximilian.h"
 
 //==============================================================================
 /*
@@ -22,40 +23,97 @@ public:
     ~Oscillator() override;
 
   
-  void setOsc1Freq(std::atomic<float>* setting)
+  inline void setFreq(float setting)
   {
-      osc1FreqSetting = std::pow(2,*setting);
+      freqSetting = std::pow(2, setting);
   }
   
-  void setOsc1Oct(std::atomic<float>* setting)
+  inline void setOct(float setting)
   {
-      osc1OctSetting =  std::pow(2, *setting);
+      octSetting =  std::pow(2, setting);
   }
   
-  void setOsc1SawMode(std::atomic<float>* setting)
+  inline void setSawMode(float setting)
   {
-      osc1SawSetting = *setting;
+      sawSetting = setting;
   }
   
-  void setOsc1SquareMode(std::atomic<float>* setting)
+  inline void setSquareMode(float setting)
   {
-      osc1SquareSetting = *setting;
-  }
-  
-  void setOsc1PWSetting(std::atomic<float>* setting)
-  {
-      osc1PWSetting = *setting;
+      squareSetting = setting;
   }
     
+  inline void setTriangleMode(float setting)
+  {
+      triangleSetting = setting;
+  }
+  
+  inline void setPW(float setting)
+  {
+      pWSetting = setting;
+  }
+    
+  inline void setLoFreq(std::atomic<float>* setting)
+  {
+      loFreqSetting = *setting;
+  }
+    
+  inline double getPWSetting(){
+        double pwm = pWSetting;
+
+        if(pwm > 0.99f){
+            return 0.99;
+        } else if (pwm < 0){
+            return 0;
+        } else {
+            return pwm;
+        }
+  }
+    
+  inline double getSaw(double frequency) {
+            if(sawSetting)
+            {
+                return oscSaw.saw(frequency * freqSetting * octSetting);
+            }
+            return 0;
+        }
+    
+  inline double getTriangle(double frequency) {
+            if(triangleSetting)
+            {
+                return oscTriangle.triangle(frequency);
+            }
+            return 0;
+        }
+        
+        
+  inline double getSquare(double frequency, double modOutput) {
+            if(squareSetting)
+            {
+
+                double squareFrequency = oscSquare.square(frequency);
+                
+                if(pWSetting > 0){
+                return oscSquare.pulse(squareFrequency,  modOutput);
+                } else {
+                    return squareFrequency;
+                }
+
+            }
+            return 0;
+        }
+   
     
 private:
     
-    float osc1FreqSetting;
-    float osc1OctSetting;
-    float  osc1SawSetting;
-    float osc1SquareSetting;
-    float osc1PWSetting;
+    float freqSetting;
+    float octSetting;
+    float sawSetting;
+    float squareSetting;
+    float triangleSetting;
+    float pWSetting;
+    float loFreqSetting;
     
-    
+    maxiOsc oscSaw, oscSquare, oscTriangle;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Oscillator)
 };

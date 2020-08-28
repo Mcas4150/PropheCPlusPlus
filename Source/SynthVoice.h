@@ -5,6 +5,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
 #include "EnvelopeGenerator.h"
+#include "Oscillator.h"
 #include "maximilian.h"
 
 
@@ -28,13 +29,19 @@ public:
         osc2processedFrequency = getModulationMatrixOutput(freq, modOscBFreqSetting);
     }
     
-    void setOscAParams(Setting* oscAFreq, Setting* oscAOct, Setting* oscASawMode, Setting* oscASquareMode, Setting* oscAPW )
+    void setOscAParams(Setting* freq, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* pW )
     {
-        osc1FreqSetting = std::pow(2, *oscAFreq);
-        osc1OctSetting = std::pow(2, *oscAOct);
-        osc1SawSetting = *oscASawMode;
-        osc1SquareSetting = *oscASquareMode;
-        osc1PWSetting = *oscAPW;
+        osc1FreqSetting = std::pow(2, *freq);
+        osc1OctSetting = std::pow(2, *oct);
+        osc1SawSetting = *sawMode;
+        osc1SquareSetting = *squareMode;
+        osc1PWSetting = *pW;
+        
+        m_OscA.setFreq(*freq);
+        m_OscA.setOct(*oct);
+        m_OscA.setSawMode(*sawMode);
+        m_OscA.setSquareMode(*squareMode);
+        m_OscA.setPW(*pW);
     }
 
     
@@ -49,20 +56,13 @@ public:
             return pwm;
         }
     }
-    
-    double getOsc1Saw() {
-        if(osc1SawSetting)
-        {
-            return osc1saw.saw(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
-        }
-        return 0;
-    }
-    
+
+
     double getOsc1Square() {
         if(osc1SquareSetting)
         {
             double squareFrequency = osc1square.square(osc1processedFrequency * osc1FreqSetting * osc1OctSetting);
-            
+
             if(osc1PWSetting > 0){
             return osc1square.pulse(squareFrequency,  getModulationMatrixOutput(getOsc1PWSetting(), modOscAPWSetting));
             } else {
@@ -72,12 +72,12 @@ public:
         }
         return 0;
     }
-    
+
 
     double getOscAOutput(){
         return
-            
-        getOsc1Saw() + getOsc1Square();
+        m_OscA.getSaw(osc1processedFrequency) + getOsc1Square();
+//        getOsc1Saw() + getOsc1Square();
    
     }
 
@@ -313,14 +313,7 @@ public:
         }
     }
     
-//    Arpeggiator
-    
-//    void setArpeggiatorParams(Setting* mode)
-//    {
-//        arpeggiatorMode = *mode;
-//    }
 
-        
     // ////////////   MASTER
     
     void setMasterParams (Setting* tune, Setting* gain)
@@ -436,6 +429,7 @@ private:
     double frequency;
     double currentFrequency;
     double osc1processedFrequency;
+    double osc1FinalFrequency;
     double osc2processedFrequency;
     double dEGOut;
     double dFilterEGOut;
@@ -475,6 +469,8 @@ private:
     maxiOsc osc1saw, osc1square, osc2saw, osc2triangle, osc2square, osc3, lfoSaw, lfoTriangle, lfoSquare;
     maxiEnv lfoEnv1;
     maxiFilter filter1;
+    
+    Oscillator m_OscA;
     
     EnvelopeGenerator m_EG1;
     EnvelopeGenerator m_FilterEG;

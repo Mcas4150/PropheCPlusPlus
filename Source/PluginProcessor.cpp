@@ -306,7 +306,8 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                   getParamValue("modOscBPWMode"),
                                   getParamValue("modFilterMode"));
             
-            myVoice->setArpeggiatorParams(getParamValue("arpeggiatorMode"));
+            m_Arp.setArpeggiatorParams(getParamValue("arpeggiatorMode"),
+                                       getParamValue("keyAmt"));
 
 //           AMPLIFIER
             

@@ -315,10 +315,10 @@ public:
     
 //    Arpeggiator
     
-    void setArpeggiatorParams(Setting* mode)
-    {
-        arpeggiatorMode = *mode;
-    }
+//    void setArpeggiatorParams(Setting* mode)
+//    {
+//        arpeggiatorMode = *mode;
+//    }
 
         
     // ////////////   MASTER

@@ -21,6 +21,15 @@ public:
     ArpeggiatorEngine();
     ~ArpeggiatorEngine() override;
     
+    
+    
+    
+    inline void setArpeggiatorParams(std::atomic<float>* mode, std::atomic<float>* speed)
+       {
+           arpMode = *mode;
+           arpSpeed = *speed;
+       }
+    
     inline void prepareArpeggiator(double sampleRate)
     {
         
@@ -28,14 +37,16 @@ public:
         currentNote = 0;
         lastNoteValue = -1;
         time = 0;
-        speed = 0.5;
         rate = static_cast<float>(sampleRate);
     }
     
     
+    
     inline void processArpeggiator(MidiBuffer& midiMessages, int numSamples)
     {
-        auto noteDuration = static_cast<int> (std::ceil (rate * 0.25f * (0.1f + (1.0f - (speed)))));
+        if (arpMode != 0)
+        {
+        auto noteDuration = static_cast<int> (std::ceil (rate * 0.25f * (0.1f + (1.0f - (arpSpeed)))));
 
           for (const auto metadata : midiMessages)
           {
@@ -66,18 +77,19 @@ public:
           }
 
           time = (time + numSamples) % noteDuration;
-
+        }
            
            
     }
    
 private:
     
-    int speed;
-       int currentNote, lastNoteValue;
-       int time;
-       float rate;
-       SortedSet<int> notes;
+    float arpSpeed;
+    int arpMode;
+    int currentNote, lastNoteValue;
+    int time;
+    float rate;
+    SortedSet<int> notes;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ArpeggiatorEngine)
 };

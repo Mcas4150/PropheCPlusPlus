@@ -46,7 +46,6 @@ public:
    
     }
 
-
 //============OSCILLATOR B======================
     
     void setOscBParams(Setting* freq, Setting* oct, Setting* sawMode, Setting* squareMode, Setting* triangleMode, Setting* pW, Setting* loFreqMode)
@@ -251,7 +250,7 @@ public:
         
         noteNumber = midiNoteNumber;
         //        setPitchBend(currentPitchWheelPosition);
-        frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+        frequency = MidiMessage::getMidiNoteInHertz(noteNumber);
         //        level = velocity;
         if(currentFrequency == 0){
             currentFrequency = frequency;
@@ -268,7 +267,6 @@ public:
     void stopNote (float velocity, bool allowTailOff) override
     {
         
-
         allowTailOff = true;
         
         if (velocity == 0)
@@ -294,7 +292,6 @@ public:
         for (int sample = 0; sample < numSamples; ++sample)
         {
      
-            
             processGlide();
             processFrequency(currentFrequency);
     
@@ -334,7 +331,6 @@ private:
     double frequency;
     double currentFrequency;
     double osc1processedFrequency;
-    double osc1FinalFrequency;
     double osc2processedFrequency;
     double dEGOut;
     double dFilterEGOut;
@@ -371,8 +367,7 @@ private:
     float masterTuneSetting;
     float masterGain;
     
-    maxiOsc osc2saw, osc2triangle, osc2square, osc3, lfoSaw, lfoTriangle, lfoSquare;
-    maxiEnv lfoEnv1;
+    maxiOsc  osc3, lfoSaw, lfoTriangle, lfoSquare;
     maxiFilter filter1;
     
     Oscillator m_OscA, m_OscB;

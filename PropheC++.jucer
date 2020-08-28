@@ -35,6 +35,10 @@
       <FILE id="o11Up1" name="Amplifier.h" compile="0" resource="0" file="Source/Amplifier.h"/>
       <FILE id="i7abmW" name="Arpeggiator.cpp" compile="1" resource="0" file="Source/Arpeggiator.cpp"/>
       <FILE id="TuRMY5" name="Arpeggiator.h" compile="0" resource="0" file="Source/Arpeggiator.h"/>
+      <FILE id="m7hZUc" name="ArpeggiatorEngine.cpp" compile="1" resource="0"
+            file="Source/ArpeggiatorEngine.cpp"/>
+      <FILE id="G9aHtL" name="ArpeggiatorEngine.h" compile="0" resource="0"
+            file="Source/ArpeggiatorEngine.h"/>
       <FILE id="UtDedp" name="AudioBufferQueue.h" compile="0" resource="0"
             file="Source/AudioBufferQueue.h"/>
       <FILE id="Vgzu0r" name="CustomLookAndFeel.h" compile="0" resource="0"

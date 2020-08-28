@@ -312,6 +312,13 @@ public:
             currentFrequency = frequency;
         }
     }
+    
+//    Arpeggiator
+    
+    void setArpeggiatorParams(Setting* mode)
+    {
+        arpeggiatorMode = *mode;
+    }
 
         
     // ////////////   MASTER
@@ -448,6 +455,8 @@ private:
     int modOscBFreqSetting;
     int modOscBPWSetting;
     int modFilterSetting;
+    
+    int arpeggiatorMode;
 
     double noiseLevelSetting;
     double osc1LevelSetting;

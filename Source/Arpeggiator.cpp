@@ -38,6 +38,7 @@ Arpeggiator::~Arpeggiator()
 {
 }
 
+
 void Arpeggiator::paint (Graphics& g)
 {
 

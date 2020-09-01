@@ -106,7 +106,8 @@ public:
             return 0;
         }
    
-    
+    float loFreqSetting;
+
 private:
     
     float freqSetting;
@@ -115,7 +116,7 @@ private:
     float squareSetting;
     float triangleSetting;
     float pWSetting;
-    float loFreqSetting;
+    
     
     maxiOsc oscSaw, oscSquare, oscTriangle;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Oscillator)

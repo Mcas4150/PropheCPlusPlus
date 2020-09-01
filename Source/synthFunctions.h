@@ -16,7 +16,22 @@
 //        return pow2(dPitchShiftSemitones/12.0);
 //    }
 
+/* pitchShiftMultiplier()
 
+    returns a multiplier for a given pitch shift in semitones
+    to shift octaves,     call pitchShiftMultiplier(octaveValue*12.0);
+    to shift semitones,   call pitchShiftMultiplier(semitonesValue);
+    to shift cents,       call pitchShiftMultiplier(centsValue/100.0);
+*/
+inline double pitchShiftMultiplier(double dPitchShiftSemitones)
+{
+    if(dPitchShiftSemitones == 0)
+        return 1.0;
+
+    // 2^(N/12)
+//    return fastPow(2.0, dPitchShiftSemitones/12.0);
+    return pow(2.0, dPitchShiftSemitones/12.0);
+}
 
 
 

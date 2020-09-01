@@ -62,8 +62,18 @@ public:
 
     double getOsc2Output()
     {
+        
+        if (m_OscB.loFreqSetting != 0)
+        {
+         osc2processedFrequency = 15;
+                        
+        }
+        
         return
-        m_OscB.getSaw(osc2processedFrequency) + m_OscB.getTriangle(osc2processedFrequency) + m_OscB.getSquare(osc2processedFrequency,getModulationMatrixOutput(m_OscB.getPWSetting(), modOscBPWSetting));
+        
+        m_OscB.getSaw(osc2processedFrequency) + m_OscB.getTriangle(osc2processedFrequency) + m_OscB.getSquare(osc2processedFrequency, getModulationMatrixOutput(m_OscB.getPWSetting(), modOscBPWSetting));
+        
+        
 
     }
 
@@ -133,7 +143,7 @@ public:
 
     void setLfoParams(Setting* rate, Setting* sawMode, Setting* triangleMode, Setting* squareMode)
     {
-        lfoRateSetting = *rate;
+        lfoRateSetting =    *rate;
         lfoSawSetting = *sawMode;
         lfoTriangleSetting = *triangleMode;
         lfoSquareSetting = *squareMode;
@@ -163,10 +173,21 @@ public:
     }
     
     
-    double getOscBModValue()
-    {
-        return lfoRateSetting != 0 ? (  getOsc2Output()  * modAmtOscBSetting ) : 1;
+//    double getOscBModValue()
+//    {
+//        return modAmtOscBSetting != 0 ? (  getOsc2Output()  * modAmtOscBSetting ) : 1;
+//
+//    }
+    
+   void setOscBModValue()
+       {
+           oscBModValue =  modAmtOscBSetting != 0 ? (  getOsc2Output()  * modAmtOscBSetting ) : 1;
 
+       }
+
+    double getFakeOscB()
+    {
+        return modAmtOscBSetting != 0 ? (  oscB.saw(5)  * modAmtOscBSetting ) : 1;
     }
 
     
@@ -186,7 +207,8 @@ public:
 
     
     double getModulationMatrixOutput(double modulationParameter, int modulationSetting){
-        return modulationParameter + (modulationParameter * getLfoValue()   * modulationSetting);
+    
+        return modulationParameter + (modulationParameter * getLfoValue() * getFakeOscB() * modulationSetting);
     }
     
     
@@ -259,7 +281,7 @@ public:
     void stopNote (float velocity, bool allowTailOff) override
     {
         
-        allowTailOff = true;
+//        allowTailOff = true;
         
         if (velocity == 0)
             clearCurrentNote();
@@ -338,6 +360,7 @@ private:
     int modOscBFreqSetting;
     int modOscBPWSetting;
     int modFilterSetting;
+    double oscBModValue;
     
     int arpeggiatorMode;
 
@@ -355,7 +378,7 @@ private:
     float masterTuneSetting;
     float masterGain;
     
-    maxiOsc  osc3, lfoSaw, lfoTriangle, lfoSquare;
+    maxiOsc  osc3, lfoSaw, lfoTriangle, lfoSquare, oscB;
     maxiFilter filter1;
     
     Oscillator m_OscA, m_OscB;

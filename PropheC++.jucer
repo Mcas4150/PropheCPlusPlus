@@ -41,8 +41,6 @@
             file="Source/ArpeggiatorEngine.h"/>
       <FILE id="UtDedp" name="AudioBufferQueue.h" compile="0" resource="0"
             file="Source/AudioBufferQueue.h"/>
-      <FILE id="WCgsCt" name="CustomLookAndFeel.h" compile="0" resource="0"
-            file="../../../../.Trash/CustomLookAndFeel.h"/>
       <FILE id="DIbYbG" name="EnvelopeGenerator.cpp" compile="1" resource="0"
             file="Source/EnvelopeGenerator.cpp"/>
       <FILE id="XGJzaG" name="EnvelopeGenerator.h" compile="0" resource="0"
@@ -62,6 +60,8 @@
       <FILE id="YvQoRA" name="Mixer.h" compile="0" resource="0" file="Source/Mixer.h"/>
       <FILE id="oYQ56K" name="Mode.cpp" compile="1" resource="0" file="Source/Mode.cpp"/>
       <FILE id="XfmWRM" name="Mode.h" compile="0" resource="0" file="Source/Mode.h"/>
+      <FILE id="nUEdu0" name="MoogFilter.cpp" compile="1" resource="0" file="Source/MoogFilter.cpp"/>
+      <FILE id="hpq6t1" name="MoogFilter.h" compile="0" resource="0" file="Source/MoogFilter.h"/>
       <FILE id="ioKWLL" name="Modulation.cpp" compile="1" resource="0" file="Source/Modulation.cpp"/>
       <FILE id="qTZ2Rx" name="Modulation.h" compile="0" resource="0" file="Source/Modulation.h"/>
       <FILE id="kqUckU" name="ModulationMatrix.cpp" compile="1" resource="0"
@@ -93,6 +93,10 @@
             file="Source/synthFunctions.h"/>
       <FILE id="M6dEY3" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
       <FILE id="DpzCh6" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
+      <FILE id="QZhbfB" name="VAOnePoleFilter.cpp" compile="1" resource="0"
+            file="Source/VAOnePoleFilter.cpp"/>
+      <FILE id="uDv0RR" name="VAOnePoleFilter.h" compile="0" resource="0"
+            file="Source/VAOnePoleFilter.h"/>
       <FILE id="GbDx2O" name="Wheels.cpp" compile="1" resource="0" file="Source/Wheels.cpp"/>
       <FILE id="lKXAxR" name="Wheels.h" compile="0" resource="0" file="Source/Wheels.h"/>
     </GROUP>

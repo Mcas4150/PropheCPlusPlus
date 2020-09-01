@@ -324,7 +324,19 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
             
             
         }
+        
+
     }
+//    
+//    m_ModMatrix*->setModMatrix(getParamValue("modAmtFilterEnv"),
+//                                     getParamValue("modAmtLfo"),
+//                                     getParamValue("modAmtOscB"),
+//                                     getParamValue("modOscAFreqMode"),
+//                                     getParamValue("modOscAPWMode"),
+//                                     getParamValue("modOscBFreqMode"),
+//                                     getParamValue("modOscBPWMode"),
+//                                     getParamValue("modFilterMode"));
+    
     buffer.clear();
     
     auto numSamples = buffer.getNumSamples();

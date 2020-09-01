@@ -21,12 +21,38 @@ class ModulationMatrix  : public juce::Component
 public:
     ModulationMatrix();
     ~ModulationMatrix() override;
+    
+    using Setting = std::atomic<float>;
 
 protected:
 
 public:
+    float modAmtFilterEnvSetting;
+    float modAmtOscBSetting ;
+    float modAmtLfoSetting;
+    float modOscAFreqSetting ;
+    float modOscAPWSetting ;
+    float modOscBFreqSetting ;
+    float modOscBPWSetting ;
+    float modFilterSetting;
     
+    // sources: where each source (LFO, EG, ETC) writes its output value
+    
+        void setModMatrix (Setting* modAmtFilterEnv, Setting* modAmtLfo , Setting* modAmtOscB , Setting* modOscAFreqMode , Setting* modOscAPWMode , Setting* modOscBFreqMode , Setting* modOscBPWMode , Setting* modFilterMode)
+        {
+ 
+            modAmtFilterEnvSetting = *modAmtFilterEnv;
+            modAmtOscBSetting = *modAmtOscB;
+            modAmtLfoSetting = *modAmtLfo;
+            modOscAFreqSetting = *modOscAFreqMode;
+            modOscAPWSetting = *modOscAPWMode;
+            modOscBFreqSetting = *modOscBFreqMode;
+            modOscBPWSetting = *modOscBPWMode;
+            modFilterSetting = *modFilterMode;
+            
+        };
 
+    
 private:
     
     

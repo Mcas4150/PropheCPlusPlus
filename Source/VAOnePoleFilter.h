@@ -8,10 +8,14 @@
   ==============================================================================
 */
 
+// code credited to Will Pirkle, "Designing Software Plugins in C++", 2015
+
+
 #pragma once
 
 #include <JuceHeader.h>
 #include "FilterEngine.h"
+
 
 //==============================================================================
 /*

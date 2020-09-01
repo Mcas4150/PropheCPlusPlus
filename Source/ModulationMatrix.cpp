@@ -14,7 +14,13 @@
 //==============================================================================
 ModulationMatrix::ModulationMatrix()
 {
-
+//    m_ppMatrixCore = NULL;
+//    createModMatrixCore();
+//
+//    m_nSize = 0;
+//    clearMatrix(); // fill with NULL
+//    clearSources();
+//    clearDestinations();
     
 }
 

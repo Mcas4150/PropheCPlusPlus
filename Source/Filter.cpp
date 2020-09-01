@@ -3,6 +3,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Filter.h"
 
+// code credited to Will Pirkle, "Designing Software Plugins in C++", 2015
+
 //==============================================================================
 Filter::Filter(JuceSynthFrameworkAudioProcessor& p)
 : processor(p)

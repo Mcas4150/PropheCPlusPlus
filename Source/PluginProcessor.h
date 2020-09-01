@@ -19,6 +19,7 @@
 #include "AudioBufferQueue.h"
 #include "ScopeDataCollector.h"
 #include "ScopeComponent.h"
+#include "ModulationMatrix.h"
 
 //==============================================================================
 /**
@@ -78,7 +79,7 @@ public:
     AudioBufferQueue<float>& getAudioBufferQueue() noexcept  { return audioBufferQueue; }
     Synthesiser mySynth;
     SynthVoice* myVoice;
-    
+//    ModulationMatrix* m_ModMatrix;
 
     EnvelopeGenerator* m_EG1;
     ArpeggiatorEngine m_Arp;

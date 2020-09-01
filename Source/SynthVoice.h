@@ -9,6 +9,7 @@
 #include "MoogFilter.h"
 #include "Oscillator.h"
 #include "maximilian.h"
+#include "ModulationMatrix.h"
 
 
 
@@ -121,8 +122,7 @@ public:
 
     void setFilterParams(Setting* cutoff, Setting* resonance, Setting* envAmt, Setting* keyAmt, Setting* attack, Setting* decay, Setting* sustain, Setting* release)
     {
-        filterCutoffSetting = *cutoff;
-        filterResonanceSetting = *resonance;
+
         filterEnvAmtSetting = *envAmt;
         filterKeyAmtSetting = *keyAmt;
         m_Filter1.setCutoff(*cutoff);
@@ -133,14 +133,7 @@ public:
         m_FilterEG.setReleaseTime_mSec(release);
     }
     
-    double getFilterOutput()
-    {
-        auto filteredEnvelope = filterCutoffSetting * dFilterEGOut;
-        double filterModulation = getModulationMatrixOutput(filteredEnvelope, modFilterSetting );
-        return  filter1.lores(getMixerOutput(),  filterModulation , filterResonanceSetting);
-                   
-        
-    }
+
     
 
     //=========LFO==========================
@@ -157,7 +150,7 @@ public:
     double getLfoValue()
     {
         double SumSettings = lfoSawSetting + lfoTriangleSetting + lfoSquareSetting;
-        double lfoValue = lfoRateSetting && SumSettings != 0 ?
+        double lfoValue = lfoRateSetting && SumSettings && modAmtLfoSetting != 0 ?
         (
             (
                lfoSaw.saw(lfoRateSetting * lfoSawSetting)
@@ -170,10 +163,10 @@ public:
             (
              SumSettings
             )
-         )
-        : 0;
-        double modulatedValue = lfoValue * modAmtLfoSetting;
-        return modulatedValue;
+         ) * modAmtLfoSetting
+        : 1;
+
+        return  lfoValue;
     }
     
     
@@ -199,6 +192,16 @@ public:
     
     void setModMatrix (Setting* modAmtFilterEnv, Setting* modAmtLfo , Setting* modAmtOscB , Setting* modOscAFreqMode , Setting* modOscAPWMode , Setting* modOscBFreqMode , Setting* modOscBPWMode , Setting* modFilterMode)
     {
+//        m_ModMatrix->modAmtFilterEnvSetting = *modAmtFilterEnv;
+//        m_ModMatrix->modAmtOscBSetting = *modAmtOscB;
+//        m_ModMatrix->modAmtLfoSetting = *modAmtLfo;
+//        m_ModMatrix->modOscAFreqSetting = *modOscAFreqMode;
+//        m_ModMatrix->modOscAPWSetting = *modOscAPWMode;
+//        m_ModMatrix->modOscBFreqSetting = *modOscBFreqMode;
+//        m_ModMatrix->modOscBPWSetting = *modOscBPWMode;
+//        m_ModMatrix->modFilterSetting = *modFilterMode;
+//
+        
         modAmtFilterEnvSetting = *modAmtFilterEnv;
         modAmtOscBSetting = *modAmtOscB;
         modAmtLfoSetting = *modAmtLfo;
@@ -207,6 +210,7 @@ public:
         modOscBFreqSetting = *modOscBFreqMode;
         modOscBPWSetting = *modOscBPWMode;
         modFilterSetting = *modFilterMode;
+        
     };
 
     
@@ -316,24 +320,17 @@ public:
     
             dEGOut = m_EG1.doEnvelope();
             
-            
             dFilterEGOut = m_FilterEG.doEnvelope();
             
-//            auto filteredEnvelope = filterCutoffSetting * dFilterEGOut;
-//            double filterModulation = getModulationMatrixOutput(filteredEnvelope, modFilterSetting );
-//            return  filter1.lores(getMixerOutput(),  filterModulation , filterResonanceSetting);
             double dMixerOut = getMixerOutput();
             double dFilterOut = m_Filter1.doFilter(dMixerOut);
-            
-//            double  masterOutput = getFilterOutput() * masterGain * dEGOut;
+
             double  masterOutput = dFilterOut * dEGOut * masterGain;
-//
-            
 
             
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
-                outputBuffer.addSample(channel, startSample, masterOutput /4);
+                outputBuffer.addSample(channel, startSample, masterOutput /2);
             }
             ++startSample;
         }
@@ -350,8 +347,6 @@ private:
     float pitchBendDownSemitones = 2.0f;
     
    
-    float filterCutoffSetting;
-    float filterResonanceSetting;
     float filterKeyAmtSetting;
     float filterEnvAmtSetting;
     double frequency;
@@ -395,7 +390,7 @@ private:
     float masterGain;
     
     maxiOsc  osc3, lfoSaw, lfoTriangle, lfoSquare, oscB;
-    maxiFilter filter1;
+
     
     Oscillator m_OscA, m_OscB;
     
@@ -403,6 +398,8 @@ private:
     EnvelopeGenerator m_FilterEG;
     
     MoogFilter m_Filter1;
+    
+    ModulationMatrix* m_ModMatrix;
     
     enum
     {

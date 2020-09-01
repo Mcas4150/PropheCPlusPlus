@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "synthFunctions.h"
+#include "ModulationMatrix.h"
 
 //==============================================================================
 /*
@@ -29,7 +30,7 @@ public:
     FilterEngine();
     ~FilterEngine() override;
 
-
+    ModulationMatrix* m_pModulationMatrix;
     // --- ATTRIBUTES
     // --- PUBLIC: these variables may be get/set
     //             you may make get/set functions for them
@@ -45,6 +46,10 @@ public:
 
     // --- our selected filter type
     int m_uFilterType;
+    
+    uint32 m_uModSourceFc;
+    uint32 m_uSourceFcControl;
+    
     
     inline void setCutoff(float setting)
      {
@@ -66,16 +71,8 @@ public:
          keyAmtSetting = setting;
      }
     
-    inline double getFilterOutput(double audioInput, double envelopeOutput, double modmatrixOutput)
-    {
-//
-//        auto filteredEnvelope = cutoffSetting * envelopeOutput;
-//        double filterModulation = getModulationMatrixOutput(filteredEnvelope, modFilterSetting );
-//        double filterOutput = filter1.lores(getMixerOutput(),  filterModulation , resonanceSetting);
+
         
-    }
-    
-    
     inline void setFcMod(double d){m_dFcMod = d;}
 
     // --- VIRTUAL FUNCTIONS ----------------------------------------- //
@@ -85,7 +82,10 @@ public:
 
     // --- ABSTRACT: derived class overrides if needed
     //
-    inline virtual void setSampleRate(double d){m_dSampleRate = d;}
+    inline virtual void setSampleRate(double d)
+    {
+        m_dSampleRate = d;
+    }
 
     // --- flush buffers, reset filter
     virtual void reset();
@@ -93,11 +93,23 @@ public:
     // --- decode the Q value; this can change from filter to filter
     virtual void setQControl(double dQControl);
     
+    
+
+    
     // --- recalculate the Fc (called after modulations)
     inline virtual void update()
     {
         // --- update Q (filter-dependent)
         setQControl(m_dQControl);
+        
+        //    if(m_pModulationMatrix)
+        //        {
+        //            m_dFcMod = m_pModulationMatrix->m_dDestinations[m_uModSourceFc];
+        //            if(m_pModulationMatrix->m_dDestinations[m_uSourceFcControl] > 0)
+        //                m_dFcControl = m_pModulationMatrix->m_dDestinations[m_uSourceFcControl];
+        //        }
+        //    
+        
         
         m_dFc = m_dFcControl*pitchShiftMultiplier(m_dFcMod);
         // --- do the modulation freq shift

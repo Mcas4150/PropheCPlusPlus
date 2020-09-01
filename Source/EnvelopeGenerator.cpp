@@ -12,6 +12,10 @@
 #include "EnvelopeGenerator.h"
 
 //==============================================================================
+// code credited to Will Pirkle, "Designing Software Plugins in C++", 2015
+
+//
+
 EnvelopeGenerator::EnvelopeGenerator()
 {
     // In your constructor, you should add any child components, and

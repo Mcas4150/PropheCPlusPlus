@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "VAOnePoleFilter.h"
 //#include <cmath>
+// code credited to Will Pirkle, "Designing Software Plugins in C++", 2015
 
 #define M_PI           3.14159265358979323846
 

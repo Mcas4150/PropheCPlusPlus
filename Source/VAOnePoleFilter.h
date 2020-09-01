@@ -49,7 +49,11 @@ public:
     // ----------------------------------------------- //
 
     // -- CFilter Overrides ---
-    virtual void reset(){m_dZ1 = 0; m_dFeedback = 0;}
+    virtual void reset() override
+    {
+        m_dZ1 = 0;
+        m_dFeedback = 0;
+    }
 
     // recalc the coeff
     virtual void update() override;

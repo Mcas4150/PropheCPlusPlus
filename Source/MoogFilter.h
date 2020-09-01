@@ -12,8 +12,8 @@
 #include "FilterEngine.h"
 #include "VAOnePoleFilter.h"
 #include <JuceHeader.h>
-#include <cmath>
-
+//#include <cmath>
+#define M_PI           3.14159265358979323846
 //==============================================================================
 /*
 */

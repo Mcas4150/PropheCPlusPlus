@@ -28,3 +28,13 @@ FilterEngine::~FilterEngine()
 }
 
 
+void FilterEngine::reset()
+{
+    // do nothing
+}
+
+
+void FilterEngine::setQControl(double dQControl)
+{
+    // do nothing
+}

@@ -5,6 +5,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
 #include "EnvelopeGenerator.h"
+#include "FilterEngine.h"
+#include "MoogFilter.h"
 #include "Oscillator.h"
 #include "maximilian.h"
 
@@ -123,6 +125,8 @@ public:
         filterResonanceSetting = *resonance;
         filterEnvAmtSetting = *envAmt;
         filterKeyAmtSetting = *keyAmt;
+        m_Filter1.setCutoff(*cutoff);
+        m_Filter1.setResonance(*resonance);
         m_FilterEG.setAttackTime_mSec(attack);
         m_FilterEG.setDecayTime_mSec(decay);
         m_FilterEG.setSustainLevel(sustain);
@@ -306,13 +310,25 @@ public:
         for (int sample = 0; sample < numSamples; ++sample)
         {
      
+            m_Filter1.update();
             processGlide();
             processFrequency(currentFrequency);
     
             dEGOut = m_EG1.doEnvelope();
+            
+            
             dFilterEGOut = m_FilterEG.doEnvelope();
             
-            double  masterOutput = getFilterOutput() * masterGain * dEGOut;
+//            auto filteredEnvelope = filterCutoffSetting * dFilterEGOut;
+//            double filterModulation = getModulationMatrixOutput(filteredEnvelope, modFilterSetting );
+//            return  filter1.lores(getMixerOutput(),  filterModulation , filterResonanceSetting);
+            double dMixerOut = getMixerOutput();
+            double dFilterOut = m_Filter1.doFilter(dMixerOut);
+            
+//            double  masterOutput = getFilterOutput() * masterGain * dEGOut;
+            double  masterOutput = dFilterOut * dEGOut * masterGain;
+//
+            
 
             
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
@@ -385,6 +401,8 @@ private:
     
     EnvelopeGenerator m_EG1;
     EnvelopeGenerator m_FilterEG;
+    
+    MoogFilter m_Filter1;
     
     enum
     {

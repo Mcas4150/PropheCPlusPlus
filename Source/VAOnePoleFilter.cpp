@@ -10,7 +10,9 @@
 
 #include <JuceHeader.h>
 #include "VAOnePoleFilter.h"
-#include <cmath>
+//#include <cmath>
+
+#define M_PI           3.14159265358979323846
 
 //==============================================================================
 VAOnePoleFilter::VAOnePoleFilter()
@@ -70,13 +72,14 @@ double VAOnePoleFilter::doFilter(double xn)
     // update memory
     m_dZ1 = vn + lpf;
 
-//    // do the HPF
-//    double hpf = xn - lpf;
+    double hpf = xn - lpf;
 
-//    if(m_uFilterType == LPF1)
+    if(m_uFilterType == LPF1)
         return lpf;
-//    else if(m_uFilterType == HPF1)
-//        return hpf;
-//
-//    return xn; // should never get here
+    else if(m_uFilterType == HPF1)
+        return hpf;
+    
+
+
+    return xn; // should never get here
 }

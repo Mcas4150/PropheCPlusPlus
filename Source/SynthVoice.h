@@ -211,6 +211,11 @@ public:
         modOscBPWSetting = *modOscBPWMode;
         modFilterSetting = *modFilterMode;
         
+        
+        m_ModMatrix.setModMatrix(modAmtFilterEnv, modAmtLfo, modAmtOscB, modOscAFreqMode, modOscAPWMode, modOscBFreqMode, modOscBPWMode, modFilterMode);
+        
+
+        
     };
 
     
@@ -373,8 +378,6 @@ private:
     int modFilterSetting;
     double oscBModValue;
     
-    int arpeggiatorMode;
-
     double noiseLevelSetting;
     double osc1LevelSetting;
     double osc2LevelSetting;
@@ -399,7 +402,7 @@ private:
     
     MoogFilter m_Filter1;
     
-    ModulationMatrix* m_ModMatrix;
+    ModulationMatrix m_ModMatrix;
     
     enum
     {

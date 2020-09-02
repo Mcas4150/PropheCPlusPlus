@@ -25,8 +25,6 @@ public:
     using Setting = std::atomic<float>;
 
 protected:
-
-public:
     float modAmtFilterEnvSetting;
     float modAmtOscBSetting ;
     float modAmtLfoSetting;
@@ -35,10 +33,13 @@ public:
     float modOscBFreqSetting ;
     float modOscBPWSetting ;
     float modFilterSetting;
+
+public:
+
     
     // sources: where each source (LFO, EG, ETC) writes its output value
     
-        void setModMatrix (Setting* modAmtFilterEnv, Setting* modAmtLfo , Setting* modAmtOscB , Setting* modOscAFreqMode , Setting* modOscAPWMode , Setting* modOscBFreqMode , Setting* modOscBPWMode , Setting* modFilterMode)
+       inline void setModMatrix (Setting* modAmtFilterEnv, Setting* modAmtLfo , Setting* modAmtOscB , Setting* modOscAFreqMode , Setting* modOscAPWMode , Setting* modOscBFreqMode , Setting* modOscBPWMode , Setting* modFilterMode)
         {
  
             modAmtFilterEnvSetting = *modAmtFilterEnv;

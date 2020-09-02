@@ -8,7 +8,6 @@
 #include "SliderLookAndFeel.h"
 
 
-// code credited to Will Pirkle, "Designing Software Plugins in C++", 2015
 //==============================================================================
 /*
  */

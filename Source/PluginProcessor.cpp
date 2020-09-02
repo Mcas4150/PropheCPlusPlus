@@ -308,8 +308,6 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                   getParamValue("modOscBPWMode"),
                                   getParamValue("modFilterMode"));
             
-            m_Arp.setArpeggiatorParams(getParamValue("arpeggiatorMode"),
-                                       getParamValue("keyAmt"));
 
 //           AMPLIFIER
             
@@ -327,27 +325,40 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
         
 
     }
-//    
-//    m_ModMatrix*->setModMatrix(getParamValue("modAmtFilterEnv"),
-//                                     getParamValue("modAmtLfo"),
-//                                     getParamValue("modAmtOscB"),
-//                                     getParamValue("modOscAFreqMode"),
-//                                     getParamValue("modOscAPWMode"),
-//                                     getParamValue("modOscBFreqMode"),
-//                                     getParamValue("modOscBPWMode"),
-//                                     getParamValue("modFilterMode"));
+//
+    
+    m_Arp.setArpeggiatorParams(getParamValue("arpeggiatorMode"),
+    getParamValue("keyAmt"));
+    
+    m_ModMatrix.setModMatrix(getParamValue("modAmtFilterEnv"),
+                                     getParamValue("modAmtLfo"),
+                                     getParamValue("modAmtOscB"),
+                                     getParamValue("modOscAFreqMode"),
+                                     getParamValue("modOscAPWMode"),
+                                     getParamValue("modOscBFreqMode"),
+                                     getParamValue("modOscBPWMode"),
+                                     getParamValue("modFilterMode"));
     
     buffer.clear();
     
     auto numSamples = buffer.getNumSamples();
     
+//    process midi keyboard input
     keyboardState.processNextMidiBuffer (midiMessages, 0, numSamples, true);
 
+//    process arpeggiator
     m_Arp.processArpeggiator(midiMessages, numSamples);
     
+//    process synth voice
     mySynth.renderNextBlock(buffer, midiMessages, 0, numSamples);
 
+//    process filter, envelope, modulation
+    
+    
+//    process oscilloscope
     scopeDataCollector.process (buffer.getReadPointer (0), (size_t) numSamples);
+    
+    
 }
 
 //==============================================================================

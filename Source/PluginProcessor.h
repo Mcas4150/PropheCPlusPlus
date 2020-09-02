@@ -79,7 +79,7 @@ public:
     AudioBufferQueue<float>& getAudioBufferQueue() noexcept  { return audioBufferQueue; }
     Synthesiser mySynth;
     SynthVoice* myVoice;
-//    ModulationMatrix* m_ModMatrix;
+    ModulationMatrix m_ModMatrix;
 
     EnvelopeGenerator* m_EG1;
     ArpeggiatorEngine m_Arp;

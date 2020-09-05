@@ -20,6 +20,7 @@
 #include "ScopeDataCollector.h"
 #include "ScopeComponent.h"
 #include "ModulationMatrix.h"
+#include "LFOEngine.h"
 
 //==============================================================================
 /**
@@ -64,7 +65,6 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    void updateFilter();
     
     auto getParamValue(StringRef parameter)
     {
@@ -83,7 +83,9 @@ public:
 
     EnvelopeGenerator* m_EG1;
     ArpeggiatorEngine m_Arp;
-    
+    LFOEngine m_LFO;
+//    LFO& mm_LFO;
+//    
     
     
 private:

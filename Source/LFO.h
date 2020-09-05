@@ -17,7 +17,10 @@ public:
 
     void sliderValueChanged (Slider*) override;
     
-
+    void update()
+    {
+        rateSetting = processor.getParamValue("lfoRate")->load();
+    }
     
 private:
     JuceSynthFrameworkAudioProcessor& processor;
@@ -40,6 +43,9 @@ private:
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> rateVal;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> delayVal;
 
+    float rateSetting;
+    
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LFO)
 };

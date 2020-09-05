@@ -23,6 +23,8 @@ JuceSynthFrameworkAudioProcessor::JuceSynthFrameworkAudioProcessor()
                   .withOutput ("Output", AudioChannelSet::stereo(), true)
 #endif
                   ),valTreeState(*this, &mUndoManager, "PARAMETERS", createParameters())
+, m_LFO(valTreeState)
+                   
 {
 
 #endif
@@ -326,6 +328,7 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 
     }
 //
+
     
     m_Arp.setArpeggiatorParams(getParamValue("arpeggiatorMode"),
     getParamValue("keyAmt"));
@@ -339,15 +342,25 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
                                      getParamValue("modOscBPWMode"),
                                      getParamValue("modFilterMode"));
     
+    m_LFO.processBlock();
+    
+//    m_LFO.setLfoParams(getParamValue("lfoRate"),
+//                       getParamValue("lfoSawMode"),
+//                       getParamValue("lfoTriangleMode"),
+//                       getParamValue("lfoSquareMode"));
+//    
     buffer.clear();
     
     auto numSamples = buffer.getNumSamples();
+    
     
 //    process midi keyboard input
     keyboardState.processNextMidiBuffer (midiMessages, 0, numSamples, true);
 
 //    process arpeggiator
     m_Arp.processArpeggiator(midiMessages, numSamples);
+    
+   
     
 //    process synth voice
     mySynth.renderNextBlock(buffer, midiMessages, 0, numSamples);

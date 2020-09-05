@@ -54,6 +54,8 @@
       <FILE id="U2leIn" name="Glide.h" compile="0" resource="0" file="Source/Glide.h"/>
       <FILE id="Z8126b" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
       <FILE id="NdtFak" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
+      <FILE id="ek1MNo" name="LFOEngine.cpp" compile="1" resource="0" file="Source/LFOEngine.cpp"/>
+      <FILE id="aOVfnJ" name="LFOEngine.h" compile="0" resource="0" file="Source/LFOEngine.h"/>
       <FILE id="yUl9cZ" name="Master.cpp" compile="1" resource="0" file="Source/Master.cpp"/>
       <FILE id="YqpSBj" name="Master.h" compile="0" resource="0" file="Source/Master.h"/>
       <FILE id="gDQR6T" name="Mixer.cpp" compile="1" resource="0" file="Source/Mixer.cpp"/>

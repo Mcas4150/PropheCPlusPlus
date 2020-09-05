@@ -10,6 +10,7 @@
 #include "Oscillator.h"
 #include "maximilian.h"
 #include "ModulationMatrix.h"
+#include "LFOEngine.h"
 
 
 
@@ -403,6 +404,7 @@ private:
     MoogFilter m_Filter1;
     
     ModulationMatrix m_ModMatrix;
+//    LFOEngine m_LFO;
     
     enum
     {

@@ -17,6 +17,8 @@
 class SynthVoice : public SynthesiserVoice
 {
 public:
+
+
     bool canPlaySound (SynthesiserSound* sound) override
     {
         return dynamic_cast <SynthSound*>(sound) != nullptr;

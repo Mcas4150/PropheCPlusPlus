@@ -215,7 +215,7 @@ public:
         modFilterSetting = *modFilterMode;
         
         
-        m_ModMatrix.setModMatrix(modAmtFilterEnv, modAmtLfo, modAmtOscB, modOscAFreqMode, modOscAPWMode, modOscBFreqMode, modOscBPWMode, modFilterMode);
+//        m_ModMatrix.setModMatrix(modAmtFilterEnv, modAmtLfo, modAmtOscB, modOscAFreqMode, modOscAPWMode, modOscBFreqMode, modOscBPWMode, modFilterMode);
         
 
         

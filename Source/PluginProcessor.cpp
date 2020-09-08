@@ -333,14 +333,14 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
     m_Arp.setArpeggiatorParams(getParamValue("arpeggiatorMode"),
     getParamValue("keyAmt"));
     
-    m_ModMatrix.setModMatrix(getParamValue("modAmtFilterEnv"),
-                                     getParamValue("modAmtLfo"),
-                                     getParamValue("modAmtOscB"),
-                                     getParamValue("modOscAFreqMode"),
-                                     getParamValue("modOscAPWMode"),
-                                     getParamValue("modOscBFreqMode"),
-                                     getParamValue("modOscBPWMode"),
-                                     getParamValue("modFilterMode"));
+//    m_ModMatrix.setModMatrix(getParamValue("modAmtFilterEnv"),
+//                                     getParamValue("modAmtLfo"),
+//                                     getParamValue("modAmtOscB"),
+//                                     getParamValue("modOscAFreqMode"),
+//                                     getParamValue("modOscAPWMode"),
+//                                     getParamValue("modOscBFreqMode"),
+//                                     getParamValue("modOscBPWMode"),
+//                                     getParamValue("modFilterMode"));
     
     m_LFO.processBlock();
     
@@ -359,8 +359,6 @@ void JuceSynthFrameworkAudioProcessor::processBlock (AudioSampleBuffer& buffer, 
 
 //    process arpeggiator
     m_Arp.processArpeggiator(midiMessages, numSamples);
-    
-   
     
 //    process synth voice
     mySynth.renderNextBlock(buffer, midiMessages, 0, numSamples);
